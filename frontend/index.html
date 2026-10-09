@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PocketWatch</title>
+<title>Pocket Coach</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -175,6 +175,16 @@
   #limits { display:none; position:fixed; inset:0; background:rgba(15,23,42,.45); z-index:20; padding:16px; }
   #limits .box { background:var(--surface); max-width:520px; margin:60px auto; border-radius:14px; padding:22px; }
   #limits li { margin-bottom:6px; }
+  .notice { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--text); color:#fff; padding:10px 18px; border-radius:8px; z-index:40; box-shadow:0 4px 16px rgba(0,0,0,.25); max-width:calc(100% - 32px); }
+  @media (max-width:640px) {
+    .toolbar > .seg { flex-wrap:nowrap; overflow-x:auto; max-width:100%; scrollbar-width:none; }
+    .toolbar > .seg button { white-space:nowrap; font-size:17px; padding:6px 12px; }
+    .bar { gap:8px 10px; padding:10px 16px; }
+    .brand { width:100%; }
+    label.inline { font-size:13px; }
+    .hero { padding:16px; } .hero .big { font-size:19px; }
+    .verdict { font-size:14px; }
+  }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 </head>
@@ -195,7 +205,7 @@
         <path d="M18 22h6M19 20.9v2.2M21 20.9v2.2M23 20.9v2.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </g>
     </svg>
-    <span class="wordmark"><span>Pocket<b>Watch</b></span><small>Pass protection film finder</small></span>
+    <span class="wordmark"><span>Pocket<b>Coach</b></span><small>Pass protection film finder</small></span>
   </div>
   <div class="seg" role="tablist" aria-label="Perspective">
     <button id="mSelf">My team</button><button id="mOpp">Opponent</button>
@@ -309,7 +319,10 @@ const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
 const fmt = c => c == null ? 'n/a' : (c > 0 ? '+' : '') + c.toFixed(2);
 const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTeam;
 
+function notice(msg) { const t = document.createElement('div'); t.className = 'notice'; t.setAttribute('role', 'status'); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3500); }
+
 function render() {
+  document.title = `Pocket Coach · ${TEAMS[team()] ? TEAMS[team()].name : team()}`;
   $('#myLogo').src = `logos/${$('#myTeam').value}.png`; $('#oppLogo').src = `logos/${$('#opponent').value}.png`;
   $('#mSelf').className = state.mode === 'self' ? 'on' : ''; $('#mOpp').className = state.mode === 'opponent' ? 'on' : '';
   [['#tPlan','plan'],['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).className = state.tab === t ? 'on' : '');
@@ -344,7 +357,7 @@ function renderPlan() {
         <div><span>${t}</span><i style="--w:${pct(p.rate)}%" class="${verdict[0]}"></i><b>${pct(p.rate)}%</b></div>
         <div><span>League</span><i style="--w:${pct(p.league)}%"></i><b>${pct(p.league)}%</b></div>
       </div>
-      <p class="how">On every pass play, the blockers try to keep defenders away from the quarterback. PocketWatch finds every time they fail and shows you the play. Lower is better.</p>
+      <p class="how">On every pass play, the blockers try to keep defenders away from the quarterback. Pocket Coach finds every time they fail and shows you the play. Lower is better.</p>
     </section>
 
     <h2>${self ? 'What to fix' : 'Where to attack'}</h2>
@@ -492,7 +505,7 @@ function fitCanvas() {  // draw at on-screen size (CSS px x devicePixelRatio) so
 window.addEventListener('resize', () => { if (P && $('#viewer').style.display === 'block') { fitCanvas(); setCamera(); draw(); } });
 
 async function openPlay(key, frame) {
-  const r = await fetch(`plays/${key}.json`); if (!r.ok) { alert('Replay not found'); return; }
+  const r = await fetch(`plays/${key}.json`); if (!r.ok) { notice('Sorry, the replay for this play is not available yet.'); return; }
   P = await r.json();
   P.flags = D.flags.filter(f => `${f.gameId}_${f.playId}` === key);
   P.flagged = new Set(P.flags.flatMap(f => f.involvedNflIds));
