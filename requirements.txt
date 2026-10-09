@@ -3,3 +3,4 @@ numpy
 pyarrow
 pyyaml
 pytest
+scikit-learn

@@ -56,6 +56,31 @@
   .term { text-decoration:underline dotted; text-underline-offset:3px; cursor:help; }
   .hint { display:flex; align-items:center; gap:10px; background:var(--primary-soft); border-left:4px solid var(--accent); color:var(--primary); font-weight:600; padding:10px 14px; border-radius:6px; margin:0 0 14px; }
   .hint svg { flex:none; }
+  .hero { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:24px; }
+  .hero .teamline { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+  .hero h1 { margin:0; }
+  .verdict { display:inline-block; font-family:var(--display); font-weight:800; font-size:17px; text-transform:uppercase; letter-spacing:.05em; padding:3px 10px; border-radius:6px; color:#fff; background:var(--muted); }
+  .verdict.worse { background:var(--accent); } .verdict.better { background:#1f7a3f; }
+  .hero .big { font-size:22px; line-height:1.35; margin:6px 0 16px; }
+  .bars { display:grid; gap:8px; max-width:560px; }
+  .bars div { display:grid; grid-template-columns:64px 1fr 48px; align-items:center; gap:10px; font-weight:600; }
+  .bars i { height:16px; border-radius:8px; background:linear-gradient(90deg, #94a3b8 var(--w), var(--soft) var(--w)); }
+  .bars i.worse { background:linear-gradient(90deg, var(--accent) var(--w), var(--soft) var(--w)); }
+  .bars i.better { background:linear-gradient(90deg, #1f7a3f var(--w), var(--soft) var(--w)); }
+  .bars i.avg { background:linear-gradient(90deg, var(--primary) var(--w), var(--soft) var(--w)); }
+  .hero .how { color:var(--muted); margin:16px 0 0; font-size:14px; }
+  .problem { display:flex; gap:16px; background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--accent); border-radius:10px; padding:16px 18px; margin-bottom:12px; }
+  .problem .num { font-family:var(--display); font-size:40px; font-weight:800; color:var(--accent); line-height:1; }
+  .problem h3 { font-family:var(--display); font-size:24px; color:var(--primary); margin:0 0 4px; }
+  .problem .fact { margin:0 0 8px; color:var(--muted); } .problem .fact b { color:var(--text); }
+  .problem .todo { margin:0 0 12px; }
+  .watch { display:inline-block; background:var(--accent); color:#fff; font-weight:600; text-decoration:none; padding:8px 16px; border-radius:8px; }
+  .watch:hover { filter:brightness(1.1); }
+  .problem details { margin-top:12px; font-size:14px; color:var(--muted); }
+  .problem details p { margin:6px 0; }
+  details summary { cursor:pointer; font-weight:600; color:var(--primary); }
+  ul.good { background:var(--surface); border:1px solid var(--border); border-left:5px solid #1f7a3f; border-radius:10px; padding:14px 18px 14px 36px; margin:0 0 20px; }
+  .lessons { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-top:20px; }
   .plan { background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--primary); border-radius:10px; padding:16px 18px; margin-bottom:12px; }
   .plan.strong { border-left-color:var(--accent); }
   .plan .num { font-family:var(--display); font-size:34px; font-weight:800; color:var(--accent); line-height:1; float:left; margin-right:14px; }
@@ -287,34 +312,62 @@ function render() {
 function renderPlan() {
   const t = team(), p = COACH.teams[t], self = state.mode === 'self';
   const name = TEAMS[t] ? TEAMS[t].name : t;
-  const items = p ? p.items : [];
-  const vs = (x, l) => `${Math.round(100 * x)}% vs league ${Math.round(100 * l)}%`;
+  const pct = x => Math.round(100 * x);
+  const diff = pct(p.rate) - pct(p.league);
+  const verdict = diff >= 3 ? ['worse', 'Worse than average'] : diff <= -3 ? ['better', 'Better than average'] : ['avg', 'About average'];
+  // Plain-English title + one-line fact for each problem
+  const plain = it => {
+    const r = `<b>${pct(it.rate)}%</b>`, l = `league average ${pct(it.league)}%`;
+    if (it.dim === 'timing' && /fast/.test(it.value)) return ['Defenders get to the QB fast', `${r} of breakdowns happen in under 2.5 seconds (${l})`];
+    if (it.dim === 'timing') return ['The QB holds the ball too long', `${r} of breakdowns come after 3.5 seconds (${l})`];
+    if (it.dim === 'slot') return [`The ${it.value.toLowerCase()} keeps getting beaten`, `Lets pressure through on ${r} of the plays he blocks (${l})`];
+    if (it.dim === 'pa') return ['Fake handoffs don\'t buy time', `Pressure gets through on ${r} of play-action passes (${l})`];
+    if (it.dim === 'rush_grp') return [`Trouble against the ${it.value.toLowerCase()}`, `Pressure gets through on ${r} of these plays (${l})`];
+    return [`Trouble on ${it.value.replace('3rd/4th', '3rd or 4th down,').replace('&', '')}`, `Pressure gets through on ${r} of these plays (${l})`];
+  };
+  const items = p.items.slice(0, 3);
   $('#main').innerHTML = `
-    <div class="teamline">${LOGO(t, 56)}<div><h1>${self ? 'Game plan: fix' : 'Game plan: attack'} ${name}</h1>
-      <p>Protection breaks down on <b>${Math.round(100 * p.rate)}%</b> of ${p.dropbacks} dropbacks (league ${Math.round(100 * p.league)}%).
-      Based on PFF-confirmed sacks, hits, hurries and beats only. Each point below is a situation where ${t} is clearly worse than the league.</p></div></div>
-    ${HINT(self ? 'What to tell your players, the scheme fix, and film to show them. Click a play to watch it.' : 'Where to attack this offense. Click a play to watch their protection break down.')}
-    ${items.length ? items.map((it, i) => `
-      <div class="plan ${it.strong ? 'strong' : ''}">
+    <section class="hero">
+      <div class="teamline">${LOGO(t, 64)}<div>
+        <h1>${name}</h1>
+        <span class="verdict ${verdict[0]}">${verdict[1]}</span>
+      </div></div>
+      <p class="big">The quarterback was <b>sacked, hit or rushed</b> on <b>${pct(p.rate)}%</b> of pass plays.</p>
+      <div class="bars">
+        <div><span>${t}</span><i style="--w:${pct(p.rate)}%" class="${verdict[0]}"></i><b>${pct(p.rate)}%</b></div>
+        <div><span>League</span><i style="--w:${pct(p.league)}%"></i><b>${pct(p.league)}%</b></div>
+      </div>
+      <p class="how">On every pass play, the blockers try to keep defenders away from the quarterback. PocketWatch finds every time they fail and shows you the play. Lower is better.</p>
+    </section>
+
+    <h2>${self ? 'What to fix' : 'Where to attack'}</h2>
+    ${items.length ? items.map((it, i) => { const [title, fact] = plain(it); const ex = it.examples[0]; return `
+      <div class="problem">
         <div class="num">${i + 1}</div>
-        <h3>${it.value}${it.strong ? '<span class="tag">Strong signal</span>' : '<span class="tag soft">Trend</span>'}</h3>
-        <div class="evid">${it.dim === 'timing' ? `${it.k} of ${it.n} breakdowns are ${it.value}` : `Breakdown on ${it.k} of ${it.n} ${it.dim === 'slot' ? 'pass-block ' + REP() : 'dropbacks'}`}
-          · ${vs(it.rate, it.league)} · 90% interval ${Math.round(100 * it.lo)} to ${Math.round(100 * it.hi)}%</div>
-        <dl>
-          ${self ? `<dt>Tell the players</dt><dd>${it.tell}</dd><dt>Tactic</dt><dd>${it.tactic}</dd>`
-                 : `<dt>How to attack</dt><dd>${it.attack}</dd>`}
-          ${it.players.length ? `<dt>${self ? 'Who to coach' : 'Who to target'}</dt><dd>${it.players.join(' · ')}</dd>` : ''}
-          <dt>Film</dt><dd>${it.examples.map((e, k) => `<a href="#" class="play" data-p="${e.play}" data-f="${e.frame}">Play ${k + 1} (${e.who})</a>`).join('') || 'n/a'}</dd>
-        </dl>
-      </div>`).join('') : '<div class="card"><div class="empty">No situation where this team is clearly worse than the league. Protection is sound.</div></div>'}
-    ${p.strengths.length ? `<h2>${self ? 'Keep doing' : 'Avoid attacking here'}</h2><div class="card"><div class="empty" style="text-align:left">${p.strengths.join('<br>')}</div></div>` : ''}
-    <h2>League-wide lessons</h2>
-    <div class="stats">
-      <div class="stat hl"><b>55%</b><span>breakdown rate on 3rd/4th &amp; 7+, vs 42% on early downs. Max-protect on obvious passing downs.</span></div>
-      <div class="stat"><b>37%</b><span>breakdown rate on play action, vs 47% on straight dropbacks. Play action buys the QB time.</span></div>
-      <div class="stat"><b>16%</b><span>of RB pass-block ${REP()} lose, more than any lineman (C 7%). Chip-and-release beats RB-only pickup.</span></div>
-      <div class="stat"><b>43%</b><span>of breakdowns happen inside 2.5 s, before most routes are open. That's technique, not the QB.</span></div>
-    </div>`;
+        <div class="body">
+          <h3>${title}</h3>
+          <p class="fact">${fact}</p>
+          <p class="todo"><b>${self ? 'What to do' : 'How to attack'}:</b> ${self ? it.tell : it.attack}</p>
+          ${ex ? `<a href="#" class="watch" data-p="${ex.play}" data-f="${ex.frame}">▶ Watch it happen</a>` : ''}
+          <details><summary>Coach details</summary>
+            <p>Seen on ${it.k} of ${it.n} plays · 90% interval ${pct(it.lo)} to ${pct(it.hi)}% · ${it.strong ? 'Strong signal' : 'Trend, small sample'}</p>
+            ${self ? `<p><b>Tactic:</b> ${it.tactic}</p>` : ''}
+            ${it.players.length ? `<p><b>${self ? 'Who to coach' : 'Who to target'}:</b> ${it.players.join(' · ')}</p>` : ''}
+            <p><b>More film:</b> ${it.examples.map((e, k) => `<a href="#" class="play" data-p="${e.play}" data-f="${e.frame}">Play ${k + 1} (${e.who})</a>`).join('')}</p>
+          </details>
+        </div>
+      </div>`; }).join('') : '<div class="card"><div class="empty">Nothing stands out. This protection holds up as well as or better than the league in every situation we checked.</div></div>'}
+
+    ${p.strengths.length ? `<h2>${self ? 'What works' : 'Don\'t bother attacking'}</h2><ul class="good">${p.strengths.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+
+    <details class="lessons"><summary>What's true across the whole league</summary>
+      <ul>
+        <li><b>3rd and long is hardest:</b> pressure on 55% of plays, vs 42% on early downs.</li>
+        <li><b>Fake handoffs help:</b> 37% with play action, vs 47% without.</li>
+        <li><b>Running backs are the weakest blockers:</b> beaten on 16% of plays, more than any lineman.</li>
+        <li><b>Most failures are fast:</b> 43% happen in under 2.5 seconds, before receivers are open.</li>
+      </ul>
+    </details>`;
   document.querySelectorAll('a[data-p]').forEach(a => a.onclick = e => { e.preventDefault(); openPlay(a.dataset.p, +a.dataset.f || null); });
 }
 
