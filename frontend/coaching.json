@@ -16,9 +16,9 @@
      "lo": 0.12456454116535401,
      "hi": 0.24136186577146537,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -60,9 +60,9 @@
      "lo": 0.517233043997748,
      "hi": 0.6418659175268494,
      "strong": true,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -93,9 +93,9 @@
      "lo": 0.10833532826749509,
      "hi": 0.17518911825947558,
      "strong": true,
-     "tell": "Left guard: anchor and reset your hands against bull rushes, and pass off twists.",
+     "tell": "The left guard is getting pushed back by strong rushers. He needs a lower, stronger stance and to hand off rushers who swap lanes.",
      "tactic": "Slide the center toward the left guard and use more quick inside throws.",
-     "attack": "Attack their left guard with power and A/B-gap twists.",
+     "attack": "Attack their left guard with strong rushers up the middle, and have them swap lanes.",
      "players": [
       "Jalen Mayfield (40 of 286 snaps)"
      ],
@@ -128,9 +128,9 @@
      "lo": 0.4336658894338812,
      "hi": 0.6807356750408269,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -161,9 +161,9 @@
      "lo": 0.3645731836219359,
      "hi": 0.7423461204729669,
      "strong": false,
-     "tell": "Backs and tight ends: scan inside-out, take the most dangerous rusher first. QB: know your hot throw before the snap.",
+     "tell": "When 6 or more defenders rush, there aren't enough blockers for all of them. Block the most dangerous one first, and the QB should know where his quick throw is before the play starts.",
      "tactic": "Call 6- or 7-man protection or keep the back in, and pair it with hot routes and quick slants so the blitz is punished.",
-     "attack": "Send 6-man pressure. Their protection breaks down against it.",
+     "attack": "Send 6 or more rushers. Their blocking falls apart when outnumbered.",
      "players": [],
      "examples": [
       {
@@ -194,9 +194,9 @@
      "lo": 0.12456383061657446,
      "hi": 0.28816175085113355,
      "strong": false,
-     "tell": "Tight ends: inside hand and run your feet. Don't lunge on edge rushers.",
+     "tell": "Tight ends are losing to outside rushers. Keep your feet moving and don't lean or reach.",
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
-     "attack": "Rush the edge over their tight end when he stays in to block.",
+     "attack": "Rush around the outside at their tight end when he stays in to block.",
      "players": [
       "Hayden Hurst (7 of 18 snaps)",
       "Lee Smith (3 of 35 snaps)"
@@ -241,9 +241,9 @@
      "lo": 0.1342171921436924,
      "hi": 0.23712256460177047,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -274,9 +274,9 @@
      "lo": 0.14892834475413091,
      "hi": 0.22631300939820503,
      "strong": true,
-     "tell": "Left tackle: stay patient, don't overset against speed, and use the inside hand.",
+     "tell": "The left tackle is losing to fast rushers around the outside. He should stay patient and not commit too early.",
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
-     "attack": "Put your best edge rusher over their left tackle.",
+     "attack": "Put your best outside rusher against their left tackle.",
      "players": [
       "Alejandro Villanueva (36 of 216 snaps)",
       "Ronnie Stanley (13 of 36 snaps)"
@@ -321,9 +321,9 @@
      "lo": 0.16603670106008456,
      "hi": 0.3712396707389792,
      "strong": true,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Devin Singletary (6 of 21 snaps)",
       "Zack Moss (5 of 17 snaps)"
@@ -357,9 +357,9 @@
      "lo": 0.44630006857932014,
      "hi": 0.7010994501152137,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -390,9 +390,9 @@
      "lo": 0.40196350799269964,
      "hi": 0.692656714160878,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -423,9 +423,9 @@
      "lo": 0.32553058516738037,
      "hi": 0.5245571794741748,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -466,9 +466,9 @@
      "lo": 0.49510190183222474,
      "hi": 0.6008490930037114,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -499,9 +499,9 @@
      "lo": 0.42302057739666016,
      "hi": 0.5378989272584072,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -532,9 +532,9 @@
      "lo": 0.12169742895125235,
      "hi": 0.1907525754021373,
      "strong": true,
-     "tell": "Right guard: anchor and reset your hands against bull rushes, and pass off twists.",
+     "tell": "The right guard is getting pushed back by strong rushers. He needs a lower, stronger stance and to hand off rushers who swap lanes.",
      "tactic": "Slide the center toward the right guard and use more quick inside throws.",
-     "attack": "Attack their right guard with power and A/B-gap twists.",
+     "attack": "Attack their right guard with strong rushers up the middle, and have them swap lanes.",
      "players": [
       "John Miller (28 of 221 snaps)",
       "Dennis Daley (10 of 31 snaps)"
@@ -568,9 +568,9 @@
      "lo": 0.13090736295591043,
      "hi": 0.20176470009296776,
      "strong": true,
-     "tell": "Left tackle: stay patient, don't overset against speed, and use the inside hand.",
+     "tell": "The left tackle is losing to fast rushers around the outside. He should stay patient and not commit too early.",
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
-     "attack": "Put your best edge rusher over their left tackle.",
+     "attack": "Put your best outside rusher against their left tackle.",
      "players": [
       "Cameron Erving (35 of 216 snaps)",
       "Brady Christensen (8 of 41 snaps)"
@@ -604,9 +604,9 @@
      "lo": 0.47392837959721257,
      "hi": 0.6675029415595112,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -647,9 +647,9 @@
      "lo": 0.1358718358283103,
      "hi": 0.31141707954631515,
      "strong": true,
-     "tell": "Tight ends: inside hand and run your feet. Don't lunge on edge rushers.",
+     "tell": "Tight ends are losing to outside rushers. Keep your feet moving and don't lean or reach.",
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
-     "attack": "Rush the edge over their tight end when he stays in to block.",
+     "attack": "Rush around the outside at their tight end when he stays in to block.",
      "players": [
       "Cole Kmet (8 of 28 snaps)",
       "Jesse James (2 of 14 snaps)"
@@ -683,9 +683,9 @@
      "lo": 0.140888567149973,
      "hi": 0.2506895686912759,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -716,9 +716,9 @@
      "lo": 0.4338460638511821,
      "hi": 0.7061876158899905,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -749,9 +749,9 @@
      "lo": 0.4054535748441386,
      "hi": 0.5444410951663171,
      "strong": false,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -793,9 +793,9 @@
      "lo": 0.4351518064523442,
      "hi": 0.6546056215690635,
      "strong": true,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -826,9 +826,9 @@
      "lo": 0.4446108817759236,
      "hi": 0.5739413404031546,
      "strong": true,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -859,9 +859,9 @@
      "lo": 0.42897158921659995,
      "hi": 0.5537578199570216,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -892,9 +892,9 @@
      "lo": 0.4376521211921501,
      "hi": 0.5570765558005151,
      "strong": true,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -925,9 +925,9 @@
      "lo": 0.46139555812095523,
      "hi": 0.7242527852525105,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -969,9 +969,9 @@
      "lo": 0.1623609392667749,
      "hi": 0.24567788400212567,
      "strong": true,
-     "tell": "Left tackle: stay patient, don't overset against speed, and use the inside hand.",
+     "tell": "The left tackle is losing to fast rushers around the outside. He should stay patient and not commit too early.",
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
-     "attack": "Put your best edge rusher over their left tackle.",
+     "attack": "Put your best outside rusher against their left tackle.",
      "players": [
       "Jedrick Wills (31 of 149 snaps)",
       "Blake Hance (12 of 73 snaps)"
@@ -1005,9 +1005,9 @@
      "lo": 0.14398766399869906,
      "hi": 0.2507900586115513,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -1038,9 +1038,9 @@
      "lo": 0.4338205696805377,
      "hi": 0.6755749857203919,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -1071,9 +1071,9 @@
      "lo": 0.4102275182308735,
      "hi": 0.6584134204539513,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -1104,9 +1104,9 @@
      "lo": 0.46388929064405876,
      "hi": 0.5851021135174652,
      "strong": false,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -1148,9 +1148,9 @@
      "lo": 0.21412051604366816,
      "hi": 0.42028684080004935,
      "strong": true,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Ezekiel Elliott (9 of 29 snaps)",
       "Tony Pollard (6 of 19 snaps)"
@@ -1195,9 +1195,9 @@
      "lo": 0.11754248310380642,
      "hi": 0.30757609041475725,
      "strong": false,
-     "tell": "Tight ends: inside hand and run your feet. Don't lunge on edge rushers.",
+     "tell": "Tight ends are losing to outside rushers. Keep your feet moving and don't lean or reach.",
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
-     "attack": "Rush the edge over their tight end when he stays in to block.",
+     "attack": "Rush around the outside at their tight end when he stays in to block.",
      "players": [
       "Noah Fant (6 of 18 snaps)",
       "Eric Saubert (1 of 17 snaps)"
@@ -1242,9 +1242,9 @@
      "lo": 0.5070045030099528,
      "hi": 0.6054342331084175,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -1275,9 +1275,9 @@
      "lo": 0.46273459668875083,
      "hi": 0.563610340981447,
      "strong": true,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -1308,9 +1308,9 @@
      "lo": 0.4423202049439984,
      "hi": 0.5492304842294657,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -1341,9 +1341,9 @@
      "lo": 0.17862540357201792,
      "hi": 0.252893308478484,
      "strong": true,
-     "tell": "Right tackle: kick-slide depth and inside hand against power-to-speed.",
+     "tell": "The right tackle is losing to rushers around the outside. He should drop back deeper and keep his hands inside the rusher's.",
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
-     "attack": "Put your best edge rusher over their right tackle.",
+     "attack": "Put your best outside rusher against their right tackle.",
      "players": [
       "Matt Nelson (70 of 328 snaps)"
      ],
@@ -1376,9 +1376,9 @@
      "lo": 0.43402398176533596,
      "hi": 0.6707853055564947,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -1429,9 +1429,9 @@
      "lo": 0.100286879179667,
      "hi": 0.17052176678503345,
      "strong": true,
-     "tell": "Left guard: anchor and reset your hands against bull rushes, and pass off twists.",
+     "tell": "The left guard is getting pushed back by strong rushers. He needs a lower, stronger stance and to hand off rushers who swap lanes.",
      "tactic": "Slide the center toward the left guard and use more quick inside throws.",
-     "attack": "Attack their left guard with power and A/B-gap twists.",
+     "attack": "Attack their left guard with strong rushers up the middle, and have them swap lanes.",
      "players": [
       "Tytus Howard (33 of 251 snaps)"
      ],
@@ -1464,9 +1464,9 @@
      "lo": 0.48266435007425484,
      "hi": 0.6798035167116552,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -1497,9 +1497,9 @@
      "lo": 0.1541593642233684,
      "hi": 0.32186661192335075,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "David Johnson (10 of 28 snaps)",
       "Rex Burkhead (3 of 11 snaps)"
@@ -1533,9 +1533,9 @@
      "lo": 0.4150450336744637,
      "hi": 0.5427113973441927,
      "strong": false,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -1566,9 +1566,9 @@
      "lo": 0.47933587172355996,
      "hi": 0.7175761279981131,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -1607,9 +1607,9 @@
      "lo": 0.46165293802777185,
      "hi": 0.5794347145881493,
      "strong": true,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -1640,9 +1640,9 @@
      "lo": 0.49892570593682795,
      "hi": 0.6128845183113227,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -1673,9 +1673,9 @@
      "lo": 0.4222506797286147,
      "hi": 0.5445461610324649,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -1706,9 +1706,9 @@
      "lo": 0.13200255753946152,
      "hi": 0.20824967847841772,
      "strong": true,
-     "tell": "Left tackle: stay patient, don't overset against speed, and use the inside hand.",
+     "tell": "The left tackle is losing to fast rushers around the outside. He should stay patient and not commit too early.",
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
-     "attack": "Put your best edge rusher over their left tackle.",
+     "attack": "Put your best outside rusher against their left tackle.",
      "players": [
       "Eric Fisher (34 of 209 snaps)",
       "Julien Davenport (9 of 49 snaps)"
@@ -1742,9 +1742,9 @@
      "lo": 0.5303279767047883,
      "hi": 0.7671160909294524,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -1785,9 +1785,9 @@
      "lo": 0.13950901427088322,
      "hi": 0.35696264286283985,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Carlos Hyde (5 of 15 snaps)",
       "James Robinson (3 of 21 snaps)"
@@ -1832,9 +1832,9 @@
      "lo": 0.11780083692256724,
      "hi": 0.21429622912526405,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -1865,9 +1865,9 @@
      "lo": 0.13799885324453937,
      "hi": 0.37161404184683483,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Darrel Williams (4 of 16 snaps)",
       "Clyde Edwards-Helaire (4 of 14 snaps)"
@@ -1912,9 +1912,9 @@
      "lo": 0.41976969124109487,
      "hi": 0.7734138654994351,
      "strong": false,
-     "tell": "Backs and tight ends: scan inside-out, take the most dangerous rusher first. QB: know your hot throw before the snap.",
+     "tell": "When 6 or more defenders rush, there aren't enough blockers for all of them. Block the most dangerous one first, and the QB should know where his quick throw is before the play starts.",
      "tactic": "Call 6- or 7-man protection or keep the back in, and pair it with hot routes and quick slants so the blitz is punished.",
-     "attack": "Send 6-man pressure. Their protection breaks down against it.",
+     "attack": "Send 6 or more rushers. Their blocking falls apart when outnumbered.",
      "players": [],
      "examples": [
       {
@@ -1945,9 +1945,9 @@
      "lo": 0.4336658894338812,
      "hi": 0.6807356750408269,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -1989,9 +1989,9 @@
      "lo": 0.15059099954391547,
      "hi": 0.22780994239482938,
      "strong": true,
-     "tell": "Right tackle: kick-slide depth and inside hand against power-to-speed.",
+     "tell": "The right tackle is losing to rushers around the outside. He should drop back deeper and keep his hands inside the rusher's.",
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
-     "attack": "Put your best edge rusher over their right tackle.",
+     "attack": "Put your best outside rusher against their right tackle.",
      "players": [
       "Storm Norton (48 of 247 snaps)",
       "Bryan Bulaga (3 of 27 snaps)"
@@ -2025,9 +2025,9 @@
      "lo": 0.15249068978192107,
      "hi": 0.34476934023477224,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Austin Ekeler (6 of 25 snaps)",
       "Justin Jackson (3 of 10 snaps)"
@@ -2061,9 +2061,9 @@
      "lo": 0.42741815888843426,
      "hi": 0.5596540688860964,
      "strong": false,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -2105,9 +2105,9 @@
      "lo": 0.4034508260531532,
      "hi": 0.6855549016170287,
      "strong": true,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -2138,9 +2138,9 @@
      "lo": 0.2088487319034057,
      "hi": 0.29622370571318446,
      "strong": true,
-     "tell": "Right tackle: kick-slide depth and inside hand against power-to-speed.",
+     "tell": "The right tackle is losing to rushers around the outside. He should drop back deeper and keep his hands inside the rusher's.",
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
-     "attack": "Put your best edge rusher over their right tackle.",
+     "attack": "Put your best outside rusher against their right tackle.",
      "players": [
       "Alex Leatherwood (44 of 160 snaps)",
       "Brandon Parker (22 of 104 snaps)"
@@ -2174,9 +2174,9 @@
      "lo": 0.4641391560480048,
      "hi": 0.5828078058175965,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -2207,9 +2207,9 @@
      "lo": 0.4643942673410561,
      "hi": 0.5806720486419858,
      "strong": true,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -2240,9 +2240,9 @@
      "lo": 0.48263270870752933,
      "hi": 0.5894911316907898,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -2281,9 +2281,9 @@
      "lo": 0.5765589455593682,
      "hi": 0.7751662901113249,
      "strong": true,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -2314,9 +2314,9 @@
      "lo": 0.44498647677363284,
      "hi": 0.6398723159204015,
      "strong": true,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -2347,9 +2347,9 @@
      "lo": 0.5132652237149048,
      "hi": 0.6175041066348567,
      "strong": true,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -2380,9 +2380,9 @@
      "lo": 0.4672203278698668,
      "hi": 0.5793550550185977,
      "strong": true,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -2413,9 +2413,9 @@
      "lo": 0.5177779829430456,
      "hi": 0.6223093761875746,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -2456,9 +2456,9 @@
      "lo": 0.48222596518956873,
      "hi": 0.5991138247837048,
      "strong": true,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -2489,9 +2489,9 @@
      "lo": 0.49918998914756385,
      "hi": 0.7124289635213853,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -2522,9 +2522,9 @@
      "lo": 0.42294668771458255,
      "hi": 0.6626959713551713,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -2555,9 +2555,9 @@
      "lo": 0.40459216200066495,
      "hi": 0.530589742563388,
      "strong": false,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -2588,9 +2588,9 @@
      "lo": 0.420048326221381,
      "hi": 0.5384375921212462,
      "strong": false,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -2631,9 +2631,9 @@
      "lo": 0.4872757237212382,
      "hi": 0.6128976964979527,
      "strong": true,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -2664,9 +2664,9 @@
      "lo": 0.47570430533327246,
      "hi": 0.7769513217794136,
      "strong": false,
-     "tell": "Backs and tight ends: scan inside-out, take the most dangerous rusher first. QB: know your hot throw before the snap.",
+     "tell": "When 6 or more defenders rush, there aren't enough blockers for all of them. Block the most dangerous one first, and the QB should know where his quick throw is before the play starts.",
      "tactic": "Call 6- or 7-man protection or keep the back in, and pair it with hot routes and quick slants so the blitz is punished.",
-     "attack": "Send 6-man pressure. Their protection breaks down against it.",
+     "attack": "Send 6 or more rushers. Their blocking falls apart when outnumbered.",
      "players": [],
      "examples": [
       {
@@ -2697,9 +2697,9 @@
      "lo": 0.3715402522177369,
      "hi": 0.5541155528042957,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -2730,9 +2730,9 @@
      "lo": 0.4838475573638891,
      "hi": 0.6648408325920455,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -2763,9 +2763,9 @@
      "lo": 0.15281728638295572,
      "hi": 0.2959494151647875,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Damien Harris (7 of 32 snaps)",
       "Brandon Bolden (6 of 24 snaps)"
@@ -2810,9 +2810,9 @@
      "lo": 0.1291257591892348,
      "hi": 0.24242220953832805,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -2843,9 +2843,9 @@
      "lo": 0.49955568381139426,
      "hi": 0.6982962649453995,
      "strong": false,
-     "tell": "Linemen: communicate the Mike and slide toward the extra rusher. Back: check before releasing.",
+     "tell": "When one extra defender rushes, the whole line should shift toward him together. The running back should check for him before running out for a pass.",
      "tactic": "Slide protection toward the overload side, and use quick-game concepts to beat the extra rusher.",
-     "attack": "Add a 5th rusher (sim pressure or a blitzing nickel) to overload one side.",
+     "attack": "Send one extra rusher, such as a defensive back, to overload one side.",
      "players": [],
      "examples": [
       {
@@ -2876,9 +2876,9 @@
      "lo": 0.48958218428872724,
      "hi": 0.7491085429057288,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -2909,9 +2909,9 @@
      "lo": 0.40021562384187187,
      "hi": 0.5371563784524999,
      "strong": false,
-     "tell": "Base downs: recognize your run-pass keys and set fast.",
+     "tell": "On early downs, blockers need to realise sooner that it's a pass and get into position faster.",
      "tactic": "Use more play action on early downs to slow down the pass rush.",
-     "attack": "Pressure on early downs. They don't protect well before obvious passing downs.",
+     "attack": "Bring pressure on early downs. They don't protect well when they aren't expecting it.",
      "players": [],
      "examples": [
       {
@@ -2942,9 +2942,9 @@
      "lo": 0.4533187135695208,
      "hi": 0.5854646031068876,
      "strong": false,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -2996,9 +2996,9 @@
      "lo": 0.33675637736310077,
      "hi": 0.5396069029458904,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -3029,9 +3029,9 @@
      "lo": 0.1393596693281679,
      "hi": 0.3011451641017278,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Ty Johnson (6 of 30 snaps)",
       "Michael Carter (4 of 23 snaps)"
@@ -3073,9 +3073,9 @@
      "lo": 0.31946540710855176,
      "hi": 0.5297952061754371,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -3106,9 +3106,9 @@
      "lo": 0.3994931029029147,
      "hi": 0.6452439256751134,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -3150,9 +3150,9 @@
      "lo": 0.5638613964301933,
      "hi": 0.6994780330941377,
      "strong": true,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -3183,9 +3183,9 @@
      "lo": 0.1661916540584724,
      "hi": 0.2521852172799451,
      "strong": true,
-     "tell": "Left tackle: stay patient, don't overset against speed, and use the inside hand.",
+     "tell": "The left tackle is losing to fast rushers around the outside. He should stay patient and not commit too early.",
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
-     "attack": "Put your best edge rusher over their left tackle.",
+     "attack": "Put your best outside rusher against their left tackle.",
      "players": [
       "Dan Moore (49 of 229 snaps)"
      ],
@@ -3218,9 +3218,9 @@
      "lo": 0.4250038248684873,
      "hi": 0.6508893005963785,
      "strong": false,
-     "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+     "tell": "On short passing downs, expect rushers coming around the outside. The QB should get rid of the ball quickly.",
      "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
-     "attack": "Pressure the edge on short-yardage passing downs.",
+     "attack": "On short passing downs, rush hard around the outside.",
      "players": [],
      "examples": [
       {
@@ -3251,9 +3251,9 @@
      "lo": 0.468582088470989,
      "hi": 0.7103660258411229,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -3295,9 +3295,9 @@
      "lo": 0.13679544538700233,
      "hi": 0.243883243968451,
      "strong": true,
-     "tell": "Protection holds long enough. The QB is holding the ball. Get to the checkdown on time.",
+     "tell": "The blockers hold up long enough. The QB is keeping the ball too long and should throw to the short, safe option sooner.",
      "tactic": "Build in a timing outlet, call more quick-game and RPOs, and coach the QB to throw it away.",
-     "attack": "Play coverage and keep rush lanes. Their QB holds the ball, so pressure arrives late.",
+     "attack": "Focus on coverage and keep the QB trapped in the pocket. He holds the ball, so the pressure arrives late.",
      "players": [],
      "examples": [
       {
@@ -3328,9 +3328,9 @@
      "lo": 0.0820190446738911,
      "hi": 0.15007418402635667,
      "strong": true,
-     "tell": "Center: set the protection call early and pass off loopers.",
+     "tell": "The center tells everyone who to block. He should make that call earlier and hand off rushers who loop around.",
      "tactic": "Use a double-team call on the nose / A-gap threat.",
-     "attack": "Run A-gap pressure and twists at the center.",
+     "attack": "Rush straight up the middle at their center.",
      "players": [
       "Kyle Fuller (23 of 197 snaps)",
       "Ethan Pocic (3 of 36 snaps)"
@@ -3364,9 +3364,9 @@
      "lo": 0.5298359278549412,
      "hi": 0.7801959598780601,
      "strong": false,
-     "tell": "Everyone: the defense knows you must throw. Expect stunts and delayed blitzes and pass them off.",
+     "tell": "On must-pass downs the defense knows a pass is coming and has rushers swap lanes or rush late. Blockers must talk and hand rushers off to each other.",
      "tactic": "Use max protection on obvious passing downs, with screens and draws to slow the rush down.",
-     "attack": "On 3rd and long, run stunts and twists. Their line struggles to pass them off.",
+     "attack": "On 3rd and long, have your rushers swap lanes. Their blockers struggle to hand them off.",
      "players": [],
      "examples": [
       {
@@ -3397,9 +3397,9 @@
      "lo": 0.33675637736310077,
      "hi": 0.5396069029458904,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
@@ -3430,9 +3430,9 @@
      "lo": 0.4232315371133905,
      "hi": 0.5479841448426455,
      "strong": false,
-     "tell": "This is one-on-one losses, not numbers. Win with hands and anchor, and don't overset.",
+     "tell": "The defense isn't sending extra rushers. Blockers are simply losing one-on-one, so this is about strength and technique, not numbers.",
      "tactic": "Give chip help (RB/TE) to the weak tackle and move the launch point with boots and rollouts.",
-     "attack": "You can win with four. Rush four, drop seven, and still get home.",
+     "attack": "No need to blitz. Four rushers win their one-on-one battles, so keep seven back in coverage.",
      "players": [],
      "examples": [
       {
@@ -3481,9 +3481,9 @@
      "lo": 0.1377218907935725,
      "hi": 0.3382316725972742,
      "strong": true,
-     "tell": "Tight ends: inside hand and run your feet. Don't lunge on edge rushers.",
+     "tell": "Tight ends are losing to outside rushers. Keep your feet moving and don't lean or reach.",
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
-     "attack": "Rush the edge over their tight end when he stays in to block.",
+     "attack": "Rush around the outside at their tight end when he stays in to block.",
      "players": [
       "O.J. Howard (6 of 18 snaps)",
       "Rob Gronkowski (2 of 13 snaps)"
@@ -3517,9 +3517,9 @@
      "lo": 0.4316416463073951,
      "hi": 0.5760681153357858,
      "strong": false,
-     "tell": "Breakdowns happen before the QB can throw, so it's assignment and technique. Drill first-step and hand placement.",
+     "tell": "Defenders get through before the QB even has time to throw. That means blockers are going to the wrong man or using poor technique. Practise the first step and where the hands go.",
      "tactic": "Add help: slide toward the problem side, chip with the back, or call quicker 3-step concepts.",
-     "attack": "Their protection loses quickly. Line up your best rusher on the weak blocker and win at the snap.",
+     "attack": "Their blocking breaks down quickly. Put your best rusher against their weakest blocker.",
      "players": [],
      "examples": [
       {
@@ -3550,9 +3550,9 @@
      "lo": 0.13001892719768754,
      "hi": 0.3532612599139768,
      "strong": false,
-     "tell": "Backs: blitz pickup. Square up, strike low, and don't duck the shoulder. Scan A-gap to edge.",
+     "tell": "Running backs are losing when they stay in to block. Face the rusher straight on, hit low, and look for blitzers from the middle outwards.",
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
-     "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
+     "attack": "Blitz a linebacker at their running back. Their backs lose when they try to block.",
      "players": [
       "Leonard Fournette (3 of 17 snaps)",
       "Giovani Bernard (2 of 13 snaps)"
@@ -3597,9 +3597,9 @@
      "lo": 0.4644586100397108,
      "hi": 0.5801608537534872,
      "strong": false,
-     "tell": "Set to depth and keep the pocket firm. QB: climb, don't drift.",
+     "tell": "Blockers should form a firm wall around the QB. The QB should step up into it, not drift backwards.",
      "tactic": "Mix in play action and quick game so the defense can't pin its ears back.",
-     "attack": "Pin your ears back on straight dropbacks.",
+     "attack": "On normal pass plays, rush all-out. Their blockers can't hold up.",
      "players": [],
      "examples": [
       {
@@ -3641,9 +3641,9 @@
      "lo": 0.37284652015886727,
      "hi": 0.5368878244156159,
      "strong": false,
-     "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+     "tell": "Blockers should fake the run, then quickly drop back to protect. The running back should finish the fake handoff, then turn and block.",
      "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
-     "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+     "attack": "Ignore the fake handoff and keep rushing. Their blocking breaks down on play-action passes.",
      "players": [],
      "examples": [
       {
