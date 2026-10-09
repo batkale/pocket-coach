@@ -1,0 +1,6 @@
+nfl-big-data-bowl-regional-event-data-main/
+*.zip
+ext/
+__pycache__/
+.pytest_cache/
+exploration/*.parquet

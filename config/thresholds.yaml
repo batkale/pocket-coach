@@ -1,0 +1,16 @@
+field:
+  length_yd: 120.0           # full field incl. end zones, for x-normalization
+  width_yd: 53.3             # for y-normalization
+  frame_rate_hz: 10          # tracking sample rate; time_since_snap = frames / 10
+engagement:
+  distance_yd: 1.5           # blocker-rusher proximity to count as engaged
+  min_consecutive_frames: 3  # engagement must persist >= 3 frames
+level2:
+  free_rusher_qb_yd: 3.0     # rusher-to-QB distance that triggers the free-rusher rule
+  excluded_block_types: [CH, SR, NB]  # not counted as pass blockers (chip, set & release, no block)
+patterns:
+  interval_confidence: 0.90  # Wilson interval confidence level
+  distance_bands: [3, 7]     # short / medium / long distance-to-go cut points
+  min_opportunities: 10      # hide patterns with fewer opportunities than this
+viewer:
+  pre_snap_frames: 5         # frames shown before the snap in the replay
