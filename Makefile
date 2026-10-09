@@ -5,6 +5,7 @@ data:
 	mkdir -p ext
 	test -f ext/pbp_2021.parquet || curl -sSL -o ext/pbp_2021.parquet https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2021.parquet
 	python backend/pipeline.py
+	python backend/coaching.py
 dev:
 	python -m http.server 8000 --directory frontend
 test:

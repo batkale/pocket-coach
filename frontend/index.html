@@ -53,6 +53,17 @@
   .summary b { color:var(--text); }
   .hint { display:flex; align-items:center; gap:10px; background:var(--primary-soft); border-left:4px solid var(--accent); color:var(--primary); font-weight:600; padding:10px 14px; border-radius:6px; margin:0 0 14px; }
   .hint svg { flex:none; }
+  .plan { background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--primary); border-radius:10px; padding:16px 18px; margin-bottom:12px; }
+  .plan.strong { border-left-color:var(--accent); }
+  .plan .num { font-family:var(--display); font-size:34px; font-weight:800; color:var(--accent); line-height:1; float:left; margin-right:14px; }
+  .plan h3 { font-family:var(--display); font-size:21px; text-transform:uppercase; letter-spacing:.02em; color:var(--primary); margin:0 0 4px; }
+  .plan .evid { color:var(--muted); font-size:13px; margin-bottom:10px; }
+  .plan dl { display:grid; grid-template-columns:150px 1fr; gap:6px 12px; margin:0; clear:both; }
+  .plan dt { font-family:var(--display); text-transform:uppercase; font-weight:700; color:var(--muted); letter-spacing:.04em; }
+  .plan dd { margin:0; }
+  @media (max-width:640px) { .plan dl { grid-template-columns:1fr; } }
+  .tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:2px 7px; border-radius:4px; background:var(--accent); color:#fff; margin-left:8px; vertical-align:3px; }
+  .tag.soft { background:var(--soft); color:var(--muted); }
   img.logo { vertical-align:middle; object-fit:contain; }
   header img.logo { background:#fff; border-radius:50%; padding:2px; }
   .teamline { display:flex; align-items:center; gap:12px; margin:0 0 16px; }
@@ -148,7 +159,7 @@
 <main>
   <div class="toolbar">
     <div class="seg" role="tablist" aria-label="View">
-      <button id="tAlerts">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">RB / TE blocking</button>
+      <button id="tPlan">Game plan</button><button id="tAlerts">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">RB / TE blocking</button>
     </div>
   </div>
   <div id="main"><p class="summary">Loading…</p></div>
@@ -206,10 +217,10 @@ const $ = s => document.querySelector(s);
 const LEVEL_COLOR = { Confirmed:'#d50a0a', Likely:'#ffb612' };
 const TYPE = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten', penalty:'Penalty', free_rusher:'Free rusher' };
 const DOWN = ['', '1st', '2nd', '3rd', '4th'];
-let D, TEAMS = {}, state = { tab:'alerts', mode:'self' };
+let D, TEAMS = {}, COACH = null, state = { tab:'plan', mode:'self' };
 const url = new URL(location.href);
 
-Promise.all([fetch('data.json').then(r => r.json()), fetch('teams.json').then(r => r.json())]).then(([d, t]) => { D = d; TEAMS = t; init(); })
+Promise.all([fetch('data.json').then(r => r.json()), fetch('teams.json').then(r => r.json()), fetch('coaching.json').then(r => r.json())]).then(([d, t, c]) => { D = d; TEAMS = t; COACH = c; init(); })
   .catch(() => $('#main').innerHTML = '<p class="summary">Could not load data. Run <code>make dev</code> and open http://localhost:8000.</p>');
 
 function init() {
@@ -223,7 +234,7 @@ function init() {
   $('#mOpp').onclick = () => { state.mode = 'opponent'; syncUrl(); render(); };
   $('#limitsBtn').onclick = () => $('#limits').style.display = 'block';
   $('#limitsClose').onclick = () => $('#limits').style.display = 'none';
-  [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).onclick = () => { state.tab = t; render(); });
+  [['#tPlan','plan'],['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).onclick = () => { state.tab = t; render(); });
   render();
   const p = url.searchParams.get('play'); if (p) openPlay(p, +url.searchParams.get('frame') || null);
 }
@@ -248,8 +259,42 @@ const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTea
 function render() {
   $('#myLogo').src = `logos/${$('#myTeam').value}.png`; $('#oppLogo').src = `logos/${$('#opponent').value}.png`;
   $('#mSelf').className = state.mode === 'self' ? 'on' : ''; $('#mOpp').className = state.mode === 'opponent' ? 'on' : '';
-  [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).className = state.tab === t ? 'on' : '');
-  ({ alerts:renderAlerts, patterns:renderPatterns, skill:renderSkill })[state.tab]();
+  [['#tPlan','plan'],['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).className = state.tab === t ? 'on' : '');
+  ({ plan:renderPlan, alerts:renderAlerts, patterns:renderPatterns, skill:renderSkill })[state.tab]();
+}
+
+function renderPlan() {
+  const t = team(), p = COACH.teams[t], self = state.mode === 'self';
+  const name = TEAMS[t] ? TEAMS[t].name : t;
+  const items = p ? p.items : [];
+  const vs = (x, l) => `${Math.round(100 * x)}% vs league ${Math.round(100 * l)}%`;
+  $('#main').innerHTML = `
+    <div class="teamline">${LOGO(t, 56)}<div><h1>${self ? 'Game plan: fix' : 'Game plan: attack'} ${name}</h1>
+      <p>Protection breaks down on <b>${Math.round(100 * p.rate)}%</b> of ${p.dropbacks} dropbacks (league ${Math.round(100 * p.league)}%).
+      Based on PFF-confirmed sacks, hits, hurries and beats only. Each point below is a situation where ${t} is clearly worse than the league.</p></div></div>
+    ${HINT(self ? 'What to tell your players, the scheme fix, and film to show them. Click a play to watch it.' : 'Where to attack this offense. Click a play to watch their protection break down.')}
+    ${items.length ? items.map((it, i) => `
+      <div class="plan ${it.strong ? 'strong' : ''}">
+        <div class="num">${i + 1}</div>
+        <h3>${it.value}${it.strong ? '<span class="tag">Strong signal</span>' : '<span class="tag soft">Trend</span>'}</h3>
+        <div class="evid">${it.dim === 'timing' ? `${it.k} of ${it.n} breakdowns are ${it.value}` : `Breakdown on ${it.k} of ${it.n} ${it.dim === 'slot' ? 'pass-block reps' : 'dropbacks'}`}
+          · ${vs(it.rate, it.league)} · 90% interval ${Math.round(100 * it.lo)} to ${Math.round(100 * it.hi)}%</div>
+        <dl>
+          ${self ? `<dt>Tell the players</dt><dd>${it.tell}</dd><dt>Tactic</dt><dd>${it.tactic}</dd>`
+                 : `<dt>How to attack</dt><dd>${it.attack}</dd>`}
+          ${it.players.length ? `<dt>${self ? 'Who to coach' : 'Who to target'}</dt><dd>${it.players.join(' · ')}</dd>` : ''}
+          <dt>Film</dt><dd>${it.examples.map((e, k) => `<a href="#" class="play" data-p="${e.play}" data-f="${e.frame}">Play ${k + 1} (${e.who})</a>`).join('') || 'n/a'}</dd>
+        </dl>
+      </div>`).join('') : '<div class="card"><div class="empty">No situation where this team is clearly worse than the league. Protection is sound.</div></div>'}
+    ${p.strengths.length ? `<h2>${self ? 'Keep doing' : 'Avoid attacking here'}</h2><div class="card"><div class="empty" style="text-align:left">${p.strengths.join('<br>')}</div></div>` : ''}
+    <h2>League-wide lessons</h2>
+    <div class="stats">
+      <div class="stat hl"><b>55%</b><span>breakdown rate on 3rd/4th &amp; 7+, vs 42% on early downs. Max-protect on obvious passing downs.</span></div>
+      <div class="stat"><b>37%</b><span>breakdown rate on play action, vs 47% on straight dropbacks. Play action buys the QB time.</span></div>
+      <div class="stat"><b>16%</b><span>of RB pass-block reps lose, more than any lineman (C 7%). Chip-and-release beats RB-only pickup.</span></div>
+      <div class="stat"><b>43%</b><span>of breakdowns happen inside 2.5 s, before most routes are open. That's technique, not the QB.</span></div>
+    </div>`;
+  document.querySelectorAll('a[data-p]').forEach(a => a.onclick = e => { e.preventDefault(); openPlay(a.dataset.p, +a.dataset.f || null); });
 }
 
 function renderAlerts() {
