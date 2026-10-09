@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Protection Finder</title>
+<title>PocketWatch</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -37,7 +38,12 @@
   header .link { color:#fff; }
   .bar { max-width:1180px; margin:0 auto; padding:14px 16px; display:flex; flex-wrap:wrap; gap:12px 16px; align-items:center; }
   .brand { font-family:var(--display); font-weight:800; font-size:24px; letter-spacing:.04em; text-transform:uppercase; margin-right:auto; display:flex; align-items:center; gap:8px; }
-  .brand svg { color:#fff; fill:var(--accent); }
+  .brand svg { color:#fff; flex:none; overflow:visible; }
+  .brand .sweep { stroke-dasharray:22; animation:sweep 1.1s cubic-bezier(.2,.8,.2,1) .2s both; }
+  @keyframes sweep { from { stroke-dashoffset:22; } to { stroke-dashoffset:0; } }
+  .wordmark { display:flex; flex-direction:column; line-height:.95; font-size:28px; transform:skewX(-8deg); }
+  .wordmark b { display:inline; color:var(--gold); font-weight:800; }
+  .wordmark small { font-family:'Fira Sans', sans-serif; font-style:normal; font-size:11px; font-weight:500; letter-spacing:.12em; color:#c9d6e6; margin-top:3px; }
   label.inline { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:14px; }
   .link { background:none; border:0; color:var(--primary); padding:0; min-height:auto; text-decoration:underline; text-underline-offset:3px; }
 
@@ -115,8 +121,21 @@
 <body>
 <header><div class="bar">
   <div class="brand">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Protection Finder
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+      <g fill="none" stroke-linecap="round">
+        <path d="M1.5 17h5M0.5 22h4.5M1.5 27h5" stroke="var(--gold)" stroke-width="2"/>
+        <path d="M17.5 3.5h7M21 3.5v4.5M30.6 9.6l2.4-2.4M11.4 9.6L9 7.2" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="21" cy="22" r="13" stroke="currentColor" stroke-width="2.8"/>
+        <path d="M21 32.3v-1.8M10.7 22h1.8M13.7 14.7l1.2 1.2M13.7 29.3l1.2-1.2M28.3 29.3l-1.2-1.2" stroke="currentColor" stroke-width="1.6" opacity=".7"/>
+        <path class="sweep" d="M21 11.7A10.3 10.3 0 0 1 29.92 27.15" stroke="var(--gold)" stroke-width="2.4"/>
+      </g>
+      <g transform="rotate(-40 21 22)">
+        <ellipse cx="21" cy="22" rx="7.4" ry="4.5" fill="var(--accent)" stroke="currentColor" stroke-width="1.1"/>
+        <path d="M15.6 20.6v2.8M26.4 20.6v2.8" stroke="currentColor" stroke-width="1.1" opacity=".85"/>
+        <path d="M18 22h6M19 20.9v2.2M21 20.9v2.2M23 20.9v2.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <span class="wordmark"><span>Pocket<b>Watch</b></span><small>Pass protection film finder</small></span>
   </div>
   <div class="seg" role="tablist" aria-label="Perspective">
     <button id="mSelf">My team</button><button id="mOpp">Opponent</button>
