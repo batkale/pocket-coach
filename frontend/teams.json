@@ -1,0 +1,194 @@
+{
+"ARI": {
+"name": "Arizona Cardinals",
+"nick": "Cardinals",
+"c1": "#97233F",
+"c2": "#000000"
+},
+"ATL": {
+"name": "Atlanta Falcons",
+"nick": "Falcons",
+"c1": "#A71930",
+"c2": "#000000"
+},
+"BAL": {
+"name": "Baltimore Ravens",
+"nick": "Ravens",
+"c1": "#241773",
+"c2": "#9E7C0C"
+},
+"BUF": {
+"name": "Buffalo Bills",
+"nick": "Bills",
+"c1": "#00338D",
+"c2": "#C60C30"
+},
+"CAR": {
+"name": "Carolina Panthers",
+"nick": "Panthers",
+"c1": "#0085CA",
+"c2": "#000000"
+},
+"CHI": {
+"name": "Chicago Bears",
+"nick": "Bears",
+"c1": "#0B162A",
+"c2": "#E64100"
+},
+"CIN": {
+"name": "Cincinnati Bengals",
+"nick": "Bengals",
+"c1": "#FB4F14",
+"c2": "#000000"
+},
+"CLE": {
+"name": "Cleveland Browns",
+"nick": "Browns",
+"c1": "#FF3C00",
+"c2": "#311D00"
+},
+"DAL": {
+"name": "Dallas Cowboys",
+"nick": "Cowboys",
+"c1": "#002244",
+"c2": "#B0B7BC"
+},
+"DEN": {
+"name": "Denver Broncos",
+"nick": "Broncos",
+"c1": "#002244",
+"c2": "#FB4F14"
+},
+"DET": {
+"name": "Detroit Lions",
+"nick": "Lions",
+"c1": "#0076B6",
+"c2": "#B0B7BC"
+},
+"GB": {
+"name": "Green Bay Packers",
+"nick": "Packers",
+"c1": "#203731",
+"c2": "#FFB612"
+},
+"HOU": {
+"name": "Houston Texans",
+"nick": "Texans",
+"c1": "#03202F",
+"c2": "#A71930"
+},
+"IND": {
+"name": "Indianapolis Colts",
+"nick": "Colts",
+"c1": "#002C5F",
+"c2": "#a5acaf"
+},
+"JAX": {
+"name": "Jacksonville Jaguars",
+"nick": "Jaguars",
+"c1": "#006778",
+"c2": "#000000"
+},
+"KC": {
+"name": "Kansas City Chiefs",
+"nick": "Chiefs",
+"c1": "#E31837",
+"c2": "#FFB612"
+},
+"LA": {
+"name": "Los Angeles Rams",
+"nick": "Rams",
+"c1": "#003594",
+"c2": "#FFD100"
+},
+"LAC": {
+"name": "Los Angeles Chargers",
+"nick": "Chargers",
+"c1": "#007BC7",
+"c2": "#ffc20e"
+},
+"LV": {
+"name": "Las Vegas Raiders",
+"nick": "Raiders",
+"c1": "#000000",
+"c2": "#A5ACAF"
+},
+"MIA": {
+"name": "Miami Dolphins",
+"nick": "Dolphins",
+"c1": "#008E97",
+"c2": "#F58220"
+},
+"MIN": {
+"name": "Minnesota Vikings",
+"nick": "Vikings",
+"c1": "#4F2683",
+"c2": "#FFC62F"
+},
+"NE": {
+"name": "New England Patriots",
+"nick": "Patriots",
+"c1": "#002244",
+"c2": "#C60C30"
+},
+"NO": {
+"name": "New Orleans Saints",
+"nick": "Saints",
+"c1": "#D3BC8D",
+"c2": "#000000"
+},
+"NYG": {
+"name": "New York Giants",
+"nick": "Giants",
+"c1": "#0B2265",
+"c2": "#A71930"
+},
+"NYJ": {
+"name": "New York Jets",
+"nick": "Jets",
+"c1": "#003F2D",
+"c2": "#000000"
+},
+"PHI": {
+"name": "Philadelphia Eagles",
+"nick": "Eagles",
+"c1": "#004C54",
+"c2": "#A5ACAF"
+},
+"PIT": {
+"name": "Pittsburgh Steelers",
+"nick": "Steelers",
+"c1": "#000000",
+"c2": "#FFB612"
+},
+"SEA": {
+"name": "Seattle Seahawks",
+"nick": "Seahawks",
+"c1": "#002244",
+"c2": "#69be28"
+},
+"SF": {
+"name": "San Francisco 49ers",
+"nick": "49ers",
+"c1": "#AA0000",
+"c2": "#B3995D"
+},
+"TB": {
+"name": "Tampa Bay Buccaneers",
+"nick": "Buccaneers",
+"c1": "#A71930",
+"c2": "#322F2B"
+},
+"TEN": {
+"name": "Tennessee Titans",
+"nick": "Titans",
+"c1": "#4495D2",
+"c2": "#D50A0A"
+},
+"WAS": {
+"name": "Washington Commanders",
+"nick": "Commanders",
+"c1": "#5A1414",
+"c2": "#FFB612"
+}
+}

@@ -47,6 +47,11 @@
   .summary b { color:var(--text); }
   .hint { display:flex; align-items:center; gap:10px; background:var(--primary-soft); border-left:4px solid var(--accent); color:var(--primary); font-weight:600; padding:10px 14px; border-radius:6px; margin:0 0 14px; }
   .hint svg { flex:none; }
+  img.logo { vertical-align:middle; object-fit:contain; }
+  header img.logo { background:#fff; border-radius:50%; padding:2px; }
+  .teamline { display:flex; align-items:center; gap:12px; margin:0 0 16px; }
+  .teamline h1 { font-family:var(--display); text-transform:uppercase; letter-spacing:.03em; color:var(--primary); font-size:30px; margin:0; line-height:1; }
+  .teamline p { margin:2px 0 0; color:var(--muted); }
 
   .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
   .list-row { border-left:4px solid transparent; display:grid; grid-template-columns: 1fr auto; gap:4px 16px; padding:14px 18px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
@@ -116,8 +121,8 @@
   <div class="seg" role="tablist" aria-label="Perspective">
     <button id="mSelf">My team</button><button id="mOpp">Opponent</button>
   </div>
-  <label class="inline">My team <select id="myTeam" aria-label="My team"></select></label>
-  <label class="inline">Opponent <select id="opponent" aria-label="Opponent"></select></label>
+  <label class="inline">My team <img id="myLogo" class="logo" width="28" height="28" alt=""><select id="myTeam" aria-label="My team"></select></label>
+  <label class="inline">Opponent <img id="oppLogo" class="logo" width="28" height="28" alt=""><select id="opponent" aria-label="Opponent"></select></label>
   <button class="link" id="limitsBtn">What this can't tell you</button>
 </div></header>
 
@@ -163,8 +168,8 @@
         <div class="seg" id="dimSeg"><button data-d="1" class="on">Highlight involved</button><button data-d="0">Show all equally</button></div>
       </div>
       <div class="legend">
-        <span><i style="background:var(--off)"></i>Offense</span>
-        <span><i style="background:var(--def)"></i>Defense</span>
+        <span><i id="legOff"></i><span id="legOffT">Offense</span></span>
+        <span><i id="legDef"></i><span id="legDefT">Defense</span></span>
         <span><i style="background:#fff;border:3px solid var(--gold)"></i>Flagged player</span>
         <span>← → step · Space play · Click a dot for details</span>
       </div>
@@ -182,10 +187,10 @@ const $ = s => document.querySelector(s);
 const LEVEL_COLOR = { Confirmed:'#d50a0a', Likely:'#ffb612' };
 const TYPE = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten', penalty:'Penalty', free_rusher:'Free rusher' };
 const DOWN = ['', '1st', '2nd', '3rd', '4th'];
-let D, state = { tab:'alerts', mode:'self' };
+let D, TEAMS = {}, state = { tab:'alerts', mode:'self' };
 const url = new URL(location.href);
 
-fetch('data.json').then(r => r.json()).then(d => { D = d; init(); })
+Promise.all([fetch('data.json').then(r => r.json()), fetch('teams.json').then(r => r.json())]).then(([d, t]) => { D = d; TEAMS = t; init(); })
   .catch(() => $('#main').innerHTML = '<p class="summary">Could not load data. Run <code>make dev</code> and open http://localhost:8000.</p>');
 
 function init() {
@@ -208,12 +213,21 @@ function syncUrl() {
   url.searchParams.set('mode', state.mode); history.replaceState(null, '', url);
 }
 const HINT = t => `<p class="hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>${t}</p>`;
+const LOGO = (a, px = 22) => `<img class="logo" src="logos/${a}.png" alt="${TEAMS[a] ? TEAMS[a].name : a}" width="${px}" height="${px}">`;
+// Team colors for the replay; if the two teams' primaries are too similar, defense uses its secondary color
+const hex = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+const close = (a, b) => { const [p, q] = [hex(a), hex(b)]; return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]) < 120; };
+function teamColors(off, def) {
+  const o = TEAMS[off] ? TEAMS[off].c1 : '#013369', d1 = TEAMS[def] ? TEAMS[def].c1 : '#d50a0a', d2 = TEAMS[def] ? TEAMS[def].c2 : '#d50a0a';
+  return { off: o, def: close(o, d1) ? (close(o, d2) ? '#d50a0a' : d2) : d1 };
+}
 const team = () => state.mode === 'self' ? $('#myTeam').value : $('#opponent').value;
 const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
 const fmt = c => c == null ? 'n/a' : (c > 0 ? '+' : '') + c.toFixed(2);
 const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTeam;
 
 function render() {
+  $('#myLogo').src = `logos/${$('#myTeam').value}.png`; $('#oppLogo').src = `logos/${$('#opponent').value}.png`;
   $('#mSelf').className = state.mode === 'self' ? 'on' : ''; $('#mOpp').className = state.mode === 'opponent' ? 'on' : '';
   [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).className = state.tab === t ? 'on' : '');
   ({ alerts:renderAlerts, patterns:renderPatterns, skill:renderSkill })[state.tab]();
@@ -224,7 +238,8 @@ function renderAlerts() {
   const players = [...new Set(fs.map(f => f.primaryName))].sort();
   const verb = state.mode === 'self' ? 'to fix' : 'to attack';
   $('#main').innerHTML = `
-    <p class="summary"><b>${fs.length}</b> protection errors by <b>${team()}</b> ${verb} · ${fs.filter(f => f.confidenceLevel === 'Confirmed').length} confirmed · most costly first</p>
+    <div class="teamline">${LOGO(team(), 56)}<div><h1>${TEAMS[team()] ? TEAMS[team()].name : team()}</h1>
+      <p><b>${fs.length}</b> protection errors ${verb} · ${fs.filter(f => f.confidenceLevel === 'Confirmed').length} confirmed · most costly first</p></div></div>
     <div class="toolbar">
       <select id="fType" aria-label="Error type"><option value="">All errors</option>${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
       <select id="fPlayer" aria-label="Player"><option value="">All players</option>${players.map(p => `<option>${p}</option>`).join('')}</select>
@@ -241,7 +256,7 @@ function renderAlerts() {
         <div><span class="who">${f.primaryName}</span> <span style="color:var(--muted)">${f.primaryPos}</span> · ${TYPE[f.errorType]}
           <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span>${isSkill(f) ? '<span class="pill skill">RB/TE</span>' : ''}</div>
         <div class="epa">${fmt(f.epaCost)}<small>play EPA (shared)</small></div>
-        <div class="meta">Week ${f.week} vs ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace('Likely: check the film - ', '')}</div>
+        <div class="meta">Week ${f.week} vs ${LOGO(opp(f), 18)} ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace('Likely: check the film - ', '')}</div>
       </div>`).join('') : '<div class="empty">No errors match these filters.</div>';
     document.querySelectorAll('.list-row').forEach(r => {
       r.onclick = () => openPlay(r.dataset.p, +r.dataset.f);
@@ -264,7 +279,7 @@ function bindPlayLinks() { document.querySelectorAll('a[data-p]').forEach(a => a
 
 function renderPatterns() {
   const ps = D.patterns.filter(p => p.team === team()).slice(0, 40);
-  $('#main').innerHTML = `<p class="summary">Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${HINT('Click Play 1, 2 or 3 to watch an example of each error.')}${patternTable(ps)}`;
+  $('#main').innerHTML = `<p class="summary">${LOGO(team(), 28)} Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${HINT('Click Play 1, 2 or 3 to watch an example of each error.')}${patternTable(ps)}`;
   bindPlayLinks();
 }
 
@@ -284,7 +299,7 @@ function renderSkill() {
     <h2>Most-flagged RB / TE blockers</h2>
     ${HINT('Click Play 1, 2 or 3 to watch the error.')}
     <div class="card"><table><thead><tr><th>Player</th><th>Team</th><th>Flags</th><th>Replays</th></tr></thead><tbody>
-    ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${r.pos}</span></td><td>${r.t}</td><td class="num">${r.c}</td>
+    ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${r.pos}</span></td><td>${LOGO(r.t)} ${r.t}</td><td class="num">${r.c}</td>
       <td>${r.p.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}
     </tbody></table></div>`;
   bindPlayLinks();
@@ -309,7 +324,10 @@ async function openPlay(key, frame) {
   P.flagged = new Set(P.flags.flatMap(f => f.involvedNflIds));
   P.focus = new Set([...P.flagged, P.meta.qb]);
   const h = P.header, res = { C:'Complete', I:'Incomplete', S:'Sack', IN:'Interception', R:'Scramble' }[h.result] || h.result;
-  $('#vtitle').textContent = `${h.offense} vs ${h.defense} · Week ${h.week} · Q${h.quarter} ${h.clock} · ${DOWN[h.down]} & ${h.yardsToGo} · ${res}`;
+  $('#vtitle').innerHTML = `${LOGO(h.offense, 34)} ${h.offense} vs ${LOGO(h.defense, 34)} ${h.defense} · Week ${h.week} · Q${h.quarter} ${h.clock} · ${DOWN[h.down]} &amp; ${h.yardsToGo} · ${res}`;
+  P.colors = teamColors(h.offense, h.defense);
+  $('#legOff').style.background = P.colors.off; $('#legDef').style.background = P.colors.def;
+  $('#legOffT').textContent = h.offense + ' (offense)'; $('#legDefT').textContent = h.defense + ' (defense)';
   $('#vdesc').textContent = h.desc;
   $('#vflags').innerHTML = P.flags.map(f => `<div class="flagcard" style="border-left-color:${LEVEL_COLOR[f.confidenceLevel]}" data-fr="${f.errorFrameId}">
     <b>${TYPE[f.errorType]}</b> <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span><br>${f.explanation.replace('Likely: check the film - ', '')}
@@ -391,7 +409,7 @@ function draw() {
     cx.globalAlpha = dim && !focus ? 0.35 : 1;
     if (P.flagged.has(p.id)) { cx.strokeStyle = '#ffb612'; cx.lineWidth = 3.5; cx.beginPath(); cx.arc(X, Y, R + 4, 0, 7); cx.stroke(); }
     if (sel === p.id) { cx.strokeStyle = '#fff'; cx.lineWidth = 3; cx.setLineDash([4, 3]); cx.beginPath(); cx.arc(X, Y, R + 9, 0, 7); cx.stroke(); cx.setLineDash([]); }
-    cx.fillStyle = p.team === off ? '#013369' : '#d50a0a'; cx.strokeStyle = '#fff'; cx.lineWidth = 2;
+    cx.fillStyle = p.team === off ? P.colors.off : P.colors.def; cx.strokeStyle = '#fff'; cx.lineWidth = 2;
     cx.beginPath(); cx.arc(X, Y, R, 0, 7); cx.fill(); cx.stroke();
     cx.fillStyle = '#fff'; cx.font = `700 ${Math.round(R * 0.9)}px Fira Sans`; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(p.jersey, X, Y + 1);
     if (focus) label(X, p.team === off ? Y - R - 12 : Y + R + 12, p.id === P.meta.qb ? `QB ${p.name.split(' ').slice(-1)[0]}` : p.name.split(' ').slice(-1)[0] + ' · ' + p.pos);

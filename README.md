@@ -29,4 +29,4 @@ The pipeline expects the competition data at `nfl-big-data-bowl-regional-event-d
 
 The play call is unknown, so an error may be the design rather than the player. The data covers pass plays only and tracking ends about 0.5 s after the throw. Eight weeks gives small samples. The free-rusher rule matches a PFF pressure on the same rusher only 16.7% of the time, which is why it's labelled "Likely: check the film" and not presented as fact.
 
-*Built at the NFL Big Data Bowl London regional (UCL BaseKX, 9 Oct 2026). Data: NFL Next Gen Stats, PFF, nflverse.*
+*Built at the NFL Big Data Bowl London regional (UCL BaseKX, 9 Oct 2026). Data: NFL Next Gen Stats, PFF, nflverse. Team colors and logo URLs from nflverse `teams_colors_logos`; logos are trademarks of their teams, used here for identification only.*
