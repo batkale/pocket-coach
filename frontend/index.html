@@ -45,6 +45,8 @@
   .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px; }
   .summary { color:var(--muted); margin:0 0 16px; }
   .summary b { color:var(--text); }
+  .hint { display:flex; align-items:center; gap:10px; background:var(--primary-soft); border-left:4px solid var(--accent); color:var(--primary); font-weight:600; padding:10px 14px; border-radius:6px; margin:0 0 14px; }
+  .hint svg { flex:none; }
 
   .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
   .list-row { border-left:4px solid transparent; display:grid; grid-template-columns: 1fr auto; gap:4px 16px; padding:14px 18px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
@@ -205,9 +207,10 @@ function syncUrl() {
   url.searchParams.set('myTeam', $('#myTeam').value); url.searchParams.set('opponent', $('#opponent').value);
   url.searchParams.set('mode', state.mode); history.replaceState(null, '', url);
 }
+const HINT = t => `<p class="hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>${t}</p>`;
 const team = () => state.mode === 'self' ? $('#myTeam').value : $('#opponent').value;
 const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
-const fmt = c => c == null ? '—' : (c > 0 ? '+' : '') + c.toFixed(2);
+const fmt = c => c == null ? 'n/a' : (c > 0 ? '+' : '') + c.toFixed(2);
 const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTeam;
 
 function render() {
@@ -227,6 +230,7 @@ function renderAlerts() {
       <select id="fPlayer" aria-label="Player"><option value="">All players</option>${players.map(p => `<option>${p}</option>`).join('')}</select>
       <select id="fLvl" aria-label="Confidence"><option value="">Any confidence</option><option>Confirmed</option><option>Likely</option></select>
     </div>
+    ${HINT('Click any error below to watch the play and see the moment it happened.')}
     <div class="card" id="rows"></div>`;
   const draw = () => {
     const ty = $('#fType').value, pl = $('#fPlayer').value, lv = $('#fLvl').value;
@@ -234,7 +238,7 @@ function renderAlerts() {
                    .sort((a, b) => (a.epaCost ?? 0) - (b.epaCost ?? 0)).slice(0, 200);
     $('#rows').innerHTML = rows.length ? rows.map(f => `
       <div class="list-row" tabindex="0" data-p="${f.gameId}_${f.playId}" data-f="${f.errorFrameId}">
-        <div><span class="who">${f.primaryName}</span> <span style="color:var(--muted)">${f.primaryPos}</span> — ${TYPE[f.errorType]}
+        <div><span class="who">${f.primaryName}</span> <span style="color:var(--muted)">${f.primaryPos}</span> · ${TYPE[f.errorType]}
           <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span>${isSkill(f) ? '<span class="pill skill">RB/TE</span>' : ''}</div>
         <div class="epa">${fmt(f.epaCost)}<small>play EPA (shared)</small></div>
         <div class="meta">Week ${f.week} vs ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace('Likely: check the film - ', '')}</div>
@@ -253,14 +257,14 @@ function patternTable(ps) {
   ${ps.map(p => `<tr><td><b>${p.name}</b> <span style="color:var(--muted)">${p.pos}</span></td><td>${TYPE[p.errorType]}</td>
     <td>${DOWN[p.down]} &amp; ${p.band}</td><td class="num">${p.count} / ${p.opportunities}</td>
     <td><div class="ci"><span class="num">${(100 * p.rate).toFixed(0)}%</span><div class="track"><span style="left:${100 * p.rateLow90}%;width:${100 * (p.rateHigh90 - p.rateLow90)}%"></span><i style="left:${100 * p.rate}%"></i></div>
-      <span style="color:var(--muted);font-size:13px">${(100 * p.rateLow90).toFixed(0)}–${(100 * p.rateHigh90).toFixed(0)}%</span></div></td>
+      <span style="color:var(--muted);font-size:13px">${(100 * p.rateLow90).toFixed(0)} to ${(100 * p.rateHigh90).toFixed(0)}%</span></div></td>
     <td>${p.plays.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function bindPlayLinks() { document.querySelectorAll('a[data-p]').forEach(a => a.onclick = e => { e.preventDefault(); openPlay(a.dataset.p); }); }
 
 function renderPatterns() {
   const ps = D.patterns.filter(p => p.team === team()).slice(0, 40);
-  $('#main').innerHTML = `<p class="summary">Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${patternTable(ps)}`;
+  $('#main').innerHTML = `<p class="summary">Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${HINT('Click Play 1, 2 or 3 to watch an example of each error.')}${patternTable(ps)}`;
   bindPlayLinks();
 }
 
@@ -278,6 +282,7 @@ function renderSkill() {
       <div class="stat"><b>4.2%</b><span>Center · 8,411 reps</span></div>
     </div>
     <h2>Most-flagged RB / TE blockers</h2>
+    ${HINT('Click Play 1, 2 or 3 to watch the error.')}
     <div class="card"><table><thead><tr><th>Player</th><th>Team</th><th>Flags</th><th>Replays</th></tr></thead><tbody>
     ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${r.pos}</span></td><td>${r.t}</td><td class="num">${r.c}</td>
       <td>${r.p.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}
@@ -453,7 +458,7 @@ cv.onclick = e => {
   P.players.forEach((p, j) => { if (p.id == null || P.x[j][fi] == null) return; const d = Math.hypot(sx(P.x[j][fi]) - mx, sy(P.y[j][fi]) - my); if (d < bd) { bd = d; best = p; } });
   if (!best) return; sel = best.id;
   const season = D.flags.filter(f => f.primary === best.id && f.errorType !== 'penalty').length;
-  $('#vinspect').innerHTML = `<b>${best.name}</b> · #${best.jersey} ${best.pos} · ${best.team}<br>Role: ${best.role || '—'} · Lined up: ${best.align || '—'}<br>Protection flags this season: ${season}`;
+  $('#vinspect').innerHTML = `<b>${best.name}</b> · #${best.jersey} ${best.pos} · ${best.team}<br>Role: ${best.role || 'n/a'} · Lined up: ${best.align || 'n/a'}<br>Protection flags this season: ${season}`;
   draw();
 };
 </script>
