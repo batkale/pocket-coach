@@ -130,7 +130,7 @@ def compare(df, col, unit, team_col):
 
 
 rows = (compare(pb, "rush_grp", "dropbacks", "possessionTeam") + compare(pb, "sit", "dropbacks", "possessionTeam") +
-        compare(pb, "pa", "dropbacks", "possessionTeam") + compare(blk, "slot", "pass-block reps", "possessionTeam"))
+        compare(pb, "pa", "dropbacks", "possessionTeam") + compare(blk, "slot", "pass-block snaps", "possessionTeam"))
 res = pd.DataFrame(rows)
 res["gap"] = res.rate - res.league
 res["strong"] = res.lo > res.league  # 90% interval sits above the league rate
@@ -165,7 +165,7 @@ def worst_players(team, val):
     b = blk[(blk.possessionTeam == team) & (blk.slot == val)]
     g = b.groupby("nflId").agg(n=("bad", "size"), k=("bad", "sum"))
     g = g[g.n >= 10].sort_values("k", ascending=False).head(2)
-    return [f"{players.displayName.get(i, i)} ({int(r.k)} of {int(r.n)} reps)" for i, r in g.iterrows()]
+    return [f"{players.displayName.get(i, i)} ({int(r.k)} of {int(r.n)} snaps)" for i, r in g.iterrows()]
 
 
 plan = {}

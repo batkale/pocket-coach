@@ -47,7 +47,8 @@ try:
 except Exception as ex:  # offline: flags still produced, cost unavailable
     print("EPA unavailable:", ex); epa = {}
 
-flags, unresolved, events_seen, last_events, play_json = [], [], set(), {}, {}
+flags, unresolved, events_seen, last_events, play_json, pending, repRows = [], [], set(), {}, {}, {}, []
+L3_WINDOW = int(CFG['level3']['window_s'] * HZ); L3_SIGMA = CFG['level3']['rep_residual_sigma']
 blockReps = []  # (nflId, team, gameId, playId, down, distBand) opportunities for blocker patterns
 
 
@@ -113,6 +114,15 @@ for fi, f in enumerate(files):
                 cand = [(np.nanmin(np.hypot(X[i] - X[b], Y[i] - Y[b])), i) for i in rushers]
                 tgt = min(cand)[1] if cand else None
             tgt = int(tgt) if tgt is not None else None
+            if tgt is not None:  # Level 3 input: how close did this blocker's rusher get to the QB in the first 2.5 s
+                w = frames <= snap + L3_WINDOW
+                d = dq[tgt][w]
+                if len(d) and not np.isnan(d).all():
+                    j = int(np.nanargmin(d))
+                    l1 = any(br[c] == 1 for c in ["pff_sackAllowed", "pff_hitAllowed", "pff_hurryAllowed", "pff_beatenByDefender"])
+                    repRows.append((gid, int(pid), int(b), tgt, off, str(br.pff_positionLinedUp), len(rushers), len(blockers),
+                                    int(pl.down), int(pl.yardsToGo), int(pl.pff_playAction) if pd.notna(pl.pff_playAction) else 0,
+                                    str(pl.dropBackType), min((end - snap) / HZ, L3_WINDOW / HZ), float(d[j]), int(frames[j]), l1))
             for col, et, word in [("pff_sackAllowed", "sack_allowed", "a sack"), ("pff_hitAllowed", "hit_allowed", "a QB hit"),
                                   ("pff_hurryAllowed", "hurry_allowed", "a QB hurry")]:
                 if br[col] == 1 and tgt is not None:
@@ -152,12 +162,7 @@ for fi, f in enumerate(files):
                             f"Likely: check the film - {pname(ru)} came free with {len(counted)} blockers vs {len(rushers)} rushers; nearest blocker {pname(nb)} ({ppos(nb)}).",
                             {"rule": "free_rusher", "lineCrossFound": bool(len(crossed)), "pffPressure": pressured}))
 
-        if not new: continue
-        e = epa.get((gid, int(pid)))
-        for fr, ids, team, et, lvl, ex, det in new:
-            teamEpa = None if e is None or pd.isna(e) else (e if team == off else -e)
-            det["epaCost"] = None if teamEpa is None else round(teamEpa / len(new), 3)
-            add_flag(gid, int(pid), fr, ids, team, et, lvl, ex, det)
+        pending[(gid, int(pid))] = (off, new)
 
         # --- replay JSON for flagged plays (normalized coords, single play only)
         lo = max(int(p.frameId.min()), snap - CFG["viewer"]["pre_snap_frames"])
@@ -173,7 +178,7 @@ for fi, f in enumerate(files):
         vy = v.assign(k=v.nflId.map(key)).pivot(index="frameId", columns="k", values="y")
         cols = [-1 if i is None else i for i in ids]
         fev = v.drop_duplicates("frameId").set_index("frameId").event
-        play_json[f"{gid}_{pid}"] = {
+        play_json[f"{gid}_{pid}"] = json.dumps({
             "header": {"gameId": gid, "playId": int(pid), "offense": off, "defense": dfn, "quarter": int(pl.quarter),
                        "clock": pl.gameClock, "down": int(pl.down), "yardsToGo": int(pl.yardsToGo), "result": pl.passResult,
                        "coverage": None if pd.isna(pl.pff_passCoverage) else pl.pff_passCoverage, "desc": pl.playDescription, "week": int(pl.week)},
@@ -183,14 +188,56 @@ for fi, f in enumerate(files):
             "events": {int(k): ev for k, ev in fev.items() if pd.notna(ev) and ev != "None"},
             "x": [[None if pd.isna(a) else round(float(a), 2) for a in vx[c]] for c in cols],
             "y": [[None if pd.isna(a) else round(float(a), 2) for a in vy[c]] for c in cols],
-        }
+        }, separators=(",", ":"))
     print(f"[{fi + 1}/{len(files)}] {gid}: {len(flags)} flags", flush=True)
+
+# ---------------------------------------------------------------- Level 3: worse-than-expected reps
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.model_selection import GroupKFold
+
+R = pd.DataFrame(repRows, columns=["gameId", "playId", "blocker", "rusher", "team", "align", "nRush", "nBlock", "down", "ytg",
+                                   "pa", "dropback", "tWin", "minD", "minFrame", "l1"])
+R["slot"] = [x if x in ("LT", "LG", "C", "RG", "RT") else x.split("-")[0] if x.split("-")[0] in ("TE", "HB", "FB") else "other" for x in R["align"]]
+R["rushGrp"] = R.nRush.clip(3, 6)
+FEATS = ["slotC", "nRush", "nBlock", "down", "ytg", "pa", "dropC", "tWin"]
+R["slotC"] = R.slot.astype("category").cat.codes; R["dropC"] = R.dropback.astype("category").cat.codes
+R["pred"] = np.nan; R["base"] = np.nan
+for tr, te in GroupKFold(5).split(R, groups=R.gameId):  # by-game split: no play is scored by a model that saw its game
+    a, b = R.iloc[tr], R.iloc[te]
+    base = a.groupby(["slot", "rushGrp", "pa"]).minD.mean()   # situational-average baseline first
+    R.loc[R.index[te], "base"] = b.join(base.rename("b"), on=["slot", "rushGrp", "pa"]).b.fillna(a.minD.mean()).to_numpy()
+    m = HistGradientBoostingRegressor(max_iter=200, learning_rate=0.05, max_depth=4, categorical_features=[0, 6]).fit(a[FEATS], a.minD)
+    R.loc[R.index[te], "pred"] = m.predict(b[FEATS])
+R["resid"] = R.pred - R.minD            # positive = rusher got closer to the QB than expected
+sig = R.resid.std()
+mae = lambda c: float((R[c] - R.minD).abs().mean())
+cand = R[(R.resid > L3_SIGMA * sig) & ~R.l1 & (R.minD < FREE_QB)]
+for r in cand.itertuples():
+    off, new = pending.setdefault((r.gameId, r.playId), (r.team, []))
+    new.append((r.minFrame, [r.blocker, r.rusher], r.team, "worse_than_expected", "Possible",
+                f"Possible: film to review - {pname(r.rusher)} got within {r.minD:.1f} yds of the QB, {r.resid:.1f} yds closer than expected for this {r.slot} rep by {pname(r.blocker)} ({ppos(r.blocker)}).",
+                {"model": "expected_rep_gbm", "predicted": round(float(r.pred), 2), "actual": round(float(r.minD), 2), "baselineExpectation": round(float(r.base), 2)}))
+with open(ROOT / "reports" / "models.md", "w") as fh:
+    fh.write("# Level 3 expected-rep model\n\nTarget: closest distance (yds) the blocker's rusher gets to the QB within 2.5 s of the snap.\n")
+    fh.write(f"5-fold split by game. Reps: {len(R)}.\n\n| model | held-out MAE (yds) |\n|---|---|\n")
+    fh.write(f"| league mean | {float((R.minD - R.minD.mean()).abs().mean()):.3f} |\n| situational average (slot x rushers x play action) | {mae('base'):.3f} |\n| gradient boosting | {mae('pred'):.3f} |\n")
+    fh.write(f"\nFlag rule: residual > {L3_SIGMA} sd ({L3_SIGMA * sig:.2f} yds), rusher within {FREE_QB} yds of QB, and no PFF label on that rep. Flags: {len(cand)}.\n")
+print("L3 MAE baseline", round(mae("base"), 3), "gbm", round(mae("pred"), 3), "flags", len(cand))
+
+# ---------------------------------------------------------------- cost (shared across all flags on the play) + flags
+for (gid, pid), (off, new) in pending.items():
+    if not new: continue
+    e = epa.get((gid, pid))
+    for fr, ids, team, et, lvl, ex, det in new:
+        teamEpa = None if e is None or pd.isna(e) else (e if team == off else -e)
+        det["epaCost"] = None if teamEpa is None else round(teamEpa / len(new), 3)
+        add_flag(gid, pid, fr, ids, team, et, lvl, ex, det)
 
 # ---------------------------------------------------------------- outputs
 fl = pd.DataFrame(flags)
 fl["primary"] = fl.involvedNflIds.str[0]
 fl["primaryName"] = fl.primary.map(pname); fl["primaryPos"] = fl.primary.map(ppos)
-fl = fl.merge(plays[["gameId", "playId", "week", "down", "yardsToGo", "possessionTeam", "defensiveTeam"]], on=["gameId", "playId"])
+fl = fl.merge(plays[["gameId", "playId", "week", "down", "yardsToGo", "possessionTeam", "defensiveTeam", "passResult", "playResult"]], on=["gameId", "playId"])
 fl["epaCost"] = fl.detail.map(lambda d: d.get("epaCost"))
 assert ((fl.errorFrameId >= 1)).all()
 
@@ -213,8 +260,10 @@ pt["name"] = pt.primary.map(pname); pt["pos"] = pt.primary.map(ppos)
 pt = pt.sort_values("rankScore", ascending=False)
 
 OUT.mkdir(exist_ok=True); (OUT / "plays").mkdir(exist_ok=True)
+flagged = {f"{g}_{p}" for g, p in zip(fl.gameId, fl.playId)}
 for k, v in play_json.items():
-    json.dump(v, open(OUT / "plays" / f"{k}.json", "w"), separators=(",", ":"))
+    if k in flagged:
+        open(OUT / "plays" / f"{k}.json", "w").write(v)
 json.dump({"flags": json.loads(fl.drop(columns=["band"]).to_json(orient="records")),
            "patterns": json.loads(pt.to_json(orient="records")),
            "teams": sorted(set(games.homeTeamAbbr) | set(games.visitorTeamAbbr)),

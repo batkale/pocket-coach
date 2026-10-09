@@ -8,6 +8,9 @@ engagement:
 level2:
   free_rusher_qb_yd: 3.0     # rusher-to-QB distance that triggers the free-rusher rule
   excluded_block_types: [CH, SR, NB]  # not counted as pass blockers (chip, set & release, no block)
+level3:
+  window_s: 2.5              # measure each rep's rusher-to-QB closest approach within this time after the snap
+  rep_residual_sigma: 2.0    # flag a rep when the rusher got this many SDs closer than the model expected
 patterns:
   interval_confidence: 0.90  # Wilson interval confidence level
   distance_bands: [3, 7]     # short / medium / long distance-to-go cut points

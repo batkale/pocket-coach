@@ -51,6 +51,9 @@
   .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px; }
   .summary { color:var(--muted); margin:0 0 16px; }
   .summary b { color:var(--text); }
+  .def { font-size:14px; color:var(--muted); margin:-8px 0 16px; }
+  .def b { color:var(--text); }
+  .term { text-decoration:underline dotted; text-underline-offset:3px; cursor:help; }
   .hint { display:flex; align-items:center; gap:10px; background:var(--primary-soft); border-left:4px solid var(--accent); color:var(--primary); font-weight:600; padding:10px 14px; border-radius:6px; margin:0 0 14px; }
   .hint svg { flex:none; }
   .plan { background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--primary); border-radius:10px; padding:16px 18px; margin-bottom:12px; }
@@ -80,7 +83,21 @@
   .list-row .epa small { display:block; font-family:'Fira Sans'; font-weight:400; color:var(--muted); font-size:12px; }
   .pill { display:inline-block; font-size:12px; font-weight:600; padding:1px 8px; border-radius:999px; margin-left:6px; vertical-align:1px; }
   .pill { text-transform:uppercase; letter-spacing:.04em; font-size:11px; border-radius:4px; }
-  .pill.Confirmed { background:var(--accent); color:#fff; } .pill.Likely { background:var(--gold); color:#3b2a00; }
+  .pill.Confirmed { background:var(--accent); color:#fff; } .pill.Likely { background:var(--gold); color:#3b2a00; } .pill.Possible { background:#2b6cb0; color:#fff; }
+  .levels { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:8px; }
+  .lvl { display:flex; gap:12px; align-items:center; text-align:left; padding:12px 14px; border:2px solid var(--border); border-radius:10px; background:var(--surface); }
+  .lvl b { display:block; font-family:var(--display); font-size:18px; text-transform:uppercase; letter-spacing:.03em; }
+  .lvl small { color:var(--muted); }
+  .lvn { font-family:var(--display); font-weight:800; font-size:30px; width:44px; height:44px; border-radius:50%; display:grid; place-items:center; color:#fff; flex:none; }
+  .lvl.Confirmed .lvn { background:var(--accent); } .lvl.Likely .lvn { background:var(--gold); color:#3b2a00; } .lvl.Possible .lvn { background:#2b6cb0; }
+  .lvl.on.Confirmed { border-color:var(--accent); background:#fff5f5; } .lvl.on.Likely { border-color:var(--gold); background:#fffbeb; } .lvl.on.Possible { border-color:#2b6cb0; background:#ebf4ff; }
+  .leveldesc { color:var(--muted); margin:6px 0 14px; }
+  .cost { text-align:right; min-width:170px; }
+  .cost b { display:block; font-size:14px; }
+  .cost small { display:block; color:var(--muted); font-size:12px; }
+  .sev { display:inline-block; font-family:var(--display); font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.05em; padding:1px 8px; border-radius:4px; margin-bottom:3px; }
+  .sev-hi { background:var(--accent); color:#fff; } .sev-md { background:#f6ad55; color:#3b1d00; } .sev-lo { background:var(--soft); color:var(--muted); }
+  .sev-ok { background:#c6f6d5; color:#22543d; } .sev-na { background:var(--soft); color:var(--muted); }
   .pill.skill { background:var(--primary-soft); color:var(--primary); }
   .empty { padding:28px; color:var(--muted); text-align:center; }
 
@@ -214,8 +231,8 @@
 
 <script>
 const $ = s => document.querySelector(s);
-const LEVEL_COLOR = { Confirmed:'#d50a0a', Likely:'#ffb612' };
-const TYPE = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten', penalty:'Penalty', free_rusher:'Free rusher' };
+const LEVEL_COLOR = { Confirmed:'#d50a0a', Likely:'#ffb612', Possible:'#2b6cb0' };
+const TYPE = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten', penalty:'Penalty', free_rusher:'Free rusher', worse_than_expected:'Lost the snap' };
 const DOWN = ['', '1st', '2nd', '3rd', '4th'];
 let D, TEAMS = {}, COACH = null, state = { tab:'plan', mode:'self' };
 const url = new URL(location.href);
@@ -252,6 +269,9 @@ function teamColors(off, def) {
   return { off: o, def: close(o, d1) ? (close(o, d2) ? '#d50a0a' : d2) : d1 };
 }
 const team = () => state.mode === 'self' ? $('#myTeam').value : $('#opponent').value;
+const REP_DEF = 'one pass play where this player stayed in to block for the quarterback instead of running a route';
+const REP = (w = 'snaps') => `<span class="term" title="Snap: ${REP_DEF}">${w}</span>`;
+const DEFN = `<p class="def"><b>Snap</b>: ${REP_DEF}. Snaps count the chances a player had to give up pressure.</p>`;
 const POS = { RB:'Running back', TE:'Tight end', FB:'Fullback' };
 const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
 const fmt = c => c == null ? 'n/a' : (c > 0 ? '+' : '') + c.toFixed(2);
@@ -278,7 +298,7 @@ function renderPlan() {
       <div class="plan ${it.strong ? 'strong' : ''}">
         <div class="num">${i + 1}</div>
         <h3>${it.value}${it.strong ? '<span class="tag">Strong signal</span>' : '<span class="tag soft">Trend</span>'}</h3>
-        <div class="evid">${it.dim === 'timing' ? `${it.k} of ${it.n} breakdowns are ${it.value}` : `Breakdown on ${it.k} of ${it.n} ${it.dim === 'slot' ? 'pass-block reps' : 'dropbacks'}`}
+        <div class="evid">${it.dim === 'timing' ? `${it.k} of ${it.n} breakdowns are ${it.value}` : `Breakdown on ${it.k} of ${it.n} ${it.dim === 'slot' ? 'pass-block ' + REP() : 'dropbacks'}`}
           · ${vs(it.rate, it.league)} · 90% interval ${Math.round(100 * it.lo)} to ${Math.round(100 * it.hi)}%</div>
         <dl>
           ${self ? `<dt>Tell the players</dt><dd>${it.tell}</dd><dt>Tactic</dt><dd>${it.tactic}</dd>`
@@ -292,37 +312,66 @@ function renderPlan() {
     <div class="stats">
       <div class="stat hl"><b>55%</b><span>breakdown rate on 3rd/4th &amp; 7+, vs 42% on early downs. Max-protect on obvious passing downs.</span></div>
       <div class="stat"><b>37%</b><span>breakdown rate on play action, vs 47% on straight dropbacks. Play action buys the QB time.</span></div>
-      <div class="stat"><b>16%</b><span>of RB pass-block reps lose, more than any lineman (C 7%). Chip-and-release beats RB-only pickup.</span></div>
+      <div class="stat"><b>16%</b><span>of RB pass-block ${REP()} lose, more than any lineman (C 7%). Chip-and-release beats RB-only pickup.</span></div>
       <div class="stat"><b>43%</b><span>of breakdowns happen inside 2.5 s, before most routes are open. That's technique, not the QB.</span></div>
     </div>`;
   document.querySelectorAll('a[data-p]').forEach(a => a.onclick = e => { e.preventDefault(); openPlay(a.dataset.p, +a.dataset.f || null); });
 }
 
+const LEVELS = [
+  { key:'Confirmed', n:1, title:'Level 1 · Confirmed', desc:'Recorded in the data: PFF charted the sack, hit, hurry or beat, or the referee threw a flag. No modelling involved.' },
+  { key:'Likely', n:2, title:'Level 2 · Likely', desc:'Our tracking rule says a rusher came free even though there were enough blockers. Likely an error, so check the film.' },
+  { key:'Possible', n:3, title:'Level 3 · Possible', desc:'Our model expected the blocker to keep his rusher further from the QB in this situation. PFF charted nothing, so it is a snap worth reviewing.' },
+];
+// Plain-English cost: severity badge + points + what happened
+function severity(c) {
+  if (c == null) return { cls:'sev-na', label:'Unknown', text:'Cost unknown' };
+  const pts = -c;
+  if (pts >= 3) return { cls:'sev-hi', label:'Drive-killer', text:`Cost about ${pts.toFixed(1)} points` };
+  if (pts >= 1) return { cls:'sev-md', label:'Costly', text:`Cost about ${pts.toFixed(1)} points` };
+  if (pts > 0) return { cls:'sev-lo', label:'Minor', text:`Cost about ${pts.toFixed(1)} points` };
+  return { cls:'sev-ok', label:'Survived', text:`Play still gained ${(-pts).toFixed(1)} points` };
+}
+function outcome(f) {
+  const y = f.playResult;
+  return { C:`Complete, ${y >= 0 ? y + ' yd gain' : 'lost ' + (-y) + ' yds'}`, I:'Incomplete pass', S:`Sack, lost ${Math.abs(y)} yds`,
+           IN:'Interception', R:`QB scramble, ${y} yds` }[f.passResult] || '';
+}
+const costHTML = f => { const s = severity(f.epaCost); return `<span class="sev ${s.cls}">${s.label}</span><b>${s.text}</b><small>${outcome(f)}</small>`; };
+
 function renderAlerts() {
-  const fs = D.flags.filter(f => f.team === team());
+  const all = D.flags.filter(f => f.team === team());
+  state.level = state.level || 'Confirmed';
+  const L = LEVELS.find(l => l.key === state.level);
+  const fs = all.filter(f => f.confidenceLevel === state.level);
   const players = [...new Set(fs.map(f => f.primaryName))].sort();
+  const types = [...new Set(fs.map(f => f.errorType))];
   const verb = state.mode === 'self' ? 'to fix' : 'to attack';
   $('#main').innerHTML = `
     <div class="teamline">${LOGO(team(), 56)}<div><h1>${TEAMS[team()] ? TEAMS[team()].name : team()}</h1>
-      <p><b>${fs.length}</b> protection errors ${verb} · ${fs.filter(f => f.confidenceLevel === 'Confirmed').length} confirmed · most costly first</p></div></div>
+      <p><b>${all.length}</b> protection errors ${verb}, grouped by how sure we are</p></div></div>
+    <div class="levels">${LEVELS.map(l => `<button class="lvl ${l.key} ${l.key === state.level ? 'on' : ''}" data-l="${l.key}">
+      <span class="lvn">${l.n}</span><span><b>${l.title}</b><small>${all.filter(f => f.confidenceLevel === l.key).length} errors</small></span></button>`).join('')}</div>
+    <p class="leveldesc">${L.desc}</p>
     <div class="toolbar">
-      <select id="fType" aria-label="Error type"><option value="">All errors</option>${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
+      <select id="fType" aria-label="Error type"><option value="">All error types</option>${types.map(k => `<option value="${k}">${TYPE[k]}</option>`).join('')}</select>
       <select id="fPlayer" aria-label="Player"><option value="">All players</option>${players.map(p => `<option>${p}</option>`).join('')}</select>
-      <select id="fLvl" aria-label="Confidence"><option value="">Any confidence</option><option>Confirmed</option><option>Likely</option></select>
     </div>
     ${HINT('Click any error below to watch the play and see the moment it happened.')}
-    <div class="card" id="rows"></div>`;
+    <div class="card" id="rows"></div>
+    <p class="summary" style="margin-top:10px;font-size:13px">Points = expected points: how much the play changed the offense's expected score compared with an average play. When a play has several errors, the cost is shared between them.</p>`;
+  document.querySelectorAll('.lvl').forEach(b => b.onclick = () => { state.level = b.dataset.l; renderAlerts(); });
   const draw = () => {
-    const ty = $('#fType').value, pl = $('#fPlayer').value, lv = $('#fLvl').value;
-    const rows = fs.filter(f => (!ty || f.errorType === ty) && (!pl || f.primaryName === pl) && (!lv || f.confidenceLevel === lv))
+    const ty = $('#fType').value, pl = $('#fPlayer').value;
+    const rows = fs.filter(f => (!ty || f.errorType === ty) && (!pl || f.primaryName === pl))
                    .sort((a, b) => (a.epaCost ?? 0) - (b.epaCost ?? 0)).slice(0, 200);
     $('#rows').innerHTML = rows.length ? rows.map(f => `
       <div class="list-row" tabindex="0" data-p="${f.gameId}_${f.playId}" data-f="${f.errorFrameId}">
         <div><span class="who">${f.primaryName}</span> <span style="color:var(--muted)">${f.primaryPos}</span> · ${TYPE[f.errorType]}
-          <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span>${isSkill(f) ? '<span class="pill skill">RB/TE</span>' : ''}</div>
-        <div class="epa">${fmt(f.epaCost)}<small>play EPA (shared)</small></div>
-        <div class="meta">Week ${f.week} vs ${LOGO(opp(f), 18)} ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace('Likely: check the film - ', '')}</div>
-      </div>`).join('') : '<div class="empty">No errors match these filters.</div>';
+          ${isSkill(f) ? '<span class="pill skill">RB/TE</span>' : ''}</div>
+        <div class="cost">${costHTML(f)}</div>
+        <div class="meta">Week ${f.week} vs ${LOGO(opp(f), 18)} ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace(/^(Likely: check the film|Possible: film to review) - /, '')}</div>
+      </div>`).join('') : '<div class="empty">No errors at this level for this team.</div>';
     document.querySelectorAll('.list-row').forEach(r => {
       r.onclick = () => openPlay(r.dataset.p, +r.dataset.f);
       r.onkeydown = e => { if (e.key === 'Enter') r.click(); };
@@ -333,7 +382,7 @@ function renderAlerts() {
 
 function patternTable(ps) {
   if (!ps.length) return '<div class="card"><div class="empty">No pattern has at least 10 opportunities yet.</div></div>';
-  return `<div class="card"><table><thead><tr><th>Player</th><th>Error</th><th>Situation</th><th>Times / reps</th><th>Rate · 90% interval</th><th>Replays</th></tr></thead><tbody>
+  return `<div class="card"><table><thead><tr><th>Player</th><th>Error</th><th>Situation</th><th>Times / ${REP()}</th><th>Rate · 90% interval</th><th>Replays</th></tr></thead><tbody>
   ${ps.map(p => `<tr><td><b>${p.name}</b> <span style="color:var(--muted)">${p.pos}</span></td><td>${TYPE[p.errorType]}</td>
     <td>${DOWN[p.down]} &amp; ${p.band}</td><td class="num">${p.count} / ${p.opportunities}</td>
     <td><div class="ci"><span class="num">${(100 * p.rate).toFixed(0)}%</span><div class="track"><span style="left:${100 * p.rateLow90}%;width:${100 * (p.rateHigh90 - p.rateLow90)}%"></span><i style="left:${100 * p.rate}%"></i></div>
@@ -344,7 +393,7 @@ function bindPlayLinks() { document.querySelectorAll('a[data-p]').forEach(a => a
 
 function renderPatterns() {
   const ps = D.patterns.filter(p => p.team === team()).slice(0, 40);
-  $('#main').innerHTML = `<p class="summary">${LOGO(team(), 28)} Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${HINT('Click Play 1, 2 or 3 to watch an example of each error.')}${patternTable(ps)}`;
+  $('#main').innerHTML = `<p class="summary">${LOGO(team(), 28)} Recurring errors for <b>${team()}</b>, ranked by how often × how costly.</p>${DEFN}${HINT('Click Play 1, 2 or 3 to watch an example of each error.')}${patternTable(ps)}`;
   bindPlayLinks();
 }
 
@@ -353,13 +402,13 @@ function renderSkill() {
   const top = Object.values(fl.reduce((m, f) => { const k = f.primaryName + f.team; (m[k] ||= { n:f.primaryName, pos:f.primaryPos, t:f.team, c:0, p:[] }); m[k].c++; m[k].p.push(f.gameId + '_' + f.playId); return m; }, {}))
     .sort((a, b) => b.c - a.c).slice(0, 10);
   $('#main').innerHTML = `
-    <p class="summary">Share of pass-block reps that allow a sack, hit or hurry (PFF), by position. <b>Running backs are the weakest link.</b></p>
+    <p class="summary">Share of pass-block snaps that allow a sack, hit or hurry (PFF), by position. <b>Running backs are the weakest link.</b></p>${DEFN}
     <div class="stats">
-      <div class="stat hl"><b>11.3%</b><span>Running back (RB) · 1,554 reps</span></div>
-      <div class="stat"><b>8.6%</b><span>Tight end (TE) · 1,432 reps</span></div>
-      <div class="stat"><b>7.4%</b><span>Tackle · 17,924 reps</span></div>
-      <div class="stat"><b>5.9%</b><span>Guard · 16,542 reps</span></div>
-      <div class="stat"><b>4.2%</b><span>Center · 8,411 reps</span></div>
+      <div class="stat hl"><b>11.3%</b><span>Running back (RB) · 1,554 snaps</span></div>
+      <div class="stat"><b>8.6%</b><span>Tight end (TE) · 1,432 snaps</span></div>
+      <div class="stat"><b>7.4%</b><span>Tackle · 17,924 snaps</span></div>
+      <div class="stat"><b>5.9%</b><span>Guard · 16,542 snaps</span></div>
+      <div class="stat"><b>4.2%</b><span>Center · 8,411 snaps</span></div>
     </div>
     <h2>Backs and tight ends who allowed the most pressure</h2>
     ${HINT('Click Play 1, 2 or 3 to watch the error.')}
@@ -396,7 +445,7 @@ async function openPlay(key, frame) {
   $('#vdesc').textContent = h.desc;
   $('#vflags').innerHTML = P.flags.map(f => `<div class="flagcard" style="border-left-color:${LEVEL_COLOR[f.confidenceLevel]}" data-fr="${f.errorFrameId}">
     <b>${TYPE[f.errorType]}</b> <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span><br>${f.explanation.replace('Likely: check the film - ', '')}
-    <small>Play EPA (shared) ${fmt(f.epaCost)} · jump to error moment</small></div>`).join('');
+    <small>${severity(f.epaCost).label} · ${severity(f.epaCost).text}${outcome(f) ? ' · ' + outcome(f) : ''} · click to jump to the error</small></div>`).join('');
   document.querySelectorAll('.flagcard').forEach(d => d.onclick = () => seek(P.frameIds.indexOf(+d.dataset.fr)));
   $('#scrub').max = P.frameIds.length - 1;
   url.searchParams.set('play', key); history.replaceState(null, '', url);

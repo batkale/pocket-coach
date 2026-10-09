@@ -1,0 +1,167 @@
+{
+ "rush_grp": [
+  {
+   "rush_grp": "4 or fewer rushers",
+   "mean": 0.43,
+   "size": 6449
+  },
+  {
+   "rush_grp": "5-man pressure",
+   "mean": 0.5,
+   "size": 1689
+  },
+  {
+   "rush_grp": "6+ man blitz",
+   "mean": 0.493,
+   "size": 418
+  }
+ ],
+ "sit": [
+  {
+   "sit": "1st/2nd down",
+   "mean": 0.417,
+   "size": 5932
+  },
+  {
+   "sit": "3rd/4th & long (7+)",
+   "mean": 0.548,
+   "size": 1306
+  },
+  {
+   "sit": "3rd/4th & short",
+   "mean": 0.48,
+   "size": 1318
+  }
+ ],
+ "pa": [
+  {
+   "pa": "Play action",
+   "mean": 0.374,
+   "size": 2038
+  },
+  {
+   "pa": "Straight dropback",
+   "mean": 0.469,
+   "size": 6518
+  }
+ ],
+ "slot": [
+  {
+   "slot": "Center",
+   "mean": 0.069,
+   "size": 8557
+  },
+  {
+   "slot": "Left guard",
+   "mean": 0.091,
+   "size": 8557
+  },
+  {
+   "slot": "Left tackle",
+   "mean": 0.122,
+   "size": 8556
+  },
+  {
+   "slot": "Right guard",
+   "mean": 0.1,
+   "size": 8557
+  },
+  {
+   "slot": "Right tackle",
+   "mean": 0.135,
+   "size": 8555
+  },
+  {
+   "slot": "Running back",
+   "mean": 0.161,
+   "size": 1694
+  },
+  {
+   "slot": "Tight end",
+   "mean": 0.128,
+   "size": 1368
+  }
+ ],
+ "timing": {
+  "normal (2.5-3.5 s)": 0.449,
+  "fast (under 2.5 s)": 0.434,
+  "late (over 3.5 s)": 0.117
+ }
+}
+{
+ "dropbacks": 255,
+ "rate": 0.41568627450980394,
+ "league": 0.4468209443665264,
+ "items": [
+  {
+   "dim": "pa",
+   "value": "Play action",
+   "headline": "Play action: breakdown on 42% of dropbacks (league 37%)",
+   "n": 57,
+   "k": 24,
+   "rate": 0.42105263157894735,
+   "league": 0.37438665358194306,
+   "lo": 0.31946540710855176,
+   "hi": 0.5297952061754371,
+   "strong": false,
+   "tell": "Linemen: sell the run but get depth to the set point fast. Back: finish the fake and then pick up.",
+   "tactic": "Shorten play-action drops or add a 7th blocker. Use boots to move the QB away from the pressure.",
+   "attack": "Don't bite on play action. Rush hard through the fake, because their play-action protection leaks.",
+   "players": [],
+   "examples": [
+    {
+     "play": "2021091200_1271",
+     "frame": 29,
+     "who": "Jordan Mailata"
+    },
+    {
+     "play": "2021101400_1399",
+     "frame": 37,
+     "who": "Jason Kelce"
+    },
+    {
+     "play": "2021101001_2802",
+     "frame": 38,
+     "who": "Jordan Mailata"
+    }
+   ]
+  },
+  {
+   "dim": "sit",
+   "value": "3rd/4th & short",
+   "headline": "3rd/4th & short: breakdown on 52% of dropbacks (league 48%)",
+   "n": 42,
+   "k": 22,
+   "rate": 0.5238095238095238,
+   "league": 0.4802731411229135,
+   "lo": 0.3994931029029147,
+   "hi": 0.6452439256751134,
+   "strong": false,
+   "tell": "Stay square and expect pressure off the edge. The ball comes out fast.",
+   "tactic": "Use quick-game or play-action keepers with an extra blocker on the edge.",
+   "attack": "Pressure the edge on short-yardage passing downs.",
+   "players": [],
+   "examples": [
+    {
+     "play": "2021091200_1271",
+     "frame": 29,
+     "who": "Jordan Mailata"
+    },
+    {
+     "play": "2021092700_4156",
+     "frame": 35,
+     "who": "Lane Johnson"
+    },
+    {
+     "play": "2021091200_2631",
+     "frame": 48,
+     "who": "Jason Kelce"
+    }
+   ]
+  }
+ ],
+ "strengths": [
+  "Straight dropback: 41% vs league 47% (198 dropbacks)",
+  "1st/2nd down: 36% vs league 42% (181 dropbacks)"
+ ]
+}

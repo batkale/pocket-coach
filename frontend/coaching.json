@@ -41,7 +41,7 @@
    ],
    "strengths": [
     "3rd/4th & long (7+): 29% vs league 55% (31 dropbacks)",
-    "Running back: 6% vs league 16% (49 pass-block reps)"
+    "Running back: 6% vs league 16% (49 pass-block snaps)"
    ]
   },
   "ATL": {
@@ -85,7 +85,7 @@
     {
      "dim": "slot",
      "value": "Left guard",
-     "headline": "Left guard: breakdown on 14% of pass-block reps (league 9%)",
+     "headline": "Left guard: breakdown on 14% of pass-block snaps (league 9%)",
      "n": 289,
      "k": 40,
      "rate": 0.1384083044982699,
@@ -97,7 +97,7 @@
      "tactic": "Slide the center toward the left guard and use more quick inside throws.",
      "attack": "Attack their left guard with power and A/B-gap twists.",
      "players": [
-      "Jalen Mayfield (40 of 286 reps)"
+      "Jalen Mayfield (40 of 286 snaps)"
      ],
      "examples": [
       {
@@ -186,7 +186,7 @@
     {
      "dim": "slot",
      "value": "Tight end",
-     "headline": "Tight end: breakdown on 19% of pass-block reps (league 13%)",
+     "headline": "Tight end: breakdown on 19% of pass-block snaps (league 13%)",
      "n": 62,
      "k": 12,
      "rate": 0.1935483870967742,
@@ -198,8 +198,8 @@
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
      "attack": "Rush the edge over their tight end when he stays in to block.",
      "players": [
-      "Hayden Hurst (7 of 18 reps)",
-      "Lee Smith (3 of 35 reps)"
+      "Hayden Hurst (7 of 18 snaps)",
+      "Lee Smith (3 of 35 snaps)"
      ],
      "examples": [
       {
@@ -221,8 +221,8 @@
     }
    ],
    "strengths": [
-    "Left tackle: 8% vs league 12% (289 pass-block reps)",
-    "Right guard: 6% vs league 10% (289 pass-block reps)"
+    "Left tackle: 8% vs league 12% (289 pass-block snaps)",
+    "Right guard: 6% vs league 10% (289 pass-block snaps)"
    ]
   },
   "BAL": {
@@ -266,7 +266,7 @@
     {
      "dim": "slot",
      "value": "Left tackle",
-     "headline": "Left tackle: breakdown on 18% of pass-block reps (league 12%)",
+     "headline": "Left tackle: breakdown on 18% of pass-block snaps (league 12%)",
      "n": 271,
      "k": 50,
      "rate": 0.18450184501845018,
@@ -278,8 +278,8 @@
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
      "attack": "Put your best edge rusher over their left tackle.",
      "players": [
-      "Alejandro Villanueva (36 of 216 reps)",
-      "Ronnie Stanley (13 of 36 reps)"
+      "Alejandro Villanueva (36 of 216 snaps)",
+      "Ronnie Stanley (13 of 36 snaps)"
      ],
      "examples": [
       {
@@ -313,7 +313,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 26% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 26% of pass-block snaps (league 16%)",
      "n": 47,
      "k": 12,
      "rate": 0.2553191489361702,
@@ -325,8 +325,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Devin Singletary (6 of 21 reps)",
-      "Zack Moss (5 of 17 reps)"
+      "Devin Singletary (6 of 21 snaps)",
+      "Zack Moss (5 of 17 snaps)"
      ],
      "examples": [
       {
@@ -524,7 +524,7 @@
     {
      "dim": "slot",
      "value": "Right guard",
-     "headline": "Right guard: breakdown on 15% of pass-block reps (league 10%)",
+     "headline": "Right guard: breakdown on 15% of pass-block snaps (league 10%)",
      "n": 294,
      "k": 45,
      "rate": 0.15306122448979592,
@@ -536,8 +536,8 @@
      "tactic": "Slide the center toward the right guard and use more quick inside throws.",
      "attack": "Attack their right guard with power and A/B-gap twists.",
      "players": [
-      "John Miller (28 of 221 reps)",
-      "Dennis Daley (10 of 31 reps)"
+      "John Miller (28 of 221 snaps)",
+      "Dennis Daley (10 of 31 snaps)"
      ],
      "examples": [
       {
@@ -560,7 +560,7 @@
     {
      "dim": "slot",
      "value": "Left tackle",
-     "headline": "Left tackle: breakdown on 16% of pass-block reps (league 12%)",
+     "headline": "Left tackle: breakdown on 16% of pass-block snaps (league 12%)",
      "n": 294,
      "k": 48,
      "rate": 0.16326530612244897,
@@ -572,8 +572,8 @@
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
      "attack": "Put your best edge rusher over their left tackle.",
      "players": [
-      "Cameron Erving (35 of 216 reps)",
-      "Brady Christensen (8 of 41 reps)"
+      "Cameron Erving (35 of 216 snaps)",
+      "Brady Christensen (8 of 41 snaps)"
      ],
      "examples": [
       {
@@ -639,7 +639,7 @@
     {
      "dim": "slot",
      "value": "Tight end",
-     "headline": "Tight end: breakdown on 21% of pass-block reps (league 13%)",
+     "headline": "Tight end: breakdown on 21% of pass-block snaps (league 13%)",
      "n": 57,
      "k": 12,
      "rate": 0.21052631578947367,
@@ -651,8 +651,8 @@
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
      "attack": "Rush the edge over their tight end when he stays in to block.",
      "players": [
-      "Cole Kmet (8 of 28 reps)",
-      "Jesse James (2 of 14 reps)"
+      "Cole Kmet (8 of 28 snaps)",
+      "Jesse James (2 of 14 snaps)"
      ],
      "examples": [
       {
@@ -773,7 +773,7 @@
     }
    ],
    "strengths": [
-    "Running back: 8% vs league 16% (53 pass-block reps)",
+    "Running back: 8% vs league 16% (53 pass-block snaps)",
     "Play action: 31% vs league 37% (62 dropbacks)"
    ]
   },
@@ -961,7 +961,7 @@
     {
      "dim": "slot",
      "value": "Left tackle",
-     "headline": "Left tackle: breakdown on 20% of pass-block reps (league 12%)",
+     "headline": "Left tackle: breakdown on 20% of pass-block snaps (league 12%)",
      "n": 249,
      "k": 50,
      "rate": 0.20080321285140562,
@@ -973,8 +973,8 @@
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
      "attack": "Put your best edge rusher over their left tackle.",
      "players": [
-      "Jedrick Wills (31 of 149 reps)",
-      "Blake Hance (12 of 73 reps)"
+      "Jedrick Wills (31 of 149 snaps)",
+      "Blake Hance (12 of 73 snaps)"
      ],
      "examples": [
       {
@@ -1049,14 +1049,14 @@
        "who": "Joel Bitonio"
       },
       {
-       "play": "2021101708_4122",
-       "frame": 24,
-       "who": "Wyatt Teller"
-      },
-      {
        "play": "2021101708_2655",
        "frame": 35,
        "who": "James Hudson"
+      },
+      {
+       "play": "2021100305_936",
+       "frame": 20,
+       "who": "Jedrick Wills"
       }
      ]
     },
@@ -1129,7 +1129,7 @@
    ],
    "strengths": [
     "Play action: 24% vs league 37% (68 dropbacks)",
-    "Left guard: 4% vs league 9% (249 pass-block reps)"
+    "Left guard: 4% vs league 9% (249 pass-block snaps)"
    ]
   },
   "DAL": {
@@ -1140,7 +1140,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 31% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 31% of pass-block snaps (league 16%)",
      "n": 52,
      "k": 16,
      "rate": 0.3076923076923077,
@@ -1152,8 +1152,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Ezekiel Elliott (9 of 29 reps)",
-      "Tony Pollard (6 of 19 reps)"
+      "Ezekiel Elliott (9 of 29 snaps)",
+      "Tony Pollard (6 of 19 snaps)"
      ],
      "examples": [
       {
@@ -1167,9 +1167,9 @@
        "who": "Ezekiel Elliott"
       },
       {
-       "play": "2021090900_349",
-       "frame": 33,
-       "who": "Ezekiel Elliott"
+       "play": "2021101710_2235",
+       "frame": 15,
+       "who": "Tony Pollard"
       }
      ]
     }
@@ -1187,7 +1187,7 @@
     {
      "dim": "slot",
      "value": "Tight end",
-     "headline": "Tight end: breakdown on 20% of pass-block reps (league 13%)",
+     "headline": "Tight end: breakdown on 20% of pass-block snaps (league 13%)",
      "n": 46,
      "k": 9,
      "rate": 0.1956521739130435,
@@ -1199,8 +1199,8 @@
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
      "attack": "Rush the edge over their tight end when he stays in to block.",
      "players": [
-      "Noah Fant (6 of 18 reps)",
-      "Eric Saubert (1 of 17 reps)"
+      "Noah Fant (6 of 18 snaps)",
+      "Eric Saubert (1 of 17 snaps)"
      ],
      "examples": [
       {
@@ -1223,7 +1223,7 @@
    ],
    "strengths": [
     "3rd/4th & long (7+): 47% vs league 55% (58 dropbacks)",
-    "Running back: 12% vs league 16% (43 pass-block reps)"
+    "Running back: 12% vs league 16% (43 pass-block snaps)"
    ]
   },
   "DET": {
@@ -1333,7 +1333,7 @@
     {
      "dim": "slot",
      "value": "Right tackle",
-     "headline": "Right tackle: breakdown on 21% of pass-block reps (league 14%)",
+     "headline": "Right tackle: breakdown on 21% of pass-block snaps (league 14%)",
      "n": 328,
      "k": 70,
      "rate": 0.21341463414634146,
@@ -1345,7 +1345,7 @@
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
      "attack": "Put your best edge rusher over their right tackle.",
      "players": [
-      "Matt Nelson (70 of 328 reps)"
+      "Matt Nelson (70 of 328 snaps)"
      ],
      "examples": [
       {
@@ -1400,7 +1400,7 @@
     }
    ],
    "strengths": [
-    "Tight end: 8% vs league 13% (24 pass-block reps)"
+    "Tight end: 8% vs league 13% (24 pass-block snaps)"
    ]
   },
   "GB": {
@@ -1421,7 +1421,7 @@
     {
      "dim": "slot",
      "value": "Left guard",
-     "headline": "Left guard: breakdown on 13% of pass-block reps (league 9%)",
+     "headline": "Left guard: breakdown on 13% of pass-block snaps (league 9%)",
      "n": 251,
      "k": 33,
      "rate": 0.13147410358565736,
@@ -1433,7 +1433,7 @@
      "tactic": "Slide the center toward the left guard and use more quick inside throws.",
      "attack": "Attack their left guard with power and A/B-gap twists.",
      "players": [
-      "Tytus Howard (33 of 251 reps)"
+      "Tytus Howard (33 of 251 snaps)"
      ],
      "examples": [
       {
@@ -1447,8 +1447,8 @@
        "who": "Tytus Howard"
       },
       {
-       "play": "2021091205_1808",
-       "frame": 32,
+       "play": "2021102408_1414",
+       "frame": 10,
        "who": "Tytus Howard"
       }
      ]
@@ -1470,11 +1470,6 @@
      "players": [],
      "examples": [
       {
-       "play": "2021101705_2947",
-       "frame": 36,
-       "who": "Geron Christian"
-      },
-      {
        "play": "2021100301_471",
        "frame": 37,
        "who": "Rex Burkhead"
@@ -1483,13 +1478,18 @@
        "play": "2021100301_471",
        "frame": 34,
        "who": "David Johnson"
+      },
+      {
+       "play": "2021101705_2947",
+       "frame": 36,
+       "who": "Geron Christian"
       }
      ]
     },
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 23% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 23% of pass-block snaps (league 16%)",
      "n": 66,
      "k": 15,
      "rate": 0.22727272727272727,
@@ -1501,8 +1501,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "David Johnson (10 of 28 reps)",
-      "Rex Burkhead (3 of 11 reps)"
+      "David Johnson (10 of 28 snaps)",
+      "Rex Burkhead (3 of 11 snaps)"
      ],
      "examples": [
       {
@@ -1516,8 +1516,8 @@
        "who": "David Johnson"
       },
       {
-       "play": "2021101705_585",
-       "frame": 30,
+       "play": "2021100301_2575",
+       "frame": 47,
        "who": "David Johnson"
       }
      ]
@@ -1572,9 +1572,9 @@
      "players": [],
      "examples": [
       {
-       "play": "2021101705_2947",
-       "frame": 36,
-       "who": "Geron Christian"
+       "play": "2021103105_1267",
+       "frame": 35,
+       "who": "Tytus Howard"
       },
       {
        "play": "2021103105_1267",
@@ -1582,9 +1582,9 @@
        "who": "Justin McCray"
       },
       {
-       "play": "2021103105_1267",
-       "frame": 35,
-       "who": "Tytus Howard"
+       "play": "2021100301_471",
+       "frame": 37,
+       "who": "Rex Burkhead"
       }
      ]
     }
@@ -1698,7 +1698,7 @@
     {
      "dim": "slot",
      "value": "Left tackle",
-     "headline": "Left tackle: breakdown on 17% of pass-block reps (league 12%)",
+     "headline": "Left tackle: breakdown on 17% of pass-block snaps (league 12%)",
      "n": 258,
      "k": 43,
      "rate": 0.16666666666666666,
@@ -1710,8 +1710,8 @@
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
      "attack": "Put your best edge rusher over their left tackle.",
      "players": [
-      "Eric Fisher (34 of 209 reps)",
-      "Julien Davenport (9 of 49 reps)"
+      "Eric Fisher (34 of 209 snaps)",
+      "Julien Davenport (9 of 49 snaps)"
      ],
      "examples": [
       {
@@ -1766,7 +1766,7 @@
     }
    ],
    "strengths": [
-    "Tight end: 8% vs league 13% (26 pass-block reps)"
+    "Tight end: 8% vs league 13% (26 pass-block snaps)"
    ]
   },
   "JAX": {
@@ -1777,7 +1777,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 23% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 23% of pass-block snaps (league 16%)",
      "n": 39,
      "k": 9,
      "rate": 0.23076923076923078,
@@ -1789,8 +1789,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Carlos Hyde (5 of 15 reps)",
-      "James Robinson (3 of 21 reps)"
+      "Carlos Hyde (5 of 15 snaps)",
+      "James Robinson (3 of 21 snaps)"
      ],
      "examples": [
       {
@@ -1813,7 +1813,7 @@
    ],
    "strengths": [
     "5-man pressure: 34% vs league 50% (50 dropbacks)",
-    "Tight end: 5% vs league 13% (37 pass-block reps)"
+    "Tight end: 5% vs league 13% (37 pass-block snaps)"
    ]
   },
   "KC": {
@@ -1857,7 +1857,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 24% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 24% of pass-block snaps (league 16%)",
      "n": 34,
      "k": 8,
      "rate": 0.23529411764705882,
@@ -1869,8 +1869,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Darrel Williams (4 of 16 reps)",
-      "Clyde Edwards-Helaire (4 of 14 reps)"
+      "Darrel Williams (4 of 16 snaps)",
+      "Clyde Edwards-Helaire (4 of 14 snaps)"
      ],
      "examples": [
       {
@@ -1893,7 +1893,7 @@
    ],
    "strengths": [
     "3rd/4th & short: 37% vs league 48% (49 dropbacks)",
-    "Tight end: 3% vs league 13% (35 pass-block reps)"
+    "Tight end: 3% vs league 13% (35 pass-block snaps)"
    ]
   },
   "LA": {
@@ -1969,7 +1969,7 @@
     }
    ],
    "strengths": [
-    "Tight end: 3% vs league 13% (33 pass-block reps)",
+    "Tight end: 3% vs league 13% (33 pass-block snaps)",
     "5-man pressure: 42% vs league 50% (40 dropbacks)"
    ]
   },
@@ -1981,7 +1981,7 @@
     {
      "dim": "slot",
      "value": "Right tackle",
-     "headline": "Right tackle: breakdown on 19% of pass-block reps (league 14%)",
+     "headline": "Right tackle: breakdown on 19% of pass-block snaps (league 14%)",
      "n": 274,
      "k": 51,
      "rate": 0.18613138686131386,
@@ -1993,8 +1993,8 @@
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
      "attack": "Put your best edge rusher over their right tackle.",
      "players": [
-      "Storm Norton (48 of 247 reps)",
-      "Bryan Bulaga (3 of 27 reps)"
+      "Storm Norton (48 of 247 snaps)",
+      "Bryan Bulaga (3 of 27 snaps)"
      ],
      "examples": [
       {
@@ -2017,7 +2017,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 24% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 24% of pass-block snaps (league 16%)",
      "n": 51,
      "k": 12,
      "rate": 0.23529411764705882,
@@ -2029,15 +2029,10 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Austin Ekeler (6 of 25 reps)",
-      "Justin Jackson (3 of 10 reps)"
+      "Austin Ekeler (6 of 25 snaps)",
+      "Justin Jackson (3 of 10 snaps)"
      ],
      "examples": [
-      {
-       "play": "2021092604_4044",
-       "frame": 24,
-       "who": "Austin Ekeler"
-      },
       {
        "play": "2021101701_669",
        "frame": 40,
@@ -2047,6 +2042,11 @@
        "play": "2021103108_2426",
        "frame": 62,
        "who": "Austin Ekeler"
+      },
+      {
+       "play": "2021091911_1818",
+       "frame": 34,
+       "who": "Justin Jackson"
       }
      ]
     },
@@ -2130,7 +2130,7 @@
     {
      "dim": "slot",
      "value": "Right tackle",
-     "headline": "Right tackle: breakdown on 25% of pass-block reps (league 14%)",
+     "headline": "Right tackle: breakdown on 25% of pass-block snaps (league 14%)",
      "n": 264,
      "k": 66,
      "rate": 0.25,
@@ -2142,8 +2142,8 @@
      "tactic": "Chip the right edge with the back or TE, or slide the protection right.",
      "attack": "Put your best edge rusher over their right tackle.",
      "players": [
-      "Alex Leatherwood (44 of 160 reps)",
-      "Brandon Parker (22 of 104 reps)"
+      "Alex Leatherwood (44 of 160 snaps)",
+      "Brandon Parker (22 of 104 snaps)"
      ],
      "examples": [
       {
@@ -2292,12 +2292,12 @@
        "who": "Solomon Kindley"
       },
       {
-       "play": "2021091905_3168",
-       "frame": 27,
-       "who": "Liam Eichenberg"
+       "play": "2021100304_340",
+       "frame": 28,
+       "who": "Greg Mancz"
       },
       {
-       "play": "2021101700_1190",
+       "play": "2021103101_3566",
        "frame": 29,
        "who": "Jesse Davis"
       }
@@ -2437,7 +2437,7 @@
     }
    ],
    "strengths": [
-    "Running back: 10% vs league 16% (92 pass-block reps)"
+    "Running back: 10% vs league 16% (92 pass-block snaps)"
    ]
   },
   "MIN": {
@@ -2505,9 +2505,9 @@
        "who": "Rashod Hill"
       },
       {
-       "play": "2021103112_1045",
-       "frame": 35,
-       "who": "Christian Darrisaw"
+       "play": "2021091203_2952",
+       "frame": 32,
+       "who": "Ezra Cleveland"
       }
      ]
     },
@@ -2612,7 +2612,7 @@
     }
    ],
    "strengths": [
-    "Right tackle: 6% vs league 14% (254 pass-block reps)"
+    "Right tackle: 6% vs league 14% (254 pass-block snaps)"
    ]
   },
   "NE": {
@@ -2637,8 +2637,8 @@
      "players": [],
      "examples": [
       {
-       "play": "2021091906_283",
-       "frame": 31,
+       "play": "2021101710_2137",
+       "frame": 30,
        "who": "Isaiah Wynn"
       },
       {
@@ -2647,8 +2647,8 @@
        "who": "Michael Onwenu"
       },
       {
-       "play": "2021101710_2137",
-       "frame": 30,
+       "play": "2021091906_283",
+       "frame": 31,
        "who": "Isaiah Wynn"
       }
      ]
@@ -2755,7 +2755,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 22% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 22% of pass-block snaps (league 16%)",
      "n": 88,
      "k": 19,
      "rate": 0.2159090909090909,
@@ -2767,31 +2767,31 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Damien Harris (7 of 32 reps)",
-      "Brandon Bolden (6 of 24 reps)"
+      "Damien Harris (7 of 32 snaps)",
+      "Brandon Bolden (6 of 24 snaps)"
      ],
      "examples": [
-      {
-       "play": "2021091210_1368",
-       "frame": 31,
-       "who": "Hunter Henry"
-      },
-      {
-       "play": "2021101003_3397",
-       "frame": 35,
-       "who": "Brandon Bolden"
-      },
       {
        "play": "2021100313_2702",
        "frame": 41,
        "who": "Damien Harris"
+      },
+      {
+       "play": "2021092605_537",
+       "frame": 44,
+       "who": "Damien Harris"
+      },
+      {
+       "play": "2021091906_3050",
+       "frame": 32,
+       "who": "James White"
       }
      ]
     }
    ],
    "strengths": [
     "4 or fewer rushers: 36% vs league 43% (183 dropbacks)",
-    "Right guard: 5% vs league 10% (286 pass-block reps)"
+    "Right guard: 5% vs league 10% (286 pass-block snaps)"
    ]
   },
   "NO": {
@@ -2854,14 +2854,14 @@
        "who": "Andrus Peat"
       },
       {
-       "play": "2021091900_1779",
-       "frame": 26,
-       "who": "Alvin Kamara"
-      },
-      {
        "play": "2021101008_2691",
        "frame": 38,
        "who": "Ryan Ramczyk"
+      },
+      {
+       "play": "2021102500_253",
+       "frame": 37,
+       "who": "Terron Armstead"
       }
      ]
     },
@@ -2892,9 +2892,9 @@
        "who": "Ryan Ramczyk"
       },
       {
-       "play": "2021091900_1779",
-       "frame": 26,
-       "who": "Alvin Kamara"
+       "play": "2021101008_2691",
+       "frame": 38,
+       "who": "Ryan Ramczyk"
       }
      ]
     },
@@ -2967,7 +2967,7 @@
    ],
    "strengths": [
     "3rd/4th & short: 41% vs league 48% (27 dropbacks)",
-    "Left tackle: 8% vs league 12% (203 pass-block reps)"
+    "Left tackle: 8% vs league 12% (203 pass-block snaps)"
    ]
   },
   "NYG": {
@@ -2977,7 +2977,7 @@
    "items": [],
    "strengths": [
     "3rd/4th & short: 40% vs league 48% (43 dropbacks)",
-    "Running back: 10% vs league 16% (63 pass-block reps)"
+    "Running back: 10% vs league 16% (63 pass-block snaps)"
    ]
   },
   "NYJ": {
@@ -3021,7 +3021,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 21% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 21% of pass-block snaps (league 16%)",
      "n": 67,
      "k": 14,
      "rate": 0.208955223880597,
@@ -3033,8 +3033,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Ty Johnson (6 of 30 reps)",
-      "Michael Carter (4 of 23 reps)"
+      "Ty Johnson (6 of 30 snaps)",
+      "Michael Carter (4 of 23 snaps)"
      ],
      "examples": [
       {
@@ -3175,7 +3175,7 @@
     {
      "dim": "slot",
      "value": "Left tackle",
-     "headline": "Left tackle: breakdown on 21% of pass-block reps (league 12%)",
+     "headline": "Left tackle: breakdown on 21% of pass-block snaps (league 12%)",
      "n": 238,
      "k": 49,
      "rate": 0.20588235294117646,
@@ -3187,7 +3187,7 @@
      "tactic": "Chip the left edge with the back or TE, or slide the protection left.",
      "attack": "Put your best edge rusher over their left tackle.",
      "players": [
-      "Dan Moore (49 of 229 reps)"
+      "Dan Moore (49 of 229 snaps)"
      ],
      "examples": [
       {
@@ -3276,7 +3276,7 @@
    ],
    "strengths": [
     "Play action: 19% vs league 37% (26 dropbacks)",
-    "Tight end: 0% vs league 13% (27 pass-block reps)"
+    "Tight end: 0% vs league 13% (27 pass-block snaps)"
    ]
   },
   "SEA": {
@@ -3320,7 +3320,7 @@
     {
      "dim": "slot",
      "value": "Center",
-     "headline": "Center: breakdown on 11% of pass-block reps (league 7%)",
+     "headline": "Center: breakdown on 11% of pass-block snaps (league 7%)",
      "n": 233,
      "k": 26,
      "rate": 0.11158798283261803,
@@ -3332,8 +3332,8 @@
      "tactic": "Use a double-team call on the nose / A-gap threat.",
      "attack": "Run A-gap pressure and twists at the center.",
      "players": [
-      "Kyle Fuller (23 of 197 reps)",
-      "Ethan Pocic (3 of 36 reps)"
+      "Kyle Fuller (23 of 197 snaps)",
+      "Ethan Pocic (3 of 36 snaps)"
      ],
      "examples": [
       {
@@ -3473,7 +3473,7 @@
     {
      "dim": "slot",
      "value": "Tight end",
-     "headline": "Tight end: breakdown on 22% of pass-block reps (league 13%)",
+     "headline": "Tight end: breakdown on 22% of pass-block snaps (league 13%)",
      "n": 45,
      "k": 10,
      "rate": 0.2222222222222222,
@@ -3485,8 +3485,8 @@
      "tactic": "Pair the TE with a back chip, or release the TE to the flat and slide the protection to cover.",
      "attack": "Rush the edge over their tight end when he stays in to block.",
      "players": [
-      "O.J. Howard (6 of 18 reps)",
-      "Rob Gronkowski (2 of 13 reps)"
+      "O.J. Howard (6 of 18 snaps)",
+      "Rob Gronkowski (2 of 13 snaps)"
      ],
      "examples": [
       {
@@ -3542,7 +3542,7 @@
     {
      "dim": "slot",
      "value": "Running back",
-     "headline": "Running back: breakdown on 22% of pass-block reps (league 16%)",
+     "headline": "Running back: breakdown on 22% of pass-block snaps (league 16%)",
      "n": 36,
      "k": 8,
      "rate": 0.2222222222222222,
@@ -3554,8 +3554,8 @@
      "tactic": "Fewer RB-only protection calls, use a chip and release, and send the back out as a hot route.",
      "attack": "Blitz the linebacker at their running back. Their backs lose in pickup.",
      "players": [
-      "Leonard Fournette (3 of 17 reps)",
-      "Giovani Bernard (2 of 13 reps)"
+      "Leonard Fournette (3 of 17 snaps)",
+      "Giovani Bernard (2 of 13 snaps)"
      ],
      "examples": [
       {
