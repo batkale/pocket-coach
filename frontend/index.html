@@ -159,7 +159,7 @@
 <main>
   <div class="toolbar">
     <div class="seg" role="tablist" aria-label="View">
-      <button id="tPlan">Game plan</button><button id="tAlerts">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">RB / TE blocking</button>
+      <button id="tPlan">Game plan</button><button id="tAlerts">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">Weak links</button>
     </div>
   </div>
   <div id="main"><p class="summary">Loading…</p></div>
@@ -252,6 +252,7 @@ function teamColors(off, def) {
   return { off: o, def: close(o, d1) ? (close(o, d2) ? '#d50a0a' : d2) : d1 };
 }
 const team = () => state.mode === 'self' ? $('#myTeam').value : $('#opponent').value;
+const POS = { RB:'Running back', TE:'Tight end', FB:'Fullback' };
 const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
 const fmt = c => c == null ? 'n/a' : (c > 0 ? '+' : '') + c.toFixed(2);
 const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTeam;
@@ -354,16 +355,16 @@ function renderSkill() {
   $('#main').innerHTML = `
     <p class="summary">Share of pass-block reps that allow a sack, hit or hurry (PFF), by position. <b>Running backs are the weakest link.</b></p>
     <div class="stats">
-      <div class="stat hl"><b>11.3%</b><span>RB · 1,554 reps</span></div>
-      <div class="stat"><b>8.6%</b><span>TE · 1,432 reps</span></div>
+      <div class="stat hl"><b>11.3%</b><span>Running back (RB) · 1,554 reps</span></div>
+      <div class="stat"><b>8.6%</b><span>Tight end (TE) · 1,432 reps</span></div>
       <div class="stat"><b>7.4%</b><span>Tackle · 17,924 reps</span></div>
       <div class="stat"><b>5.9%</b><span>Guard · 16,542 reps</span></div>
       <div class="stat"><b>4.2%</b><span>Center · 8,411 reps</span></div>
     </div>
-    <h2>Most-flagged RB / TE blockers</h2>
+    <h2>Backs and tight ends who allowed the most pressure</h2>
     ${HINT('Click Play 1, 2 or 3 to watch the error.')}
     <div class="card"><table><thead><tr><th>Player</th><th>Team</th><th>Flags</th><th>Replays</th></tr></thead><tbody>
-    ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${r.pos}</span></td><td>${LOGO(r.t)} ${r.t}</td><td class="num">${r.c}</td>
+    ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${POS[r.pos] || r.pos}</span></td><td title="${TEAMS[r.t] ? TEAMS[r.t].name : r.t}">${LOGO(r.t)} ${r.t}</td><td class="num">${r.c}</td>
       <td>${r.p.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}
     </tbody></table></div>`;
   bindPlayLinks();
