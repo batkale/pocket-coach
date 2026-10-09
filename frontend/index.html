@@ -3,100 +3,176 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pass Protection Error Finder</title>
+<title>Protection Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0f1419; --panel:#182029; --line:#2a3542; --text:#e6edf3; --muted:#8b98a5;
-          --conf:#e5534b; --likely:#e0a030; --poss:#539bf5; --off:#4f9cf9; --def:#f2f2f2; --accent:#3fb950; }
+  :root {
+    --bg:#f8fafc; --surface:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0; --soft:#f1f5f9;
+    --primary:#1e40af; --primary-soft:#dbeafe; --accent:#d97706;
+    --conf:#dc2626; --likely:#d97706;
+    --off:#1e40af; --def:#dc2626;
+  }
   * { box-sizing:border-box; }
-  body { margin:0; font:14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif; background:var(--bg); color:var(--text); }
-  header { display:flex; flex-wrap:wrap; gap:12px; align-items:center; padding:10px 16px; background:var(--panel); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5; }
-  header h1 { font-size:16px; margin:0 12px 0 0; }
-  select, button, input { background:#0d1117; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:5px 8px; font:inherit; }
-  button { cursor:pointer; } button.on { background:var(--accent); color:#000; border-color:var(--accent); }
-  nav { display:flex; gap:6px; padding:10px 16px; }
-  main { padding:0 16px 24px; }
-  .filters { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px; align-items:center; }
+  body { margin:0; font:15px/1.5 'Fira Sans', system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  button, select { font:inherit; color:inherit; cursor:pointer; }
+  select { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 10px; min-height:38px; }
+  button { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px; min-height:38px; transition:background .15s, border-color .15s; }
+  button:hover { border-color:#94a3b8; }
+  button:focus-visible, select:focus-visible, tr:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+  .seg { display:inline-flex; background:var(--soft); border-radius:10px; padding:3px; gap:2px; }
+  .seg button { border:0; background:transparent; min-height:32px; padding:5px 14px; color:var(--muted); font-weight:500; }
+  .seg button.on { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(15,23,42,.12); }
+
+  header { background:var(--surface); border-bottom:1px solid var(--border); }
+  .bar { max-width:1180px; margin:0 auto; padding:14px 16px; display:flex; flex-wrap:wrap; gap:12px 16px; align-items:center; }
+  .brand { font-weight:700; font-size:17px; margin-right:auto; display:flex; align-items:center; gap:8px; }
+  .brand svg { color:var(--primary); }
+  label.inline { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:14px; }
+  .link { background:none; border:0; color:var(--primary); padding:0; min-height:auto; text-decoration:underline; text-underline-offset:3px; }
+
+  main { max-width:1180px; margin:0 auto; padding:20px 16px 48px; }
+  .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px; }
+  .summary { color:var(--muted); margin:0 0 16px; }
+  .summary b { color:var(--text); }
+
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .list-row { display:grid; grid-template-columns: 1fr auto; gap:4px 16px; padding:14px 18px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
+  .list-row:last-child { border-bottom:0; }
+  .list-row:hover { background:var(--soft); }
+  .list-row .who { font-weight:600; }
+  .list-row .meta { color:var(--muted); font-size:13px; grid-column:1; }
+  .list-row .epa { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+  .list-row .epa small { display:block; font-weight:400; color:var(--muted); font-size:12px; }
+  .pill { display:inline-block; font-size:12px; font-weight:600; padding:1px 8px; border-radius:999px; margin-left:6px; vertical-align:1px; }
+  .pill.Confirmed { background:#fee2e2; color:#991b1b; } .pill.Likely { background:#fef3c7; color:#92400e; }
+  .pill.skill { background:var(--primary-soft); color:var(--primary); }
+  .empty { padding:28px; color:var(--muted); text-align:center; }
+
+  .stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:20px; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+  .stat b { display:block; font-size:26px; font-variant-numeric:tabular-nums; }
+  .stat.hl { border-color:var(--accent); background:#fffbeb; }
+  .stat span { color:var(--muted); font-size:13px; }
+  h2 { font-size:17px; margin:24px 0 10px; }
   table { width:100%; border-collapse:collapse; }
-  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
-  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; }
-  tr.click:hover { background:#1f2a36; cursor:pointer; }
-  .badge { display:inline-block; padding:1px 7px; border-radius:10px; font-size:12px; font-weight:600; color:#000; }
-  .Confirmed { background:var(--conf); } .Likely { background:var(--likely); } .Possible { background:var(--poss); }
-  .skill { background:#a371f7; color:#000; padding:0 6px; border-radius:4px; font-size:11px; margin-left:4px; }
-  .muted { color:var(--muted); }
-  .kpis { display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; }
-  .kpi { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 14px; min-width:140px; }
-  .kpi b { font-size:22px; display:block; }
-  #viewer { display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:10; overflow:auto; }
-  #viewer .box { background:var(--panel); max-width:1200px; margin:20px auto; border-radius:10px; padding:14px; border:1px solid var(--line); }
-  #field { width:100%; display:block; border-radius:6px; }
-  #timeline { width:100%; height:34px; display:block; margin-top:6px; cursor:pointer; }
-  .controls { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:8px; }
-  .controls input[type=range] { flex:1; min-width:200px; }
-  .vgrid { display:grid; grid-template-columns: 1fr 280px; gap:12px; }
-  @media (max-width:900px){ .vgrid { grid-template-columns:1fr; } }
-  .side { background:#0d1117; border:1px solid var(--line); border-radius:8px; padding:10px; font-size:13px; }
-  .flagitem { border-left:4px solid; padding:4px 8px; margin:6px 0; cursor:pointer; }
-  #limits { display:none; position:fixed; right:16px; top:60px; width:min(420px, calc(100% - 32px)); background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; z-index:20; }
-  .bar { height:8px; background:#2a3542; border-radius:4px; position:relative; min-width:120px; }
-  .bar span { position:absolute; height:100%; background:var(--likely); border-radius:4px; }
-  .bar i { position:absolute; top:-3px; width:2px; height:14px; background:#fff; }
+  th, td { text-align:left; padding:10px 14px; border-bottom:1px solid var(--border); font-size:14px; }
+  th { color:var(--muted); font-weight:500; font-size:13px; background:var(--soft); }
+  td.num { font-variant-numeric:tabular-nums; }
+  .ci { display:flex; align-items:center; gap:8px; }
+  .ci .track { position:relative; width:110px; height:6px; background:var(--soft); border-radius:3px; }
+  .ci .track span { position:absolute; height:100%; background:#fcd34d; border-radius:3px; }
+  .ci .track i { position:absolute; top:-3px; width:2px; height:12px; background:var(--text); }
+  a.play { color:var(--primary); font-weight:500; text-decoration:none; margin-right:8px; }
+
+  /* Viewer */
+  #viewer { display:none; position:fixed; inset:0; background:rgba(15,23,42,.55); z-index:10; overflow:auto; padding:16px; }
+  #viewer .box { background:var(--surface); max-width:1180px; margin:0 auto; border-radius:14px; padding:18px; }
+  .vtop { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
+  .vtitle { font-weight:600; font-size:16px; }
+  .vdesc { color:var(--muted); font-size:14px; margin-top:2px; }
+  .vgrid { display:grid; grid-template-columns:1fr 300px; gap:16px; }
+  @media (max-width:960px) { .vgrid { grid-template-columns:1fr; } }
+  #field { width:100%; display:block; border-radius:10px; background:#3f7d4e; }
+  #timeline { width:100%; height:40px; display:block; margin-top:8px; cursor:pointer; }
+  .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px; }
+  .controls input[type=range] { flex:1; min-width:160px; accent-color:var(--primary); }
+  #fr { color:var(--muted); font-size:13px; font-variant-numeric:tabular-nums; min-width:150px; }
+  .legend { display:flex; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--muted); margin-top:8px; }
+  .legend i { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:5px; vertical-align:-1px; }
+  .side h3 { font-size:14px; margin:0 0 8px; color:var(--muted); font-weight:500; }
+  .flagcard { border:1px solid var(--border); border-left:4px solid; border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:14px; }
+  .flagcard:hover { background:var(--soft); }
+  .flagcard small { color:var(--muted); display:block; margin-top:4px; }
+  #vinspect { font-size:14px; border-top:1px solid var(--border); margin-top:12px; padding-top:12px; color:var(--muted); }
+  #vinspect b { color:var(--text); }
+
+  #limits { display:none; position:fixed; inset:0; background:rgba(15,23,42,.45); z-index:20; padding:16px; }
+  #limits .box { background:var(--surface); max-width:520px; margin:60px auto; border-radius:14px; padding:22px; }
+  #limits li { margin-bottom:6px; }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 </head>
 <body>
-<header>
-  <h1>🏈 Pass Protection Error Finder</h1>
-  <label>My team <select id="myTeam"></select></label>
-  <label>Opponent <select id="opponent"></select></label>
-  <span><button id="mSelf">Self-scout</button><button id="mOpp">Opponent</button></span>
-  <span style="flex:1"></span>
-  <button id="limitsBtn">What this tool can't tell you</button>
-</header>
-<div id="limits">
-  <b>What this tool can't tell you</b>
+<header><div class="bar">
+  <div class="brand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Protection Finder
+  </div>
+  <div class="seg" role="tablist" aria-label="Perspective">
+    <button id="mSelf">My team</button><button id="mOpp">Opponent</button>
+  </div>
+  <label class="inline">My team <select id="myTeam" aria-label="My team"></select></label>
+  <label class="inline">Opponent <select id="opponent" aria-label="Opponent"></select></label>
+  <button class="link" id="limitsBtn">What this can't tell you</button>
+</div></header>
+
+<main>
+  <div class="toolbar">
+    <div class="seg" role="tablist" aria-label="View">
+      <button id="tAlerts">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">RB / TE blocking</button>
+    </div>
+  </div>
+  <div id="main"><p class="summary">Loading…</p></div>
+</main>
+
+<div id="limits" role="dialog" aria-modal="true" aria-label="Limitations"><div class="box">
+  <h2 style="margin-top:0">What this tool can't tell you</h2>
   <ul>
-    <li>The play call is unknown, so a flagged error may be the protection design, not the player.</li>
+    <li>The play call is unknown, so a flag may reflect the protection design rather than the player.</li>
     <li>Only dropback pass plays are covered. There is no run blocking.</li>
-    <li>Tracking ends about 0.5 s after the throw, so nothing after the catch is visible.</li>
-    <li>Eight weeks (Weeks 1-8, 2021) means small samples. Check the opportunities column and the 90% interval before acting.</li>
-    <li>"Likely" flags are rules, not PFF grades. Check the film.</li>
+    <li>Tracking ends about 0.5 s after the throw.</li>
+    <li>Eight weeks of data means small samples. Always read the sample size and the interval.</li>
+    <li>"Likely" flags come from a rule, not a PFF grade. Check the film.</li>
     <li>Cost is the whole play's EPA shared across its flags, not the cost of the error itself.</li>
   </ul>
-  <button onclick="limits.style.display='none'">Close</button>
-</div>
-<nav><button id="tAlerts" class="on">Alerts</button><button id="tPatterns">Patterns</button><button id="tSkill">RB / TE protection</button></nav>
-<main id="main"><p class="muted">Loading data…</p></main>
+  <button id="limitsClose">Close</button>
+</div></div>
 
-<div id="viewer"><div class="box">
-  <div style="display:flex;justify-content:space-between;gap:8px;align-items:start">
-    <div id="vhead"></div><button onclick="closeViewer()">✕ Close</button>
+<div id="viewer" role="dialog" aria-modal="true" aria-label="Play replay"><div class="box">
+  <div class="vtop">
+    <div><div class="vtitle" id="vtitle"></div><div class="vdesc" id="vdesc"></div></div>
+    <button onclick="closeViewer()" aria-label="Close replay">Close</button>
   </div>
   <div class="vgrid">
     <div>
-      <canvas id="field" width="1200" height="533"></canvas>
-      <canvas id="timeline" width="1200" height="34"></canvas>
+      <canvas id="field" width="1600" height="900" aria-label="Animated play replay"></canvas>
+      <canvas id="timeline"></canvas>
       <div class="controls">
-        <button id="play">▶ Play</button>
-        <select id="speed"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option></select>
-        <input type="range" id="scrub" min="0" value="0">
-        <span id="fr" class="muted"></span>
-        <label><input type="checkbox" id="fullPath"> full path</label>
-        <label><input type="checkbox" id="pocketOn" checked> pocket</label>
+        <button id="play" aria-label="Play or pause">Play</button>
+        <div class="seg" id="speeds"><button data-s="0.25">0.25×</button><button data-s="0.5" class="on">0.5×</button><button data-s="1">1×</button></div>
+        <input type="range" id="scrub" min="0" value="0" aria-label="Frame">
+        <span id="fr"></span>
       </div>
-      <div class="muted" style="font-size:12px;margin-top:4px">← → step frames · space play/pause · click a dot for details · offense always moves left → right</div>
+      <div class="controls">
+        <div class="seg" id="zoomSeg"><button data-z="focus" class="on">Zoom on error</button><button data-z="all">Whole play</button></div>
+        <div class="seg" id="dimSeg"><button data-d="1" class="on">Highlight involved</button><button data-d="0">Show all equally</button></div>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--off)"></i>Offense</span>
+        <span><i style="background:var(--def)"></i>Defense</span>
+        <span><i style="background:#fff;border:3px solid var(--accent)"></i>Flagged player</span>
+        <span>← → step · Space play · Click a dot for details</span>
+      </div>
     </div>
-    <div class="side"><div id="vflags"></div><hr style="border-color:var(--line)"><div id="vinspect" class="muted">Click a player dot.</div></div>
+    <div class="side">
+      <h3>Flags on this play</h3>
+      <div id="vflags"></div>
+      <div id="vinspect">Click a player to see their role and alignment.</div>
+    </div>
   </div>
 </div></div>
 
 <script>
 const $ = s => document.querySelector(s);
-const COLORS = { Confirmed:'#e5534b', Likely:'#e0a030', Possible:'#539bf5' };
-const TYPE_LABEL = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten by defender', penalty:'Penalty', free_rusher:'Free rusher' };
-let D, state = { tab:'alerts' };
+const LEVEL_COLOR = { Confirmed:'#dc2626', Likely:'#d97706' };
+const TYPE = { sack_allowed:'Sack allowed', hit_allowed:'QB hit allowed', hurry_allowed:'Hurry allowed', beaten:'Beaten', penalty:'Penalty', free_rusher:'Free rusher' };
+const DOWN = ['', '1st', '2nd', '3rd', '4th'];
+let D, state = { tab:'alerts', mode:'self' };
 const url = new URL(location.href);
 
-fetch('data.json').then(r => r.json()).then(d => { D = d; init(); }).catch(e => $('#main').innerHTML = '<p>Could not load data.json. Serve this folder with <code>python -m http.server</code>.</p>');
+fetch('data.json').then(r => r.json()).then(d => { D = d; init(); })
+  .catch(() => $('#main').innerHTML = '<p class="summary">Could not load data. Run <code>make dev</code> and open http://localhost:8000.</p>');
 
 function init() {
   const opts = D.teams.map(t => `<option>${t}</option>`).join('');
@@ -107,9 +183,9 @@ function init() {
   $('#myTeam').onchange = $('#opponent').onchange = () => { syncUrl(); render(); };
   $('#mSelf').onclick = () => { state.mode = 'self'; syncUrl(); render(); };
   $('#mOpp').onclick = () => { state.mode = 'opponent'; syncUrl(); render(); };
-  $('#limitsBtn').onclick = () => limits.style.display = 'block';
-  for (const [id, tab] of [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']])
-    $(id).onclick = () => { state.tab = tab; render(); };
+  $('#limitsBtn').onclick = () => $('#limits').style.display = 'block';
+  $('#limitsClose').onclick = () => $('#limits').style.display = 'none';
+  [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).onclick = () => { state.tab = t; render(); });
   render();
   const p = url.searchParams.get('play'); if (p) openPlay(p, +url.searchParams.get('frame') || null);
 }
@@ -118,199 +194,252 @@ function syncUrl() {
   url.searchParams.set('mode', state.mode); history.replaceState(null, '', url);
 }
 const team = () => state.mode === 'self' ? $('#myTeam').value : $('#opponent').value;
-const scoped = () => D.flags.filter(f => f.team === team());
-const isSkill = f => ['RB','TE','FB'].includes(f.primaryPos);
-const cost = c => c == null ? '<span class="muted">cost unavailable</span>' : (c > 0 ? '+' : '') + c.toFixed(2);
+const isSkill = f => ['RB', 'TE', 'FB'].includes(f.primaryPos);
+const fmt = c => c == null ? '—' : (c > 0 ? '+' : '') + c.toFixed(2);
 const opp = f => f.possessionTeam === f.team ? f.defensiveTeam : f.possessionTeam;
 
 function render() {
   $('#mSelf').className = state.mode === 'self' ? 'on' : ''; $('#mOpp').className = state.mode === 'opponent' ? 'on' : '';
-  for (const [id, tab] of [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']]) $(id).className = state.tab === tab ? 'on' : '';
-  ({ alerts: renderAlerts, patterns: renderPatterns, skill: renderSkill })[state.tab]();
+  [['#tAlerts','alerts'],['#tPatterns','patterns'],['#tSkill','skill']].forEach(([id, t]) => $(id).className = state.tab === t ? 'on' : '');
+  ({ alerts:renderAlerts, patterns:renderPatterns, skill:renderSkill })[state.tab]();
 }
 
-function renderAlerts(preset = {}) {
-  const fs = scoped();
-  const uniq = k => [...new Set(fs.map(f => f[k]))].sort((a,b)=>a>b?1:-1);
+function renderAlerts() {
+  const fs = D.flags.filter(f => f.team === team());
+  const players = [...new Set(fs.map(f => f.primaryName))].sort();
+  const verb = state.mode === 'self' ? 'to fix' : 'to attack';
   $('#main').innerHTML = `
-    <div class="kpis">
-      <div class="kpi"><b>${fs.length}</b>flags on ${team()} (${state.mode === 'self' ? 'self-scout' : 'opponent'})</div>
-      <div class="kpi"><b>${fs.filter(f=>f.confidenceLevel==='Confirmed').length}</b>Confirmed (PFF / penalty)</div>
-      <div class="kpi"><b>${fs.filter(f=>f.confidenceLevel==='Likely').length}</b>Likely (rule-based)</div>
-      <div class="kpi"><b>${fs.filter(isSkill).length}</b>involving RB/TE blockers</div>
+    <p class="summary"><b>${fs.length}</b> protection errors by <b>${team()}</b> ${verb} · ${fs.filter(f => f.confidenceLevel === 'Confirmed').length} confirmed · most costly first</p>
+    <div class="toolbar">
+      <select id="fType" aria-label="Error type"><option value="">All errors</option>${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
+      <select id="fPlayer" aria-label="Player"><option value="">All players</option>${players.map(p => `<option>${p}</option>`).join('')}</select>
+      <select id="fLvl" aria-label="Confidence"><option value="">Any confidence</option><option>Confirmed</option><option>Likely</option></select>
     </div>
-    <div class="filters">
-      <select id="fLvl"><option value="">All confidence</option><option>Confirmed</option><option>Likely</option></select>
-      <select id="fType"><option value="">All error types</option>${uniq('errorType').map(t=>`<option value="${t}">${TYPE_LABEL[t]||t}</option>`).join('')}</select>
-      <select id="fPlayer"><option value="">All players</option>${uniq('primaryName').map(t=>`<option>${t}</option>`).join('')}</select>
-      <select id="fWeek"><option value="">All weeks</option>${uniq('week').map(t=>`<option>${t}</option>`).join('')}</select>
-      <select id="fDown"><option value="">All downs</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
-      <span class="muted" id="nShown"></span>
-    </div>
-    <table><thead><tr><th>Wk</th><th>Opp</th><th>Situation</th><th>Player</th><th>Error</th><th>Level</th><th>Explanation</th><th>Play EPA (shared)</th></tr></thead><tbody id="rows"></tbody></table>`;
-  for (const [k, v] of Object.entries(preset)) $(k).value = v;
+    <div class="card" id="rows"></div>`;
   const draw = () => {
-    const lv = $('#fLvl').value, ty = $('#fType').value, pl = $('#fPlayer').value, wk = $('#fWeek').value, dn = $('#fDown').value;
-    const rows = fs.filter(f => (!lv || f.confidenceLevel === lv) && (!ty || f.errorType === ty) && (!pl || f.primaryName === pl)
-                              && (!wk || f.week == wk) && (!dn || f.down == dn))
-                   .sort((a, b) => (a.epaCost ?? 0) - (b.epaCost ?? 0));
-    $('#nShown').textContent = `${rows.length} shown · sorted by most costly`;
-    $('#rows').innerHTML = rows.slice(0, 400).map(f => `<tr class="click" data-p="${f.gameId}_${f.playId}" data-f="${f.errorFrameId}">
-      <td>${f.week}</td><td>${opp(f)}</td><td>${f.down}&amp;${f.yardsToGo}</td>
-      <td>${f.primaryName} <span class="muted">${f.primaryPos}</span>${isSkill(f) ? '<span class="skill">skill</span>' : ''}</td>
-      <td>${TYPE_LABEL[f.errorType] || f.errorType}</td><td><span class="badge ${f.confidenceLevel}">${f.confidenceLevel}</span></td>
-      <td>${f.explanation}</td><td>${cost(f.epaCost)}</td></tr>`).join('');
-    document.querySelectorAll('#rows tr').forEach(tr => tr.onclick = () => openPlay(tr.dataset.p, +tr.dataset.f));
+    const ty = $('#fType').value, pl = $('#fPlayer').value, lv = $('#fLvl').value;
+    const rows = fs.filter(f => (!ty || f.errorType === ty) && (!pl || f.primaryName === pl) && (!lv || f.confidenceLevel === lv))
+                   .sort((a, b) => (a.epaCost ?? 0) - (b.epaCost ?? 0)).slice(0, 200);
+    $('#rows').innerHTML = rows.length ? rows.map(f => `
+      <div class="list-row" tabindex="0" data-p="${f.gameId}_${f.playId}" data-f="${f.errorFrameId}">
+        <div><span class="who">${f.primaryName}</span> <span style="color:var(--muted)">${f.primaryPos}</span> — ${TYPE[f.errorType]}
+          <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span>${isSkill(f) ? '<span class="pill skill">RB/TE</span>' : ''}</div>
+        <div class="epa">${fmt(f.epaCost)}<small>play EPA (shared)</small></div>
+        <div class="meta">Week ${f.week} vs ${opp(f)} · ${DOWN[f.down]} &amp; ${f.yardsToGo} · ${f.explanation.replace('Likely: check the film - ', '')}</div>
+      </div>`).join('') : '<div class="empty">No errors match these filters.</div>';
+    document.querySelectorAll('.list-row').forEach(r => {
+      r.onclick = () => openPlay(r.dataset.p, +r.dataset.f);
+      r.onkeydown = e => { if (e.key === 'Enter') r.click(); };
+    });
   };
-  document.querySelectorAll('.filters select').forEach(s => s.onchange = draw); draw();
+  document.querySelectorAll('.toolbar select').forEach(s => s.onchange = draw); draw();
 }
 
 function patternTable(ps) {
-  return `<table><thead><tr><th>Player</th><th>Error</th><th>Situation</th><th>Count / opportunities</th><th>Rate (90% Wilson)</th><th>Avg play EPA (shared)</th><th>Plays</th></tr></thead><tbody>
-  ${ps.map((p, i) => `<tr><td>${p.name} <span class="muted">${p.pos}</span></td><td>${TYPE_LABEL[p.errorType] || p.errorType}</td>
-    <td>${['','1st','2nd','3rd','4th'][p.down]} &amp; ${p.band}</td><td>${p.count} / ${p.opportunities}</td>
-    <td><div style="display:flex;gap:8px;align-items:center"><span>${(100*p.rate).toFixed(1)}%</span>
-      <div class="bar"><span style="left:${100*p.rateLow90}%;width:${100*(p.rateHigh90-p.rateLow90)}%"></span><i style="left:${100*p.rate}%"></i></div>
-      <span class="muted">${(100*p.rateLow90).toFixed(0)}–${(100*p.rateHigh90).toFixed(0)}%</span></div></td>
-    <td>${cost(p.avgCost)}</td><td>${p.plays.slice(0, 6).map(k => `<a href="#" data-p="${k}">▶</a>`).join(' ')}</td></tr>`).join('')}</tbody></table>`;
+  if (!ps.length) return '<div class="card"><div class="empty">No pattern has at least 10 opportunities yet.</div></div>';
+  return `<div class="card"><table><thead><tr><th>Player</th><th>Error</th><th>Situation</th><th>Times / reps</th><th>Rate · 90% interval</th><th>Replays</th></tr></thead><tbody>
+  ${ps.map(p => `<tr><td><b>${p.name}</b> <span style="color:var(--muted)">${p.pos}</span></td><td>${TYPE[p.errorType]}</td>
+    <td>${DOWN[p.down]} &amp; ${p.band}</td><td class="num">${p.count} / ${p.opportunities}</td>
+    <td><div class="ci"><span class="num">${(100 * p.rate).toFixed(0)}%</span><div class="track"><span style="left:${100 * p.rateLow90}%;width:${100 * (p.rateHigh90 - p.rateLow90)}%"></span><i style="left:${100 * p.rate}%"></i></div>
+      <span style="color:var(--muted);font-size:13px">${(100 * p.rateLow90).toFixed(0)}–${(100 * p.rateHigh90).toFixed(0)}%</span></div></td>
+    <td>${p.plays.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function bindPlayLinks() { document.querySelectorAll('a[data-p]').forEach(a => a.onclick = e => { e.preventDefault(); openPlay(a.dataset.p); }); }
 
 function renderPatterns() {
-  const ps = D.patterns.filter(p => p.team === team()).slice(0, 60);
-  $('#main').innerHTML = `<p class="muted">Recurring errors grouped by player × error type × down × distance. Opportunities = that player's pass-block reps in that situation.
-    Patterns with fewer than 10 opportunities are hidden. Ranked by count × average play EPA (shared).
-    Tab: <b>${state.mode === 'self' ? 'Self-scout (' + team() + ')' : 'Opponent (' + team() + ')'}</b> — switch with the buttons at the top.</p>${ps.length ? patternTable(ps) : '<p>No patterns pass the sample-size filter.</p>'}`;
+  const ps = D.patterns.filter(p => p.team === team()).slice(0, 40);
+  $('#main').innerHTML = `<p class="summary">Recurring errors for <b>${team()}</b>, ranked by how often × how costly. Reps = that player's pass-block snaps in that situation.</p>${patternTable(ps)}`;
   bindPlayLinks();
 }
 
 function renderSkill() {
-  // League-wide: how often RBs / TEs asked to pass-protect give up pressure, with sample sizes
-  const all = D.patterns.filter(p => ['RB','TE','FB'].includes(p.pos));
-  const by = {};
-  for (const p of all) { const k = p.name + '|' + p.pos + '|' + p.team; (by[k] ||= { name:p.name, pos:p.pos, team:p.team, c:0, n:0, plays:[] });
-    by[k].c += p.count; by[k].plays.push(...p.plays); }
   const fl = D.flags.filter(f => isSkill(f) && f.errorType !== 'penalty');
-  $('#main').innerHTML = `<div class="kpis"><div class="kpi"><b>11.3%</b>of RB pass-block reps allow pressure (n=1,554)</div><div class="kpi"><b>8.6%</b>TE (n=1,432)</div><div class="kpi"><b>7.4%</b>OT (n=17,924)</div><div class="kpi"><b>5.9%</b>OG (n=16,542)</div><div class="kpi"><b>4.2%</b>C (n=8,411)</div></div>
-    <p>Per rep, <b>running backs are the leakiest pass protectors on the field</b>. Defenses that send a blitzer at the RB are attacking the weakest link. Pressure = PFF sack, hit or hurry allowed.
-    <span class="muted">(${fl.length} flags league-wide on RB/TE/FB blockers.)</span></p>
-    <div class="kpis">${['RB','TE'].map(pos => { const f = fl.filter(x => x.primaryPos === pos);
-      return `<div class="kpi"><b>${f.length}</b>${pos} protection flags · ${f.filter(x=>x.errorType==='sack_allowed').length} sacks allowed</div>`; }).join('')}</div>
-    <h3>Patterns for ${team()} RB / TE blockers</h3>${patternTable(all.filter(p => p.team === team()))}
-    <h3>Most-flagged RB / TE blockers (league)</h3>
-    <table><thead><tr><th>Player</th><th>Team</th><th>Flags</th><th>Sample plays</th></tr></thead><tbody>
-    ${Object.values(fl.reduce((m, f) => { const k = f.primaryName + f.team; (m[k] ||= { n:f.primaryName, pos:f.primaryPos, t:f.team, c:0, p:[] }); m[k].c++; m[k].p.push(f.gameId + '_' + f.playId); return m; }, {}))
-      .sort((a, b) => b.c - a.c).slice(0, 15).map(r => `<tr><td>${r.n} <span class="muted">${r.pos}</span></td><td>${r.t}</td><td>${r.c}</td><td>${r.p.slice(0,5).map(k=>`<a href="#" data-p="${k}">▶</a>`).join(' ')}</td></tr>`).join('')}
-    </tbody></table>`;
+  const top = Object.values(fl.reduce((m, f) => { const k = f.primaryName + f.team; (m[k] ||= { n:f.primaryName, pos:f.primaryPos, t:f.team, c:0, p:[] }); m[k].c++; m[k].p.push(f.gameId + '_' + f.playId); return m; }, {}))
+    .sort((a, b) => b.c - a.c).slice(0, 10);
+  $('#main').innerHTML = `
+    <p class="summary">Share of pass-block reps that allow a sack, hit or hurry (PFF), by position. <b>Running backs are the weakest link.</b></p>
+    <div class="stats">
+      <div class="stat hl"><b>11.3%</b><span>RB · 1,554 reps</span></div>
+      <div class="stat"><b>8.6%</b><span>TE · 1,432 reps</span></div>
+      <div class="stat"><b>7.4%</b><span>Tackle · 17,924 reps</span></div>
+      <div class="stat"><b>5.9%</b><span>Guard · 16,542 reps</span></div>
+      <div class="stat"><b>4.2%</b><span>Center · 8,411 reps</span></div>
+    </div>
+    <h2>Most-flagged RB / TE blockers</h2>
+    <div class="card"><table><thead><tr><th>Player</th><th>Team</th><th>Flags</th><th>Replays</th></tr></thead><tbody>
+    ${top.map(r => `<tr><td><b>${r.n}</b> <span style="color:var(--muted)">${r.pos}</span></td><td>${r.t}</td><td class="num">${r.c}</td>
+      <td>${r.p.slice(0, 3).map((k, i) => `<a href="#" class="play" data-p="${k}">Play ${i + 1}</a>`).join('')}</td></tr>`).join('')}
+    </tbody></table></div>`;
   bindPlayLinks();
 }
 
-// ------------------------------------------------------------------ Play viewer (Canvas)
-let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null;
+// ------------------------------------------------------------------ Replay (Canvas)
+let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null, speed = 0.5, zoom = 'focus', dim = true, cam = null;
 const cv = $('#field'), cx = cv.getContext('2d'), tl = $('#timeline'), tx = tl.getContext('2d');
-const SX = cv.width / 120, SY = cv.height / 53.3;
+let W = 800, H = 450;
+function fitCanvas() {  // draw at on-screen size (CSS px x devicePixelRatio) so dots/text stay legible
+  const dpr = window.devicePixelRatio || 1, cw = cv.clientWidth || 800;
+  W = cw; H = Math.round(cw * 0.56);
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px'; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  tl.width = W * dpr; tl.height = 40 * dpr; tx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', () => { if (P && $('#viewer').style.display === 'block') { fitCanvas(); setCamera(); draw(); } });
 
 async function openPlay(key, frame) {
-  const r = await fetch(`plays/${key}.json`); if (!r.ok) { alert('Replay not found for ' + key); return; }
-  P = await r.json(); P.key = key;
+  const r = await fetch(`plays/${key}.json`); if (!r.ok) { alert('Replay not found'); return; }
+  P = await r.json();
   P.flags = D.flags.filter(f => `${f.gameId}_${f.playId}` === key);
   P.flagged = new Set(P.flags.flatMap(f => f.involvedNflIds));
-  const h = P.header;
-  $('#vhead').innerHTML = `<b>${h.offense} vs ${h.defense}</b> · Wk ${h.week} · Q${h.quarter} ${h.clock} · ${['','1st','2nd','3rd','4th'][h.down]} &amp; ${h.yardsToGo}
-    · Result: ${({C:'Complete',I:'Incomplete',S:'Sack',IN:'Interception',R:'Scramble'})[h.result] || h.result} · Coverage: ${h.coverage || '—'}<br><span class="muted">${h.desc}</span>`;
-  $('#vflags').innerHTML = '<b>Flags on this play</b>' + P.flags.map((f, i) => `<div class="flagitem" style="border-color:${COLORS[f.confidenceLevel]}" data-fr="${f.errorFrameId}">
-    <span class="badge ${f.confidenceLevel}">${f.confidenceLevel}</span> ${TYPE_LABEL[f.errorType]}<br>${f.explanation}<br><span class="muted">Play EPA (shared): ${f.epaCost == null ? 'cost unavailable' : f.epaCost.toFixed(2)} · frame ${f.errorFrameId}</span></div>`).join('');
-  document.querySelectorAll('.flagitem').forEach(d => d.onclick = () => { seek(P.frameIds.indexOf(+d.dataset.fr)); });
+  P.focus = new Set([...P.flagged, P.meta.qb]);
+  const h = P.header, res = { C:'Complete', I:'Incomplete', S:'Sack', IN:'Interception', R:'Scramble' }[h.result] || h.result;
+  $('#vtitle').textContent = `${h.offense} vs ${h.defense} · Week ${h.week} · Q${h.quarter} ${h.clock} · ${DOWN[h.down]} & ${h.yardsToGo} · ${res}`;
+  $('#vdesc').textContent = h.desc;
+  $('#vflags').innerHTML = P.flags.map(f => `<div class="flagcard" style="border-left-color:${LEVEL_COLOR[f.confidenceLevel]}" data-fr="${f.errorFrameId}">
+    <b>${TYPE[f.errorType]}</b> <span class="pill ${f.confidenceLevel}">${f.confidenceLevel}</span><br>${f.explanation.replace('Likely: check the film - ', '')}
+    <small>Play EPA (shared) ${fmt(f.epaCost)} · jump to error moment</small></div>`).join('');
+  document.querySelectorAll('.flagcard').forEach(d => d.onclick = () => seek(P.frameIds.indexOf(+d.dataset.fr)));
   $('#scrub').max = P.frameIds.length - 1;
   url.searchParams.set('play', key); history.replaceState(null, '', url);
-  $('#viewer').style.display = 'block'; sel = null; $('#vinspect').innerHTML = 'Click a player dot.';
+  $('#viewer').style.display = 'block'; sel = null; playing = false; $('#play').textContent = 'Play';
+  $('#vinspect').innerHTML = 'Click a player to see their role and alignment.';
+  fitCanvas(); setCamera();
   seek(frame ? Math.max(0, P.frameIds.indexOf(frame)) : 0);
 }
 function closeViewer() { $('#viewer').style.display = 'none'; playing = false; url.searchParams.delete('play'); history.replaceState(null, '', url); }
 function seek(i) { fi = Math.max(0, Math.min(P.frameIds.length - 1, i)); $('#scrub').value = fi; draw(); }
 
-function hull(pts) {  // monotone chain convex hull
+// Camera: fixed per play. "focus" frames the flagged players + QB; "all" frames everyone.
+function setCamera() {
+  const ids = zoom === 'focus' ? P.focus : null;
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+  P.players.forEach((p, j) => {
+    if (p.id == null || (ids && !ids.has(p.id))) return;
+    P.x[j].forEach((x, k) => { const y = P.y[j][k]; if (x == null) return; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
+  });
+  const pad = zoom === 'focus' ? 4 : 3, minW = zoom === 'focus' ? 18 : 40;
+  let cxm = (x0 + x1) / 2, cym = (y0 + y1) / 2, w = Math.max(minW, x1 - x0 + 2 * pad), h = Math.max(w * H / W, y1 - y0 + 2 * pad);
+  w = Math.max(w, h * W / H); h = w * H / W;
+  cam = { x0: cxm - w / 2, y0: cym - h / 2, s: W / w };
+}
+const sx = x => (x - cam.x0) * cam.s, sy = y => H - (y - cam.y0) * cam.s;
+
+function hull(pts) {
   pts = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); if (pts.length < 3) return pts;
-  const cr = (o, a, b) => (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]); const lo = [], up = [];
-  for (const p of pts) { while (lo.length >= 2 && cr(lo[lo.length-2], lo[lo.length-1], p) <= 0) lo.pop(); lo.push(p); }
-  for (const p of pts.reverse()) { while (up.length >= 2 && cr(up[up.length-2], up[up.length-1], p) <= 0) up.pop(); up.push(p); }
+  const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); const lo = [], up = [];
+  for (const p of pts) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+  for (const p of pts.reverse()) { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); }
   return lo.slice(0, -1).concat(up.slice(0, -1));
 }
 
 function draw() {
   if (!P) return;
-  const W = cv.width, H = cv.height;
-  cx.fillStyle = '#2d6a3e'; cx.fillRect(0, 0, W, H);
-  cx.fillStyle = '#255a34'; cx.fillRect(0, 0, 10*SX, H); cx.fillRect(110*SX, 0, 10*SX, H);
-  cx.strokeStyle = 'rgba(255,255,255,.35)'; cx.lineWidth = 1; cx.fillStyle = 'rgba(255,255,255,.5)'; cx.font = '14px system-ui'; cx.textAlign = 'center';
-  for (let x = 10; x <= 110; x += 5) { cx.beginPath(); cx.moveTo(x*SX, 0); cx.lineTo(x*SX, H); cx.stroke();
-    if (x % 10 === 0 && x > 10 && x < 110) { const n = x <= 60 ? x - 10 : 110 - x; cx.fillText(n, x*SX, 20); cx.fillText(n, x*SX, H - 8); } }
-  const m = P.meta;
-  cx.lineWidth = 3; cx.strokeStyle = '#4f9cf9'; cx.beginPath(); cx.moveTo(m.los*SX, 0); cx.lineTo(m.los*SX, H); cx.stroke();
-  cx.strokeStyle = '#f5d742'; cx.beginPath(); cx.moveTo(m.firstDown*SX, 0); cx.lineTo(m.firstDown*SX, H); cx.stroke();
-
-  const off = P.header.offense, trail = $('#fullPath').checked ? fi : Math.min(fi, 10);
-  // pocket: convex hull of pass blockers + QB
-  if ($('#pocketOn').checked) {
-    const pts = P.players.map((p, j) => (p.role === 'Pass Block' || p.role === 'Pass') && P.x[j][fi] != null ? [P.x[j][fi], P.y[j][fi]] : null).filter(Boolean);
-    const hl = hull(pts); if (hl.length > 2) { cx.fillStyle = 'rgba(79,156,249,.18)'; cx.strokeStyle = 'rgba(79,156,249,.7)'; cx.lineWidth = 1.5;
-      cx.beginPath(); hl.forEach((p, k) => k ? cx.lineTo(p[0]*SX, H - p[1]*SY) : cx.moveTo(p[0]*SX, H - p[1]*SY)); cx.closePath(); cx.fill(); cx.stroke(); }
+  // field
+  cx.fillStyle = '#3f7d4e'; cx.fillRect(0, 0, W, H);
+  for (let x = 0; x <= 120; x += 1) {
+    const X = sx(x); if (X < -5 || X > W + 5) continue;
+    if (x % 5 === 0) { cx.strokeStyle = 'rgba(255,255,255,.55)'; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, H); cx.stroke(); }
+    else if (cam.s > 18) { cx.strokeStyle = 'rgba(255,255,255,.25)'; cx.lineWidth = 1;   // hash marks
+      for (const hy of [0.5, 23.6, 29.7, 52.8]) { cx.beginPath(); cx.moveTo(X, sy(hy) - 6); cx.lineTo(X, sy(hy) + 6); cx.stroke(); } }
+    if (x % 10 === 0 && x > 10 && x < 110) { cx.fillStyle = 'rgba(255,255,255,.7)'; cx.font = `600 ${Math.min(28, cam.s * 1.4)}px Fira Sans`; cx.textAlign = 'center';
+      cx.fillText(x <= 60 ? x - 10 : 110 - x, X, Math.min(H - 12, sy(8))); }
   }
-  P.players.forEach((p, j) => {  // trails
-    cx.strokeStyle = p.id == null ? 'rgba(160,100,40,.6)' : p.team === off ? 'rgba(79,156,249,.5)' : 'rgba(255,255,255,.4)';
-    cx.lineWidth = P.flagged.has(p.id) ? 2.5 : 1.2; cx.beginPath(); let s = false;
-    for (let k = fi - trail; k <= fi; k++) { const x = P.x[j][k], y = P.y[j][k]; if (x == null) continue;
-      s ? cx.lineTo(x*SX, H - y*SY) : cx.moveTo(x*SX, H - y*SY); s = true; } cx.stroke();
+  for (const yy of [0, 53.3]) { cx.strokeStyle = '#fff'; cx.lineWidth = 3; cx.beginPath(); cx.moveTo(0, sy(yy)); cx.lineTo(W, sy(yy)); cx.stroke(); }
+  const m = P.meta;
+  line(m.los, '#60a5fa', 'Line of scrimmage', H - 26); line(m.firstDown, '#facc15', 'First down', 10);
+
+  const off = P.header.offense, R = Math.max(9, Math.min(14, cam.s * 0.45));
+  // pocket
+  const pts = P.players.map((p, j) => (p.role === 'Pass Block' || p.role === 'Pass') && P.x[j][fi] != null ? [P.x[j][fi], P.y[j][fi]] : null).filter(Boolean);
+  const hl = hull(pts);
+  if (hl.length > 2) { cx.fillStyle = 'rgba(96,165,250,.16)'; cx.strokeStyle = 'rgba(191,219,254,.8)'; cx.lineWidth = 2; cx.setLineDash([8, 6]);
+    cx.beginPath(); hl.forEach((p, k) => k ? cx.lineTo(sx(p[0]), sy(p[1])) : cx.moveTo(sx(p[0]), sy(p[1]))); cx.closePath(); cx.fill(); cx.stroke(); cx.setLineDash([]); }
+
+  // trails: only for focus players, last 1.5 s
+  P.players.forEach((p, j) => {
+    if (p.id == null || !P.focus.has(p.id)) return;
+    cx.strokeStyle = p.team === off ? 'rgba(191,219,254,.9)' : 'rgba(254,202,202,.9)'; cx.lineWidth = 3; cx.beginPath(); let s = false;
+    for (let k = Math.max(0, fi - 15); k <= fi; k++) { const x = P.x[j][k]; if (x == null) continue; s ? cx.lineTo(sx(x), sy(P.y[j][k])) : cx.moveTo(sx(x), sy(P.y[j][k])); s = true; }
+    cx.stroke();
   });
-  P.players.forEach((p, j) => {  // dots
-    const x = P.x[j][fi], y = P.y[j][fi]; if (x == null) return; const X = x*SX, Y = H - y*SY;
-    if (p.id == null) { cx.fillStyle = '#8b5a2b'; cx.beginPath(); cx.ellipse(X, Y, 7, 4.5, 0, 0, 7); cx.fill(); return; }
-    if (P.flagged.has(p.id)) { cx.strokeStyle = '#e5534b'; cx.lineWidth = 3; cx.beginPath(); cx.arc(X, Y, 17, 0, 7); cx.stroke(); }
-    if (sel === p.id) { cx.strokeStyle = '#f5d742'; cx.lineWidth = 2; cx.beginPath(); cx.arc(X, Y, 21, 0, 7); cx.stroke(); }
-    cx.fillStyle = p.team === off ? '#4f9cf9' : '#f2f2f2'; cx.beginPath(); cx.arc(X, Y, 11, 0, 7); cx.fill();
-    cx.fillStyle = p.team === off ? '#fff' : '#111'; cx.font = 'bold 11px system-ui'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(p.jersey, X, Y + 1);
-  });
-  cx.textBaseline = 'alphabetic';
+
+  // players: background first, focus on top
+  const order = P.players.map((p, j) => j).sort((a, b) => (P.focus.has(P.players[a].id) ? 1 : 0) - (P.focus.has(P.players[b].id) ? 1 : 0));
+  for (const j of order) {
+    const p = P.players[j], x = P.x[j][fi], y = P.y[j][fi]; if (x == null) continue;
+    const X = sx(x), Y = sy(y); if (X < -R || X > W + R || Y < -R || Y > H + R) continue;
+    if (p.id == null) { cx.fillStyle = '#7c4a1e'; cx.strokeStyle = '#fff'; cx.lineWidth = 1.5; cx.beginPath(); cx.ellipse(X, Y, 9, 6, 0, 0, 7); cx.fill(); cx.stroke(); continue; }
+    const focus = P.focus.has(p.id);
+    cx.globalAlpha = dim && !focus ? 0.35 : 1;
+    if (P.flagged.has(p.id)) { cx.strokeStyle = '#f59e0b'; cx.lineWidth = 3.5; cx.beginPath(); cx.arc(X, Y, R + 4, 0, 7); cx.stroke(); }
+    if (sel === p.id) { cx.strokeStyle = '#fff'; cx.lineWidth = 3; cx.setLineDash([4, 3]); cx.beginPath(); cx.arc(X, Y, R + 9, 0, 7); cx.stroke(); cx.setLineDash([]); }
+    cx.fillStyle = p.team === off ? '#1e40af' : '#dc2626'; cx.strokeStyle = '#fff'; cx.lineWidth = 2;
+    cx.beginPath(); cx.arc(X, Y, R, 0, 7); cx.fill(); cx.stroke();
+    cx.fillStyle = '#fff'; cx.font = `700 ${Math.round(R * 0.9)}px Fira Sans`; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(p.jersey, X, Y + 1);
+    if (focus) label(X, p.team === off ? Y - R - 12 : Y + R + 12, p.id === P.meta.qb ? `QB ${p.name.split(' ').slice(-1)[0]}` : p.name.split(' ').slice(-1)[0] + ' · ' + p.pos);
+    cx.globalAlpha = 1; cx.textBaseline = 'alphabetic';
+  }
   drawTimeline();
-  const t = ((P.frameIds[fi] - m.snap) / 10).toFixed(1);
-  $('#fr').textContent = `frame ${P.frameIds[fi]} · ${t >= 0 ? '+' : ''}${t}s from snap`;
+  const t = (P.frameIds[fi] - m.snap) / 10;
+  $('#fr').textContent = `${t >= 0 ? '+' : ''}${t.toFixed(1)} s from snap`;
+}
+function line(x, color, text, ty) {
+  const X = sx(x); if (X < 0 || X > W) return;
+  cx.strokeStyle = color; cx.lineWidth = 4; cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, H); cx.stroke();
+  cx.save(); cx.translate(X + 6, ty); cx.fillStyle = color; cx.font = '600 12px Fira Sans'; cx.textAlign = 'left'; cx.textBaseline = 'top'; cx.fillText(text, 0, 0); cx.restore();
+}
+function label(X, Y, text) {
+  cx.font = '600 12px Fira Sans'; const w = cx.measureText(text).width + 12;
+  cx.fillStyle = 'rgba(15,23,42,.85)'; cx.beginPath(); cx.roundRect(X - w / 2, Y - 9, w, 18, 5); cx.fill();
+  cx.fillStyle = '#fff'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(text, X, Y);
 }
 
 function drawTimeline() {
-  const W = tl.width, H = tl.height, n = P.frameIds.length, xf = i => 8 + (W - 16) * i / Math.max(1, n - 1);
-  tx.fillStyle = '#0d1117'; tx.fillRect(0, 0, W, H); tx.fillStyle = '#2a3542'; tx.fillRect(8, H/2 - 3, W - 16, 6);
-  tx.font = '11px system-ui'; tx.textAlign = 'center';
-  for (const [f, ev] of Object.entries(P.events)) { const i = P.frameIds.indexOf(+f); if (i < 0) continue;
-    if (!/snap|pass_forward|sack|run/.test(ev)) continue;
-    tx.fillStyle = '#8b98a5'; tx.fillRect(xf(i) - 1, 2, 2, H - 4); tx.fillText(ev.replace('autoevent_', '').replace('_', ' '), xf(i), 11); }
-  for (const f of P.flags) { const i = P.frameIds.indexOf(f.errorFrameId); if (i < 0) continue;
-    tx.fillStyle = COLORS[f.confidenceLevel]; tx.beginPath(); tx.moveTo(xf(i), H - 2); tx.lineTo(xf(i) - 6, H - 12); tx.lineTo(xf(i) + 6, H - 12); tx.fill(); }
-  tx.fillStyle = '#f5d742'; tx.fillRect(xf(fi) - 1.5, 0, 3, H);
+  const TW = W, TH = 40, n = P.frameIds.length, xf = i => 20 + (TW - 40) * i / Math.max(1, n - 1);
+  tx.clearRect(0, 0, TW, TH);
+  tx.fillStyle = '#e2e8f0'; tx.beginPath(); tx.roundRect(20, TH / 2 - 3, TW - 40, 6, 3); tx.fill();
+  tx.fillStyle = '#1e40af'; tx.beginPath(); tx.roundRect(20, TH / 2 - 3, Math.max(6, xf(fi) - 20), 6, 3); tx.fill();
+  tx.font = '500 12px Fira Sans'; tx.textAlign = 'center';
+  for (const [f, ev] of Object.entries(P.events)) {
+    const i = P.frameIds.indexOf(+f); if (i < 0 || !/snap|pass_forward|sack|run/.test(ev)) continue;
+    tx.fillStyle = '#64748b'; tx.fillRect(xf(i) - 1, TH / 2 - 7, 2, 14);
+    tx.fillText(/snap/.test(ev) ? 'Snap' : /sack/.test(ev) ? 'Sack' : /run/.test(ev) ? 'Scramble' : 'Throw', xf(i), 10);
+  }
+  for (const f of P.flags) {
+    const i = P.frameIds.indexOf(f.errorFrameId); if (i < 0) continue;
+    tx.fillStyle = LEVEL_COLOR[f.confidenceLevel]; tx.beginPath(); tx.arc(xf(i), TH / 2 + 12, 5, 0, 7); tx.fill();
+  }
+  tx.fillStyle = '#fff'; tx.strokeStyle = '#1e40af'; tx.lineWidth = 3; tx.beginPath(); tx.arc(xf(fi), TH / 2, 7, 0, 7); tx.fill(); tx.stroke();
 }
 
 function loop(ts) {
-  if (playing && P) { acc += (ts - last) * +$('#speed').value; while (acc >= 100) { acc -= 100;
-    if (fi >= P.frameIds.length - 1) { playing = false; $('#play').textContent = '▶ Play'; break; } fi++; }
-    $('#scrub').value = fi; draw(); }
+  if (playing && P) {
+    acc += (ts - last) * speed;
+    while (acc >= 100) { acc -= 100; if (fi >= P.frameIds.length - 1) { playing = false; $('#play').textContent = 'Replay'; break; } fi++; }
+    $('#scrub').value = fi; draw();
+  }
   last = ts; requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-$('#play').onclick = () => { if (fi >= P.frameIds.length - 1) fi = 0; playing = !playing; acc = 0; $('#play').textContent = playing ? '⏸ Pause' : '▶ Play'; };
-$('#scrub').oninput = e => seek(+e.target.value);
-$('#fullPath').onchange = $('#pocketOn').onchange = draw;
-document.addEventListener('keydown', e => { if ($('#viewer').style.display !== 'block') return;
+$('#play').onclick = () => { if (fi >= P.frameIds.length - 1) fi = 0; playing = !playing; acc = 0; $('#play').textContent = playing ? 'Pause' : 'Play'; };
+$('#scrub').oninput = e => { playing = false; $('#play').textContent = 'Play'; seek(+e.target.value); };
+const segPick = (id, attr, fn) => document.querySelectorAll(`${id} button`).forEach(b => b.onclick = () => {
+  document.querySelectorAll(`${id} button`).forEach(x => x.classList.remove('on')); b.classList.add('on'); fn(b.dataset[attr]); });
+segPick('#speeds', 's', v => speed = +v);
+segPick('#zoomSeg', 'z', v => { zoom = v; setCamera(); draw(); });
+segPick('#dimSeg', 'd', v => { dim = v === '1'; draw(); });
+document.addEventListener('keydown', e => {
+  if ($('#viewer').style.display !== 'block') return;
   if (e.key === 'ArrowRight') seek(fi + 1); else if (e.key === 'ArrowLeft') seek(fi - 1);
-  else if (e.key === ' ') { e.preventDefault(); $('#play').click(); } else if (e.key === 'Escape') closeViewer(); });
-tl.onclick = e => { const r = tl.getBoundingClientRect(); seek(Math.round((e.clientX - r.left) / r.width * (P.frameIds.length - 1))); };
+  else if (e.key === ' ') { e.preventDefault(); $('#play').click(); } else if (e.key === 'Escape') closeViewer();
+});
+tl.onclick = e => { const r = tl.getBoundingClientRect(); seek(Math.round(((e.clientX - r.left) - 20) / (r.width - 40) * (P.frameIds.length - 1))); };
 cv.onclick = e => {
-  const r = cv.getBoundingClientRect(), mx = (e.clientX - r.left) * cv.width / r.width, my = (e.clientY - r.top) * cv.height / r.height;
-  let best = null, bd = 18;
-  P.players.forEach((p, j) => { if (p.id == null || P.x[j][fi] == null) return; const d = Math.hypot(P.x[j][fi]*SX - mx, cv.height - P.y[j][fi]*SY - my); if (d < bd) { bd = d; best = p; } });
+  const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+  let best = null, bd = 20;
+  P.players.forEach((p, j) => { if (p.id == null || P.x[j][fi] == null) return; const d = Math.hypot(sx(P.x[j][fi]) - mx, sy(P.y[j][fi]) - my); if (d < bd) { bd = d; best = p; } });
   if (!best) return; sel = best.id;
-  const pf = P.flags.filter(f => f.involvedNflIds.includes(best.id));
   const season = D.flags.filter(f => f.primary === best.id && f.errorType !== 'penalty').length;
-  $('#vinspect').innerHTML = `<b>${best.name}</b> #${best.jersey} ${best.pos} (${best.team})<br>Role: ${best.role || '—'}<br>Alignment: ${best.align || '—'}<br>
-    Flags this play: ${pf.length}<br>Season protection flags charged: ${season}`;
+  $('#vinspect').innerHTML = `<b>${best.name}</b> · #${best.jersey} ${best.pos} · ${best.team}<br>Role: ${best.role || '—'} · Lined up: ${best.align || '—'}<br>Protection flags this season: ${season}`;
   draw();
 };
 </script>

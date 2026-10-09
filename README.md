@@ -2,7 +2,7 @@
 
 **The insight:** coaches can't see every protection breakdown live. Using Next Gen Stats tracking + PFF charting + nflverse EPA, we flag every pass-protection error in Weeks 1-8 of 2021 (**8,085 flags across 122 games**) and link each one to an animated replay with the player ringed and the error moment marked on the timeline. Flags carry a confidence level: **Confirmed** (PFF sack/hit/hurry allowed, beaten, or penalty) or **Likely** (our tracking rule for a *free rusher* who got within 3 yds of the QB unblocked even though the offense had enough blockers). Each flag also carries the play's EPA, shared across the flags on that play. The skill-position finding: **running backs allow pressure on 11.3% of their pass-block reps (n=1,554), more than tight ends (8.6%), tackles (7.4%), guards (5.9%) or centres (4.2%)**, so the RB is the weakest link in pass protection per rep. A self-scout / opponent switch turns the same data into "fix this" or "attack this" lists, with recurring patterns ranked by frequency × cost and shown with sample sizes and 90% Wilson intervals.
 
-![viewer](docs/viewer.jpg)
+![viewer](docs/viewer.png)
 
 ## Run it
 
