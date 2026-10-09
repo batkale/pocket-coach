@@ -76,6 +76,13 @@
   .problem .todo { margin:0 0 12px; }
   .watch { display:inline-block; background:var(--accent); color:#fff; font-weight:600; text-decoration:none; padding:8px 16px; border-radius:8px; }
   .watch:hover { filter:brightness(1.1); }
+  .fieldwrap { position:relative; }
+  #toast { position:absolute; left:50%; top:14px; transform:translate(-50%, -8px); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
+           background:rgba(11,28,51,.92); color:#fff; padding:8px 16px; border-radius:8px; font-weight:600; font-size:15px; border-left:5px solid var(--gold); max-width:90%; text-align:center; }
+  #toast.show { opacity:1; transform:translate(-50%, 0); }
+  #toast.err { border-left-color:var(--accent); font-size:17px; }
+  #toast small { display:block; font-weight:400; font-size:12px; opacity:.85; }
+  @media (prefers-reduced-motion: reduce) { #toast { transition:none; } }
   .problem details { margin-top:12px; font-size:14px; color:var(--muted); }
   .problem details p { margin:6px 0; }
   details summary { cursor:pointer; font-weight:600; color:var(--primary); }
@@ -227,11 +234,11 @@
   </div>
   <div class="vgrid">
     <div>
-      <canvas id="field" width="1600" height="900" aria-label="Animated play replay"></canvas>
+      <div class="fieldwrap"><canvas id="field" width="1600" height="900" aria-label="Animated play replay"></canvas><div id="toast" role="status" aria-live="assertive"></div></div>
       <canvas id="timeline"></canvas>
       <div class="controls">
         <button id="play" aria-label="Play or pause" style="background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;min-width:84px">Play</button>
-        <div class="seg" id="speeds"><button data-s="0.25">0.25×</button><button data-s="0.5" class="on">0.5×</button><button data-s="1">1×</button></div>
+        <div class="seg" id="speeds"><button data-s="0.25" class="on">0.25×</button><button data-s="0.5">0.5×</button><button data-s="1">1×</button></div>
         <input type="range" id="scrub" min="0" value="0" aria-label="Frame">
         <span id="fr"></span>
       </div>
@@ -314,7 +321,7 @@ function renderPlan() {
   const name = TEAMS[t] ? TEAMS[t].name : t;
   const pct = x => Math.round(100 * x);
   const diff = pct(p.rate) - pct(p.league);
-  const verdict = diff >= 3 ? ['worse', 'Worse than average'] : diff <= -3 ? ['better', 'Better than average'] : ['avg', 'About average'];
+  const verdict = diff >= 3 ? ['worse', 'Protection worse than average'] : diff <= -3 ? ['better', 'Protection better than average'] : ['avg', 'Protection about average'];
   // Plain-English title + one-line fact for each problem
   const plain = it => {
     const r = `<b>${pct(it.rate)}%</b>`, l = `league average ${pct(it.league)}%`;
@@ -358,7 +365,7 @@ function renderPlan() {
         </div>
       </div>`; }).join('') : '<div class="card"><div class="empty">Nothing stands out. This protection holds up as well as or better than the league in every situation we checked.</div></div>'}
 
-    ${p.strengths.length ? `<h2>${self ? 'What works' : 'Don\'t bother attacking'}</h2><ul class="good">${p.strengths.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+    ${p.strengths.length ? `<h2>${self ? 'What works' : 'Don\'t bother attacking'}</h2><ul class="good">${p.strengths.map(x => { const m = x.match(/^(.*): (\d+)% vs league (\d+)%/); return `<li>${m ? `<b>${m[1]}</b>: pressure on only ${m[2]}% of plays (league average ${m[3]}%)` : x}</li>`; }).join('')}</ul>` : ''}
 
     <details class="lessons"><summary>What's true across the whole league</summary>
       <ul>
@@ -473,7 +480,7 @@ function renderSkill() {
 }
 
 // ------------------------------------------------------------------ Replay (Canvas)
-let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null, speed = 0.5, zoom = 'focus', dim = true, cam = null;
+let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null, hold = 0, toastTimer = null, speed = 0.25, zoom = 'focus', dim = true, cam = null;
 const cv = $('#field'), cx = cv.getContext('2d'), tl = $('#timeline'), tx = tl.getContext('2d');
 let W = 800, H = 450;
 function fitCanvas() {  // draw at on-screen size (CSS px x devicePixelRatio) so dots/text stay legible
@@ -505,9 +512,27 @@ async function openPlay(key, frame) {
   $('#viewer').style.display = 'block'; sel = null; playing = false; $('#play').textContent = 'Play';
   $('#vinspect').innerHTML = 'Click a player to see their role and alignment.';
   fitCanvas(); setCamera();
-  seek(frame ? Math.max(0, P.frameIds.indexOf(frame)) : 0);
+  // Key moments announced during playback: snap, each error, throw / sack / scramble
+  P.cues = {};
+  const cue = (frameId, text, sub, err) => { const i = P.frameIds.indexOf(frameId); if (i >= 0) (P.cues[i] ||= []).push({ text, sub, err }); };
+  for (const [f, ev] of Object.entries(P.events)) {
+    if (/snap/.test(ev)) cue(+f, 'Ball snapped', 'Watch the ringed players', false);
+    else if (/pass_forward/.test(ev)) cue(+f, 'Pass thrown', '', false);
+    else if (/sack/.test(ev)) cue(+f, 'Sack!', '', true);
+    else if (/^run$/.test(ev)) cue(+f, 'QB scrambles', '', false);
+  }
+  for (const f of P.flags) cue(f.errorFrameId, `${TYPE[f.errorType]}: ${f.primaryName}`, f.explanation.replace(/^(Likely: check the film|Possible: film to review) - /, ''), true);
+  // Always start from the beginning, slow, and play automatically
+  speed = 0.25; document.querySelectorAll('#speeds button').forEach(b => b.classList.toggle('on', b.dataset.s === '0.25'));
+  hideToast(); seek(0); acc = 0; hold = 0; playing = true; $('#play').textContent = 'Pause';
 }
-function closeViewer() { $('#viewer').style.display = 'none'; playing = false; url.searchParams.delete('play'); history.replaceState(null, '', url); }
+function showToast(c) {
+  const t = $('#toast'); t.className = 'show' + (c.err ? ' err' : '');
+  t.innerHTML = `${c.err ? '⚠ ' : ''}${c.text}${c.sub ? `<small>${c.sub}</small>` : ''}`;
+  clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, c.err ? 3200 : 1800);
+}
+function hideToast() { $('#toast').className = ''; }
+function closeViewer() { $('#viewer').style.display = 'none'; playing = false; hideToast(); url.searchParams.delete('play'); history.replaceState(null, '', url); }
 function seek(i) { fi = Math.max(0, Math.min(P.frameIds.length - 1, i)); $('#scrub').value = fi; draw(); }
 
 // Camera: fixed per play. "focus" frames the flagged players + QB; "all" frames everyone.
@@ -617,14 +642,20 @@ function drawTimeline() {
 
 function loop(ts) {
   if (playing && P) {
+    if (ts < hold) { last = ts; requestAnimationFrame(loop); return; }   // holding on an error moment
     acc += (ts - last) * speed;
-    while (acc >= 100) { acc -= 100; if (fi >= P.frameIds.length - 1) { playing = false; $('#play').textContent = 'Replay'; break; } fi++; }
+    while (acc >= 100) {
+      acc -= 100; if (fi >= P.frameIds.length - 1) { playing = false; $('#play').textContent = 'Replay'; break; }
+      fi++;
+      const cs = P.cues[fi];
+      if (cs) { cs.forEach(showToast); if (cs.some(c => c.err)) { hold = ts + 1500; acc = 0; break; } }
+    }
     $('#scrub').value = fi; draw();
   }
   last = ts; requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-$('#play').onclick = () => { if (fi >= P.frameIds.length - 1) fi = 0; playing = !playing; acc = 0; $('#play').textContent = playing ? 'Pause' : 'Play'; };
+$('#play').onclick = () => { if (fi >= P.frameIds.length - 1) { fi = 0; hideToast(); } playing = !playing; acc = 0; hold = 0; $('#play').textContent = playing ? 'Pause' : 'Play'; };
 $('#scrub').oninput = e => { playing = false; $('#play').textContent = 'Play'; seek(+e.target.value); };
 const segPick = (id, attr, fn) => document.querySelectorAll(`${id} button`).forEach(b => b.onclick = () => {
   document.querySelectorAll(`${id} button`).forEach(x => x.classList.remove('on')); b.classList.add('on'); fn(b.dataset[attr]); });
