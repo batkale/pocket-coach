@@ -192,18 +192,14 @@
 <header><div class="bar">
   <div class="brand">
     <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
-      <g fill="none" stroke-linecap="round">
-        <path d="M1.5 17h5M0.5 22h4.5M1.5 27h5" stroke="var(--gold)" stroke-width="2"/>
-        <path d="M17.5 3.5h7M21 3.5v4.5M30.6 9.6l2.4-2.4M11.4 9.6L9 7.2" stroke="currentColor" stroke-width="2.6"/>
-        <circle cx="21" cy="22" r="13" stroke="currentColor" stroke-width="2.8"/>
-        <path d="M21 32.3v-1.8M10.7 22h1.8M13.7 14.7l1.2 1.2M13.7 29.3l1.2-1.2M28.3 29.3l-1.2-1.2" stroke="currentColor" stroke-width="1.6" opacity=".7"/>
-        <path class="sweep" d="M21 11.7A10.3 10.3 0 0 1 29.92 27.15" stroke="var(--gold)" stroke-width="2.4"/>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M27 10.5l2.6-3.4M31.4 13l4-1.6M23.4 9.4l.4-4.2" stroke="var(--gold)" stroke-width="2.2"/>
+        <circle cx="9" cy="13.5" r="3" stroke="currentColor" stroke-width="2"/>
+        <path d="M11.4 15.4l2.2 1.6" stroke="currentColor" stroke-width="2"/>
       </g>
-      <g transform="rotate(-40 21 22)">
-        <ellipse cx="21" cy="22" rx="7.4" ry="4.5" fill="var(--accent)" stroke="currentColor" stroke-width="1.1"/>
-        <path d="M15.6 20.6v2.8M26.4 20.6v2.8" stroke="currentColor" stroke-width="1.1" opacity=".85"/>
-        <path d="M18 22h6M19 20.9v2.2M21 20.9v2.2M23 20.9v2.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </g>
+      <path d="M16 14H34a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H25.8A10 10 0 1 1 16 14Z" fill="var(--accent)" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M21 14v3.4h4V14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="16" cy="24" r="4" fill="var(--gold)"/>
     </svg>
     <span class="wordmark"><span>Pocket<b>Coach</b></span><small>Pass protection film finder</small></span>
   </div>
@@ -248,7 +244,7 @@
       <canvas id="timeline"></canvas>
       <div class="controls">
         <button id="play" aria-label="Play or pause" style="background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;min-width:84px">Play</button>
-        <div class="seg" id="speeds"><button data-s="0.25" class="on">0.25×</button><button data-s="0.5">0.5×</button><button data-s="1">1×</button></div>
+        <div class="seg" id="speeds"><button data-s="0.25">0.25×</button><button data-s="0.5" class="on">0.5×</button><button data-s="1">1×</button></div>
         <input type="range" id="scrub" min="0" value="0" aria-label="Frame">
         <span id="fr"></span>
       </div>
@@ -493,7 +489,7 @@ function renderSkill() {
 }
 
 // ------------------------------------------------------------------ Replay (Canvas)
-let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null, hold = 0, toastTimer = null, speed = 0.25, zoom = 'focus', dim = true, cam = null;
+let P = null, fi = 0, playing = false, last = 0, acc = 0, sel = null, hold = 0, toastTimer = null, speed = 0.5, zoom = 'focus', dim = true, cam = null;
 const cv = $('#field'), cx = cv.getContext('2d'), tl = $('#timeline'), tx = tl.getContext('2d');
 let W = 800, H = 450;
 function fitCanvas() {  // draw at on-screen size (CSS px x devicePixelRatio) so dots/text stay legible
@@ -536,7 +532,7 @@ async function openPlay(key, frame) {
   }
   for (const f of P.flags) cue(f.errorFrameId, `${TYPE[f.errorType]}: ${f.primaryName}`, f.explanation.replace(/^(Likely: check the film|Possible: film to review) - /, ''), true);
   // Always start from the beginning, slow, and play automatically
-  speed = 0.25; document.querySelectorAll('#speeds button').forEach(b => b.classList.toggle('on', b.dataset.s === '0.25'));
+  speed = 0.5; document.querySelectorAll('#speeds button').forEach(b => b.classList.toggle('on', b.dataset.s === '0.5'));
   hideToast(); seek(0); acc = 0; hold = 0; playing = true; $('#play').textContent = 'Pause';
 }
 function showToast(c) {
